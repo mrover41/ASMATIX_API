@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "1l6YBA8gfg3wXZHTVWmq1kKXqPK7AxXMbNM8VM+2KweFd8tvSdlTjC9fbNeiWKaLnSTlJ+7M5Rt0YUUfOA8cCw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\TestPlugin.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Admin\\.nuget\\packages\\exiledofficial\\8.11.0\\exiledofficial.8.11.0.nupkg.sha512"
+  ],
+  "logs": []
+}
