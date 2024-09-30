@@ -1,4 +1,4 @@
-﻿using Exiled.API.Enums;
+using Exiled.API.Enums;
 using Exiled.API.Extensions;
 using Exiled.API.Features;
 using Exiled.API.Features.Attributes;
@@ -41,19 +41,18 @@ public class Good : CustomRole {
         RoleSpawnPoints = new List<RoleSpawnPoint> { 
             new RoleSpawnPoint() {
                 Role = RoleTypeId.Scientist,
-                Chance = 100,
+                Chance = 0,
             }
         }
     };
 
     private void OnRoundStarted() {
         if (Exiled.API.Features.Player.List.Count() >= 8) {
-            if (random.Next(0, 100) < 10) {
+            if (random.Next(0, 10) < 10) {
                 CustomRole.Get((uint)0).AddRole(Exiled.API.Features.Player.List.Where(x => x.Role.Type == RoleTypeId.ClassD)?.ToList().RandomItem());
             }
         }
     }
-
     protected override void SubscribeEvents() {
         Timing.RunCoroutine(Delay());
         Exiled.Events.Handlers.Server.RoundStarted += OnRoundStarted;
@@ -113,6 +112,7 @@ public class Good : CustomRole {
             if (Check(player)) {
                 player.Kill(DamageType.Bleeding);
                 Timing.KillCoroutines();
+                player.ShowHint(String.Empty);
             }
         }
     }
@@ -363,10 +363,10 @@ public class Good : CustomRole {
         for (; ; ) {
             yield return Timing.WaitForSeconds(s);
             HUD =
-                $"<pos=840><voffset=-375><align=right><color=#bebbb6>🔪|Безсмертя: <color=#FF5E3F>{Manager.it[0]}</color></align></voffset></pos>\n" +
-                $"<pos=820><align=right><color=#bebbb6>👤|Телепорт: <color=#FF5E3F>{Manager.it[1]}</color></align></pos>\n" +
-                $"<pos=820><align=right><color=#bebbb6>👥|Лікування: <color=#FF5E3F>{Manager.it[2]}</color></align></pos>\n" +
-                $"<pos=810><align=right><color=#bebbb6>🔴|Політ: <color=#FF5E3F>{Manager.it[3]}</color></align></pos>\n";
+                $"<size=20><voffset=-400><align=right><color=#bebbb6>|Безсмертя: <color=#FF5E3F>{Manager.it[0]}</color></align></voffset></size>\n" +
+                $"<size=20><align=right><color=#bebbb6>|Телепорт: <color=#FF5E3F>{Manager.it[1]}</color></align></size>\n" +
+                $"<size=20><align=right><color=#bebbb6>|Лікування: <color=#FF5E3F>{Manager.it[2]}</color></align></size>\n" +
+                $"<size=20><align=right><color=#bebbb6>|Політ: <color=#FF5E3F>{Manager.it[3]}</color></align></size>\n";
             HUD_D = HUD_1 + HUD;
             pl.ShowHint(HUD_D, 1);
             if (i < del) {
