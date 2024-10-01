@@ -70,11 +70,13 @@ public class SCP035 : CustomRole {
             foreach (Player player in Player.List) { 
                 if (Vector3.Distance(ev.Player.Position, player.Position) <= 4 && ev.Player.NetId != player.NetId) {
                     foreach (Door door in Door.List) { 
-                        if (Vector3.Distance(player.Position, door.Position) <= 6) {
+                        if (Vector3.Distance(player.Position, door.Position) <= 4) {
                             if (door.KeycardPermissions != KeycardPermissions.None) {
                                 if (player.Items.Any(item => item is Keycard keycard && keycard.Permissions > door.KeycardPermissions)) {
                                     door.IsOpen = true;
                                     Timing.RunCoroutine(Ef(2, player));
+                                    ev.Player.Broadcast(5, "<color=#AD4DFE> Ви атакували гравця </color>");
+                                    player.Broadcast(5, "<color=#FFC745> Ви під впливом SCP-035 </color>");
                                 }
                             } else {
                                 door.IsOpen = true;
@@ -92,8 +94,8 @@ public class SCP035 : CustomRole {
     }
     private void OnRoundStarted() {
         if (Exiled.API.Features.Player.List.Count() >= 8) {
-            if (random.Next(0, 10) < 50) {
-                CustomRole.Get((uint)1).AddRole(Exiled.API.Features.Player.List.Where(x => x.Role.Type == RoleTypeId.FacilityGuard)?.ToList().RandomItem());
+            if (random.Next(0, 10) < 75) {
+                CustomRole.Get((uint)1).AddRole(Exiled.API.Features.Player.List.Where(x => x.IsScp)?.ToList().RandomItem());
             }
         }
     }
@@ -101,7 +103,9 @@ public class SCP035 : CustomRole {
         if (Check(ev.Player)) {
             ev.Player.IsGodModeEnabled = false;
             ev.Player.MaxHealth = 500;
-            Global.coroutine = Timing.RunCoroutine(API.Damage(ev.Player, 1, 5));
+            Global.coroutine = Timing.RunCoroutine(API.Damage(ev.Player, 1, 2));
+            ev.Player.Broadcast(5, "<color=#AD4DFE> Ви з'явилися як SCP-035 (Маска).\nВаше завдання – знищити всіх гравців та допомогти SCP, за винятком Бога </color>");
+            ev.Player.Teleport(RoomType.HczNuke);
         }
     }
     void OnDie(DiedEventArgs ev) { 

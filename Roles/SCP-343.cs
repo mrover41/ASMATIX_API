@@ -325,9 +325,15 @@ public class Good : CustomRole {
                         }
                         player.EnableEffect(EffectType.AmnesiaVision, 255, 5);
                         player.Broadcast(2, "<color=#FF5E3F> Вы слишком близко подошли к SCP-343 </color>");
-                    } else if (player != pl) {
+                    } else if (player != pl && player.Role.Type != RoleTypeId.Tutorial) {
                         player.Heal(1);
                         player.EnableEffect(EffectType.MovementBoost, 15, 5);
+                    } else { 
+                        if (Vector3.Distance(pl.Position, player.Position) < 4) {
+                            player.EnableEffect(EffectType.Blinded, 255, 5);
+                        }
+                        player.EnableEffect(EffectType.AmnesiaVision, 255, 5);
+                        player.Broadcast(2, "<color=#FF5E3F> Вы слишком близко подошли к SCP-343 </color>");
                     }
                 }
             }
