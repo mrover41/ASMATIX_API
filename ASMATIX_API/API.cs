@@ -32,5 +32,6 @@ namespace TestPlugin.ASMATIX_API {
     public static class Global { 
         public static CoroutineHandle coroutine;
         public static Dictionary<Exiled.API.Features.Items.Item, int> it = new Dictionary<Exiled.API.Features.Items.Item, int>();
+        public static Dictionary<int, int> Cd = new Dictionary<int, int>();
     }
 }

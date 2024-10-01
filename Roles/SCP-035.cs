@@ -66,7 +66,7 @@ public class SCP035 : CustomRole {
         base.UnsubscribeEvents();
     }
     void Att(FlippingCoinEventArgs ev) { 
-        if (Check(ev.Player)) { 
+        if (Check(ev.Player) && Global.Cd[0] <= 0) { 
             foreach (Player player in Player.List) { 
                 if (Vector3.Distance(ev.Player.Position, player.Position) <= 4 && ev.Player.NetId != player.NetId) {
                     foreach (Door door in Door.List) { 
@@ -81,10 +81,13 @@ public class SCP035 : CustomRole {
                             } else {
                                 door.IsOpen = true;
                             }
+                            Global.Cd[0] = 120;
                         }
                     }
                 }
             }
+        } else if (Check(ev.Player)) {
+            ev.Player.Broadcast(2, $"{Global.Cd[0]}");
         }
     }
     void Dr(DroppingItemEventArgs ev) { 
@@ -100,12 +103,14 @@ public class SCP035 : CustomRole {
         }
     }
     void OnSpawn(SpawnedEventArgs ev) {
+        Timing.RunCoroutine(Updater());
         if (Check(ev.Player)) {
             ev.Player.IsGodModeEnabled = false;
             ev.Player.MaxHealth = 500;
             Global.coroutine = Timing.RunCoroutine(API.Damage(ev.Player, 1, 2));
             ev.Player.Broadcast(5, "<color=#AD4DFE> Ви з'явилися як SCP-035 (Маска).\nВаше завдання – знищити всіх гравців та допомогти SCP, за винятком Бога </color>");
-            ev.Player.Teleport(RoomType.HczNuke);
+            Timing.RunCoroutine(Sp(ev.Player));
+            Global.Cd.Add(0, 0);
         }
     }
     void OnDie(DiedEventArgs ev) { 
@@ -118,5 +123,13 @@ public class SCP035 : CustomRole {
         pl.EnableEffect(EffectType.Flashed);
         yield return Timing.WaitForSeconds(s);
         pl.DisableEffect(EffectType.Flashed);
+    }
+    private IEnumerator<float> Updater() {
+        yield return Timing.WaitForSeconds(1);
+        Global.Cd[0]--;
+    }
+    private IEnumerator<float> Sp(Player pl) {
+        yield return Timing.WaitForSeconds(1);
+        pl.Teleport(RoomType.HczNuke);
     }
 }
