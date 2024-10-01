@@ -71,7 +71,8 @@
   <ItemGroup>
     <Compile Include="Configs\Config.cs" />
     <Compile Include="Handlers\PlayerHandlers.cs" />
-    <Compile Include="items\command.cs" />
+    <Compile Include="items\SCP-035.cs" />
+    <Compile Include="items\SCP-343.cs" />
     <Compile Include="items\GlabalP.cs" />
     <Compile Include="items\Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

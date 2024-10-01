@@ -14,4 +14,3 @@ namespace TestPlugin.Configs
         public Good good { get; set; } = new Good();
     }
 }
-
