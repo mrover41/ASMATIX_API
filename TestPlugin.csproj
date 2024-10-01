@@ -69,12 +69,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ASMATIX_API\API.cs" />
+    <Compile Include="commands\star.cs" />
     <Compile Include="Configs\Config.cs" />
+    <Compile Include="commands\Bk.cs" />
     <Compile Include="Handlers\PlayerHandlers.cs" />
-    <Compile Include="items\SCP-035.cs" />
-    <Compile Include="items\SCP-343.cs" />
-    <Compile Include="items\GlabalP.cs" />
-    <Compile Include="items\Plugin.cs" />
+    <Compile Include="Item\Dublicator.cs" />
+    <Compile Include="Item\Trangulizer.cs" />
+    <Compile Include="Roles\SCP-035.cs" />
+    <Compile Include="Roles\SCP-343.cs" />
+    <Compile Include="Roles\GlabalP.cs" />
+    <Compile Include="Roles\Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
