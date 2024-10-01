@@ -125,8 +125,10 @@ public class SCP035 : CustomRole {
         pl.DisableEffect(EffectType.Flashed);
     }
     private IEnumerator<float> Updater() {
-        yield return Timing.WaitForSeconds(1);
-        Global.Cd[0]--;
+        for (; ; ) {
+            yield return Timing.WaitForSeconds(1);
+            Global.Cd[0]--;
+        }
     }
     private IEnumerator<float> Sp(Player pl) {
         yield return Timing.WaitForSeconds(1);
