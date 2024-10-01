@@ -12,5 +12,6 @@ namespace TestPlugin.Configs
         public bool Debug { get; set; } = false;
 
         public Good good { get; set; } = new Good();
+        public SCP035 SCP035 { get; set; } = new SCP035();
     }
 }

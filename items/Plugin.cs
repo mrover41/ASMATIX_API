@@ -20,10 +20,13 @@ public sealed class test : Plugin<Config>
 
     public override void OnEnabled() {
         Config.good.Register();
+        Config.SCP035.Register();
         base.OnEnabled();
     }
 
     public override void OnDisabled() {
+        Config.good.Unregister();
+        Config.SCP035.Unregister();
         base.OnDisabled();
     }
 

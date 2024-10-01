@@ -101,6 +101,8 @@ public class Good : CustomRole {
     string HUD_0;
     string HUD_1;
     string HUD_D;
+    CoroutineHandle _Pass;
+    CoroutineHandle _HUD;
 
     void Wp(ActivatingWarheadPanelEventArgs ev) { 
         if (Check(ev.Player)) {
@@ -111,7 +113,8 @@ public class Good : CustomRole {
         foreach (Player player in Player.List) { 
             if (Check(player)) {
                 player.Kill(DamageType.Bleeding);
-                Timing.KillCoroutines();
+                Timing.KillCoroutines(_Pass);
+                Timing.KillCoroutines(_HUD);
                 player.ShowHint(String.Empty);
             }
         }
@@ -279,8 +282,8 @@ public class Good : CustomRole {
         if (Check(ev.Player)) {
             ev.Player.Teleport(DoorType.Scp173Armory);
             Round.IgnoredPlayers.Add(ev.Player.ReferenceHub);
-            Timing.RunCoroutine(Pass(ev.Player));
-            Timing.RunCoroutine(HUD_Render(0.5f, ev.Player, 4));
+            _Pass = Timing.RunCoroutine(Pass(ev.Player));
+            _HUD = Timing.RunCoroutine(HUD_Render(0.5f, ev.Player, 4));
             ev.Player.IsGodModeEnabled = true;
             ev.Player.EnableEffect(EffectType.Ghostly);
         }
