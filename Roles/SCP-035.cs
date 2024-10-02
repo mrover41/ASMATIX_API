@@ -76,12 +76,12 @@ public class SCP035 : CustomRole {
                                     door.IsOpen = true;
                                     Timing.RunCoroutine(Ef(2, player));
                                     ev.Player.Broadcast(5, "<color=#AD4DFE> Ви атакували гравця </color>");
-                                    player.Broadcast(5, "<color=#FFC745> Ви під впливом SCP-035 </color>");
+                                    player.Broadcast(5, "<color=#FF5E3F> Ви під впливом SCP-035 </color>");
+                                    Global.Cd[0] = 120;
                                 }
                             } else {
                                 door.IsOpen = true;
                             }
-                            Global.Cd[0] = 120;
                         }
                     }
                 }
@@ -96,26 +96,20 @@ public class SCP035 : CustomRole {
         }
     }
     private void OnRoundStarted() {
+        Global.Cd[0] = 0;
         if (Exiled.API.Features.Player.List.Count() >= 8) {
             if (random.Next(0, 10) < 75) {
                 CustomRole.Get((uint)1).AddRole(Exiled.API.Features.Player.List.Where(x => x.IsScp)?.ToList().RandomItem());
             }
         }
+        Timing.RunCoroutine(Sp());
     }
     void OnSpawn(SpawnedEventArgs ev) {
-        Timing.RunCoroutine(Updater());
-        if (Check(ev.Player)) {
-            ev.Player.IsGodModeEnabled = false;
-            ev.Player.MaxHealth = 500;
-            Global.coroutine = Timing.RunCoroutine(API.Damage(ev.Player, 1, 2));
-            ev.Player.Broadcast(5, "<color=#AD4DFE> Ви з'явилися як SCP-035 (Маска).\nВаше завдання – знищити всіх гравців та допомогти SCP, за винятком Бога </color>");
-            Timing.RunCoroutine(Sp(ev.Player));
-            Global.Cd.Add(0, 0);
-        }
     }
     void OnDie(DiedEventArgs ev) { 
         if (Check(ev.Player)) {
             Timing.KillCoroutines(Global.coroutine);
+            Cassie.Announcer.SendMessage("<size=0> scp - 035 has been died <color=green> <size=25> SCP 035 УНИЧТОЖЕН </size> </color>");
         }
     }
     private IEnumerator<float> Ef(int s, Player pl)
@@ -130,8 +124,19 @@ public class SCP035 : CustomRole {
             Global.Cd[0]--;
         }
     }
-    private IEnumerator<float> Sp(Player pl) {
-        yield return Timing.WaitForSeconds(1);
-        pl.Teleport(RoomType.HczNuke);
+    private IEnumerator<float> Sp() {
+        yield return Timing.WaitForSeconds(4);
+        foreach (Player player in Player.List)
+        {
+            if (Check(player))
+            {
+                player.IsGodModeEnabled = false;
+                player.MaxHealth = 500;
+                player.Broadcast(5, "<color=#AD4DFE> Ви з'явилися як SCP-035 (Маска).\nВаше завдання – знищити всіх гравців та допомогти SCP, за винятком Бога </color>");
+                Global.coroutine = Timing.RunCoroutine(API.Damage(player, 1, 2));
+                Timing.RunCoroutine(Updater());
+                player.Teleport(RoomType.HczNuke);
+            }
+        }
     }
 }

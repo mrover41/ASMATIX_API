@@ -13,5 +13,6 @@ namespace TestPlugin.Configs
 
         public Good good { get; set; } = new Good();
         public SCP035 SCP035 { get; set; } = new SCP035();
+        public Item ChipiChipiChapaChpaa { get; set; } = new Item();
     }
 }
