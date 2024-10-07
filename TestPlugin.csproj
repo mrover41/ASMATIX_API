@@ -70,17 +70,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ASMATIX_API\API.cs" />
+    <Compile Include="commands\runI.cs" />
     <Compile Include="commands\star.cs" />
+    <Compile Include="commands\Swap.cs" />
     <Compile Include="Configs\Config.cs" />
     <Compile Include="commands\Bk.cs" />
     <Compile Include="Handlers\PlayerHandlers.cs" />
     <Compile Include="Item\Dublicator.cs" />
+    <Compile Include="Item\SCP420J.cs" />
     <Compile Include="Item\Trangulizer.cs" />
     <Compile Include="Roles\SCP-035.cs" />
     <Compile Include="Roles\SCP-343.cs" />
     <Compile Include="Roles\GlabalP.cs" />
-    <Compile Include="Roles\Plugin.cs" />
+    <Compile Include="Loader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roles\SCP-689.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EXILEDOFFICIAL">

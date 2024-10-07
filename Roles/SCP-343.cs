@@ -22,7 +22,7 @@ using UnityEngine;
 using VoiceChat;
 public class Good : CustomRole {
     public override RoleTypeId Role { get; set; } = RoleTypeId.Scientist;
-    public override uint Id { get; set; } = 240;
+    public override uint Id { get; set; } = 343;
     public override float SpawnChance { get; set; } = 0;
     public override int MaxHealth { get; set; } = 2000000000;
     public override string Name { get; set; } = "Бог";
@@ -48,8 +48,8 @@ public class Good : CustomRole {
 
     private void OnRoundStarted() {
         if (Exiled.API.Features.Player.List.Count() >= 8) {
-            if (random.Next(0, 10) < 10) {
-                CustomRole.Get((uint)240).AddRole(Exiled.API.Features.Player.List.Where(x => x.Role.Type == RoleTypeId.ClassD)?.ToList().RandomItem());
+            if (random.Next(0, 100) < 10) {
+                CustomRole.Get((uint)343).AddRole(Exiled.API.Features.Player.List.Where(x => x.Role.Type == RoleTypeId.ClassD)?.ToList().RandomItem());
             }
         }
     }
@@ -114,7 +114,7 @@ public class Good : CustomRole {
             if (Check(player)) {
                 player.Kill(DamageType.Bleeding);
                 Timing.KillCoroutines(_Pass);
-                Timing.KillCoroutines(_HUD);
+                Timing.KillCoroutines(343);
                 player.ShowHint(String.Empty);
             }
         }
@@ -182,7 +182,7 @@ public class Good : CustomRole {
             ev.IsAllowed = false;
         }
     }
-    void Hc(HandcuffingEventArgs ev) { 
+    void Hc(HandcuffingEventArgs ev) {
         if (Check(ev.Target)) { 
             ev.IsAllowed = false;
         }
@@ -200,25 +200,18 @@ public class Good : CustomRole {
     }
     void Uk(FlippingCoinEventArgs ev) {
         if (Check(ev.Player)) {
-            if (ev.Item.Type == ItemType.Coin)
-            {
-                if (Manager.it[0] <= 0)
-                {
+            if (ev.Item.Type == ItemType.Coin) {
+                if (Manager.it[0] <= 0) {
                     Manager.it[0] = 110;
                     ev.Player.Broadcast(5, "<color=#FFC745> Ви видали безсмертя гравцям </color>");
-                    foreach (Player player in Player.List)
-                    {
-                        if (Vector3.Distance(ev.Player.Position, player.Position) < 7)
-                        {
-                            if (!player.IsScp && !Check(player))
-                            {
+                    foreach (Player player in Player.List) {
+                        if (Vector3.Distance(ev.Player.Position, player.Position) < 7) {
+                            if (!player.IsScp && !Check(player) && player.Role != RoleTypeId.Tutorial) {
                                 Timing.RunCoroutine(Hl(player));
                             }
                         }
                     }
-                }
-                else
-                {
+                } else {
                     HUD_0 = $"<color=#FF5E3F> > {Manager.it[0]} < </color>";
                 }
             }
@@ -283,7 +276,7 @@ public class Good : CustomRole {
             ev.Player.Teleport(DoorType.Scp173Armory);
             Round.IgnoredPlayers.Add(ev.Player.ReferenceHub);
             _Pass = Timing.RunCoroutine(Pass(ev.Player));
-            _HUD = Timing.RunCoroutine(HUD_Render(0.5f, ev.Player, 4));
+            Timing.RunCoroutine(HUD_Render(0.5f, ev.Player, 2), 343);
             ev.Player.IsGodModeEnabled = true;
             ev.Player.EnableEffect(EffectType.Ghostly);
         }
@@ -324,16 +317,16 @@ public class Good : CustomRole {
                             player.EnableEffect(EffectType.Blinded, 255, 5);
                         }
                         player.EnableEffect(EffectType.AmnesiaVision, 255, 5);
-                        player.Broadcast(2, "<color=#FF5E3F> Вы слишком близко подошли к SCP-343 </color>");
+                        player.Broadcast(2, "<color=#FF5E3F> Ви дуже близько підійшли до SCP-343 </color>");
                     } else if (player != pl && player.Role.Type != RoleTypeId.Tutorial) {
                         player.Heal(1);
                         player.EnableEffect(EffectType.MovementBoost, 15, 5);
-                    } else { 
+                    } else if (!Check(player)) { 
                         if (Vector3.Distance(pl.Position, player.Position) < 4) {
                             player.EnableEffect(EffectType.Blinded, 255, 5);
                         }
                         player.EnableEffect(EffectType.AmnesiaVision, 255, 5);
-                        player.Broadcast(2, "<color=#FF5E3F> Вы слишком близко подошли к SCP-343 </color>");
+                        player.Broadcast(2, "<color=#FF5E3F> Ви дуже близько підійшли до SCP-343 </color>");
                     }
                 }
             }
@@ -343,8 +336,8 @@ public class Good : CustomRole {
 
     private IEnumerator<float> _Heal(Player player, int Health, float s, UsingItemCompletedEventArgs ev) {
         for (int i = 0; i < Health; i++) {
-            player.EnableEffect(EffectType.Burned);
             if (Vector3.Distance(ev.Player.Position, player.Position) < 10 && !player.IsScp) {
+                player.EnableEffect(EffectType.Burned);
                 player.Heal(6);
                 if (player.Health >= player.MaxHealth) {
                     player.AddAhp(2, 70, 0);
@@ -376,13 +369,14 @@ public class Good : CustomRole {
                 $"<size=20><align=right><color=#bebbb6>|Телепорт: <color=#FF5E3F>{Manager.it[1]}</color></align></size>\n" +
                 $"<size=20><align=right><color=#bebbb6>|Лікування: <color=#FF5E3F>{Manager.it[2]}</color></align></size>\n" +
                 $"<size=20><align=right><color=#bebbb6>|Політ: <color=#FF5E3F>{Manager.it[3]}</color></align></size>\n";
-            HUD_D = HUD_1 + HUD;
-            pl.ShowHint(HUD_D, 1);
+            HUD_D = HUD_1 + HUD_0;
+            pl.ShowHint(HUD_D);
             if (i < del) {
                 i++;
             } else {
-                HUD_0 = string.Empty;
-                HUD_1 = string.Empty;
+                HUD_D = " ";
+                HUD_1 = " ";
+                HUD_0 = " ";
                 i = 0;
             }
         }
