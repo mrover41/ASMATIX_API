@@ -35,10 +35,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Desktop\ref\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\packages\EXILEDOFFICIAL.8.11.0\lib\net48\Assembly-CSharp-Publicized.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Desktop\ref\Assembly-CSharp-firstpass.dll</HintPath>
@@ -70,15 +66,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ASMATIX_API\API.cs" />
+    <Compile Include="ASMATIX_API\Other.cs" />
+    <Compile Include="commands\Home.cs" />
     <Compile Include="commands\runI.cs" />
     <Compile Include="commands\star.cs" />
     <Compile Include="commands\Swap.cs" />
+    <Compile Include="commands\Take.cs" />
     <Compile Include="Configs\Config.cs" />
     <Compile Include="commands\Bk.cs" />
+    <Compile Include="GoodMode\GMode.cs" />
     <Compile Include="Handlers\PlayerHandlers.cs" />
+    <Compile Include="HUD\HUD.cs" />
     <Compile Include="Item\Dublicator.cs" />
+    <Compile Include="Item\FunGranate.cs" />
     <Compile Include="Item\SCP420J.cs" />
     <Compile Include="Item\Trangulizer.cs" />
+    <Compile Include="Item\Water.cs" />
+    <Compile Include="Lobby\Lobby_Fix.cs" />
     <Compile Include="Roles\SCP-035.cs" />
     <Compile Include="Roles\SCP-343.cs" />
     <Compile Include="Roles\GlabalP.cs" />

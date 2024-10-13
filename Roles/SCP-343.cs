@@ -46,16 +46,8 @@ public class Good : CustomRole {
         }
     };
 
-    private void OnRoundStarted() {
-        if (Exiled.API.Features.Player.List.Count() >= 8) {
-            if (random.Next(0, 100) < 10) {
-                CustomRole.Get((uint)343).AddRole(Exiled.API.Features.Player.List.Where(x => x.Role.Type == RoleTypeId.ClassD)?.ToList().RandomItem());
-            }
-        }
-    }
     protected override void SubscribeEvents() {
         Timing.RunCoroutine(Delay());
-        Exiled.Events.Handlers.Server.RoundStarted += OnRoundStarted;
         Exiled.Events.Handlers.Player.UsingItemCompleted += Us;
         Exiled.Events.Handlers.Player.Spawned += Sp;
         Exiled.Events.Handlers.Player.PickingUpItem += Pk;
@@ -76,7 +68,6 @@ public class Good : CustomRole {
     }
 
     protected override void UnsubscribeEvents() {
-        Exiled.Events.Handlers.Server.RoundStarted -= OnRoundStarted;
         Exiled.Events.Handlers.Player.UsingItemCompleted -= Us;
         Exiled.Events.Handlers.Player.DroppingItem += Dr;
         Exiled.Events.Handlers.Player.Spawned -= Sp;
@@ -123,19 +114,21 @@ public class Good : CustomRole {
         if (Check(ev.Player)) {
             switch (ev.Item.Type) {
                 case ItemType.Coin:
-                    HUD_1 = "<color=#c7956b> При підкиданні монети \n гравцям поблизу видається безсмертя на невеликий час </color> \n";
+                    //HUD_1 = "<color=#c7956b> При підкиданні монети \n гравцям поблизу видається безсмертя на невеликий час </color> \n";
+                    ev.Player.ShowHint("<color=#c7956b> При підкиданні монети \n гравцям поблизу видається безсмертя на невеликий час </color> \n", 3);
                     break;
                 case ItemType.Medkit:
-                    HUD_1 = "<color=#c7956b> Лікує гравців поряд </color> \n";
+                    //HUD_1 = "<color=#c7956b> Лікує гравців поряд </color> \n";
+                    ev.Player.ShowHint("<color=#c7956b> Лікує гравців поряд </color> \n", 3);
                     break;
                 case ItemType.Adrenaline:
-                    HUD_1 = "<color=#c7956b> Дає можливість літати на короткий час </color> \n";
+                    ev.Player.ShowHint("<color=#c7956b> Дає можливість літати на короткий час </color> \n", 3);
                     break;
                 case ItemType.SCP2176:
-                    HUD_1 = "<color=#c7956b> Осліплює та уповільнює SCP-об'єкти в зоні кімнати </color> \n";
+                    ev.Player.ShowHint("<color=#c7956b> Осліплює та уповільнює SCP-об'єкти в зоні кімнати </color> \n", 3);
                     break;
                 case ItemType.SCP1853:
-                    HUD_1 = "<color=#c7956b> Переміщує вас у випадкове місце </color> \n";
+                    ev.Player.ShowHint("<color=#c7956b> Переміщує вас у випадкове місце </color> \n", 3);
                     break;
             }
         }
@@ -212,7 +205,7 @@ public class Good : CustomRole {
                         }
                     }
                 } else {
-                    HUD_0 = $"<color=#FF5E3F> > {Manager.it[0]} < </color>";
+                    ev.Player.ShowHint($"<color=#FF5E3F> > {Manager.it[0]} < </color>", 3);
                 }
             }
         }
@@ -230,7 +223,7 @@ public class Good : CustomRole {
                     Timing.RunCoroutine(_Heal(player, 13, 0.4f, ev));
                 }
             } else {
-                HUD_0 = $"<color=#FF5E3F> > {Manager.it[2]} < </color>";
+                ev.Player.ShowHint($"<color=#FF5E3F> > {Manager.it[2]} < </color>", 3);
             }
         } else if (ev.Item.Type == ItemType.SCP1853) {
             if (Manager.it.ContainsKey(1)) {
@@ -248,7 +241,7 @@ public class Good : CustomRole {
                     }
                     ev.Player.DisableEffect(EffectType.Scp1853);
                } else {
-                    HUD_0 = $"<color=#FF5E3F> > {Manager.it[1]} < </color>";
+                    ev.Player.ShowHint($"<color=#FF5E3F> > {Manager.it[1]} < </color>", 3);
                }
             }
         } else if (ev.Item.Type == ItemType.Adrenaline) { 
@@ -258,7 +251,7 @@ public class Good : CustomRole {
                 ev.Player.DisableAllEffects();
                 ev.Player.EnableEffect(EffectType.Ghostly);
             } else {
-                HUD_0 = $"<color=#FF5E3F> > {Manager.it[3]} < </color>";
+                ev.Player.ShowHint($"<color=#FF5E3F> > {Manager.it[3]} < </color>", 3);
             }
         }
         if (ev.Item.IsUsable) { 
@@ -273,6 +266,7 @@ public class Good : CustomRole {
     }
     void Sp(SpawnedEventArgs ev) {
         if (Check(ev.Player)) {
+            Global.Player_Role.Add("343", ev.Player);
             ev.Player.Teleport(DoorType.Scp173Armory);
             Round.IgnoredPlayers.Add(ev.Player.ReferenceHub);
             _Pass = Timing.RunCoroutine(Pass(ev.Player));
@@ -318,9 +312,11 @@ public class Good : CustomRole {
                         }
                         player.EnableEffect(EffectType.AmnesiaVision, 255, 5);
                         player.Broadcast(2, "<color=#FF5E3F> Ви дуже близько підійшли до SCP-343 </color>");
-                    } else if (player != pl && player.Role.Type != RoleTypeId.Tutorial) {
-                        player.Heal(1);
-                        player.EnableEffect(EffectType.MovementBoost, 15, 5);
+                    } else if (Global.Player_Role.ContainsKey("035")) {
+                        if (player != pl && Global.Player_Role["035"] == player) {
+                            player.Heal(1);
+                            player.EnableEffect(EffectType.MovementBoost, 15, 5);
+                        }
                     } else if (!Check(player)) { 
                         if (Vector3.Distance(pl.Position, player.Position) < 4) {
                             player.EnableEffect(EffectType.Blinded, 255, 5);
@@ -370,7 +366,7 @@ public class Good : CustomRole {
                 $"<size=20><align=right><color=#bebbb6>|Лікування: <color=#FF5E3F>{Manager.it[2]}</color></align></size>\n" +
                 $"<size=20><align=right><color=#bebbb6>|Політ: <color=#FF5E3F>{Manager.it[3]}</color></align></size>\n";
             HUD_D = HUD_1 + HUD_0;
-            pl.ShowHint(HUD_D);
+            pl.ShowHint(string.Empty, 3);
             if (i < del) {
                 i++;
             } else {

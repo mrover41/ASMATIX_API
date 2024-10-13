@@ -21,11 +21,13 @@ namespace TestPlugin {
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response) {
             System.Random random = new System.Random();
             foreach (Player player in Player.List) {
-                Global.Player_Oboron.Add(player, 2);
+                Global.Player_Oboron.Add(player, 3);
                 Timing.RunCoroutine(Ef());
                 if (player.Role == RoleTypeId.Scientist) {
-                    player.Health = 200;
+                    player.MaxHealth = 250;
+                    player.Health = 250;
                     player.ClearInventory();
+                    player.EnableEffect(EffectType.DamageReduction);
                     player.AddItem(ItemType.SCP500);
                     player.AddItem(ItemType.Medkit);
                     player.AddItem(ItemType.GunFRMG0);
@@ -33,14 +35,24 @@ namespace TestPlugin {
                     player.AddItem(ItemType.GrenadeFlash);
                     player.AddItem(ItemType.ArmorHeavy);
                     player.AddItem(ItemType.Ammo556x45, 30);
-                    player.Teleport(RoomType.Surface);
+                    switch (random.Next(0, 3)) {
+                        case 0:
+                            player.Teleport(new Vector3(261.907f, 1018.754f, -124.904f));
+                            break;
+                        case 1:
+                            player.Teleport(new Vector3(252.303f, 1022.619f, -130.295f));
+                            break;
+                        case 2:
+                            player.Teleport(new Vector3(253.599f, 1028.469f, -128.545f));
+                            break;
+                    }
                 } else if (player.Role == RoleTypeId.ClassD) {
                     player.ClearInventory();
                     player.AddItem(ItemType.GunE11SR);
                     player.AddItem(ItemType.ArmorCombat);
                     player.AddItem(ItemType.Medkit);
                     player.AddItem(ItemType.Ammo556x45, 17);
-                    player.Teleport(RoomType.Surface);
+                    player.Teleport(new Vector3(204.526f, 1019, -128) + new Vector3(random.Next(0, 5), 0, random.Next(0, -5)));
                     if (random.Next(0, 2) == 0) { 
                         player.AddItem(ItemType.GrenadeHE);
                     }
@@ -56,7 +68,7 @@ namespace TestPlugin {
             }
             yield return Timing.WaitForSeconds(60);
             foreach (Player p in Player.List) {
-                p.DisableAllEffects();
+                p.DisableEffect(EffectType.Ensnared);
                 p.Broadcast(5, "Гра почалася");
             }
         }
@@ -102,8 +114,7 @@ namespace TestPlugin {
                         ev.Player.ClearInventory();
                         Giving_Item(ev.Player);
                         Info_Output(ev.Player);
-                        if (random.Next(0, 2) == 0)
-                        {
+                        if (random.Next(0, 2) == 0) {
                             ev.Player.AddItem(ItemType.GrenadeHE);
                         }
                     }

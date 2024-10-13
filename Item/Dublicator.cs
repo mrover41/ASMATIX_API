@@ -19,31 +19,33 @@ using UnityEngine;
 
 
 [Exiled.API.Features.Attributes.CustomItem(ItemType.GunCOM18)]
-public class ItemD : CustomItem
-{
+public class ItemD : CustomWeapon {
     public override string Description { get; set; } = "Дублює предмети";
     public override float Weight { get; set; } = 2f;
     public override string Name { get; set; } = "Дублiкатор";
     public override uint Id { get; set; } = 122;
     public override ItemType Type { get; set; } = ItemType.GunCOM18;
+    public override float Damage { get; set; } = 0;
+    public override byte ClipSize { get; set; } = 3;
 
     protected override void SubscribeEvents()
     {
         base.SubscribeEvents();
         Exiled.Events.Handlers.Player.Shot += Wapon;
-        Exiled.Events.Handlers.Player.ReloadingWeapon += Reload;
     }
 
     protected override void UnsubscribeEvents()
     {
         Exiled.Events.Handlers.Player.Shot -= Wapon;
-        Exiled.Events.Handlers.Player.ReloadingWeapon -= Reload;
         base.UnsubscribeEvents();
     }
 
     void Wapon(ShotEventArgs ev) {
         if (!Check(ev.Item)) {
             return;
+        }
+        if (ev.Target != null) {
+            Ragdoll.CreateAndSpawn(ev.Target.Role.Type, ev.Target.Nickname, "Душа покинула его убегая от парадоксов", ev.Target.Transform.position, ev.Target.Transform.rotation);
         }
         if (!Global.it.ContainsKey(ev.Item)) {
             Global.it.Add(ev.Item, 3);
@@ -65,10 +67,9 @@ public class ItemD : CustomItem
         }
     }
 
-    void Reload(ReloadingWeaponEventArgs ev) {
-        if (Check(ev.Item)) {
-            ev.IsAllowed = false;
-        }
+    protected override void OnReloading(ReloadingWeaponEventArgs ev) {
+        ev.IsAllowed = false;
+        base.OnReloading(ev);
     }
 
     //public override SpawnProperties SpawnProperties { get; set; } = null;

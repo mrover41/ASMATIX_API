@@ -24,6 +24,7 @@ using TestPlugin;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using VoiceChat;
+using VoiceChat.Networking;
 
 public class SCP035 : CustomRole {
     public override RoleTypeId Role { get; set; } = RoleTypeId.Tutorial;
@@ -35,7 +36,7 @@ public class SCP035 : CustomRole {
         "SCP-035";
     public override string CustomInfo { get; set; } = "SCP-035";
     public override List<string> Inventory { get; set; } = new List<string>() {
-        $"{ItemType.Medkit}", $"{ItemType.Coin}", $"{ItemType.SCP500}", $"{ItemType.KeycardZoneManager}",
+        $"{ItemType.Medkit}", $"{ItemType.Coin}", $"{ItemType.SCP500}",
     };
     public override SpawnProperties SpawnProperties { get; set; } = new SpawnProperties()
     {
@@ -48,8 +49,10 @@ public class SCP035 : CustomRole {
         }
     };
     System.Random random = new System.Random();
+    public static Dictionary<int, int> Cd = new Dictionary<int, int>() {
+            { 0, 0 },
+        };
     protected override void SubscribeEvents() {
-        Exiled.Events.Handlers.Server.RoundStarted += OnRoundStarted;
         Exiled.Events.Handlers.Player.Spawned += OnSpawn;
         Exiled.Events.Handlers.Player.Died += OnDie;
         Exiled.Events.Handlers.Player.DroppingItem += Dr;
@@ -61,10 +64,11 @@ public class SCP035 : CustomRole {
         Exiled.Events.Handlers.Player.ReceivingEffect += Ef;
         Exiled.Events.Handlers.Player.Handcuffing += Hc;
         Exiled.Events.Handlers.Player.PickingUpItem += Pk;
+        Exiled.Events.Handlers.Player.InteractingDoor += Door_Inter;
+        Exiled.Events.Handlers.Scp096.AddingTarget += OnAddTarget;
         base.SubscribeEvents();
     }
     protected override void UnsubscribeEvents() {
-        Exiled.Events.Handlers.Server.RoundStarted -= OnRoundStarted;
         Exiled.Events.Handlers.Player.Spawned -= OnSpawn;
         Exiled.Events.Handlers.Player.Died -= OnDie;
         Exiled.Events.Handlers.Player.DroppingItem -= Dr;
@@ -76,7 +80,22 @@ public class SCP035 : CustomRole {
         Exiled.Events.Handlers.Player.ReceivingEffect -= Ef;
         Exiled.Events.Handlers.Player.Handcuffing -= Hc;
         Exiled.Events.Handlers.Player.PickingUpItem -= Pk;
+        Exiled.Events.Handlers.Player.InteractingDoor -= Door_Inter;
+        Exiled.Events.Handlers.Scp096.AddingTarget -= OnAddTarget;
         base.UnsubscribeEvents();
+    }
+    void OnAddTarget(AddingTargetEventArgs ev) { 
+        if (Check(ev.Target)) {
+            ev.IsAllowed = false;
+        }
+    }
+    void Door_Inter(InteractingDoorEventArgs ev) { 
+        if (!Check(ev.Player)) {
+            return;
+        }
+        if (ev.Door.KeycardPermissions == KeycardPermissions.Checkpoints) { 
+            ev.Door.IsOpen = true;
+        }
     }
     void Pk(PickingUpItemEventArgs ev) { 
         if (Check(ev.Player)) { 
@@ -153,7 +172,7 @@ public class SCP035 : CustomRole {
         }
     }
     void Att(FlippingCoinEventArgs ev) { 
-        if (Check(ev.Player) && Global.Cd[0] <= 0) { 
+        if (Check(ev.Player) && Cd[0] <= 0) { 
             foreach (Player player in Player.List) { 
                 if (Vector3.Distance(ev.Player.Position, player.Position) <= 4 && ev.Player.NetId != player.NetId) {
                     foreach (Door door in Door.List) {
@@ -164,7 +183,7 @@ public class SCP035 : CustomRole {
                                     Timing.RunCoroutine(Ef(2, player));
                                     ev.Player.Broadcast(3, "<color=#AD4DFE> Гравець під Психічною Атакою </color>");
                                     player.Broadcast(3, "<color=#FF5E3F> Ви під впливом SCP-035 </color>");
-                                    Global.Cd[0] = 120;
+                                    Cd[0] = 120;
                                 } else {
                                     ev.Player.Broadcast(3, "<color=#FF5E3F> У гравця немає відповідної карти для цих дверей </color>");
                                 }
@@ -176,7 +195,7 @@ public class SCP035 : CustomRole {
                 }
             }
         } else if (Check(ev.Player)) {
-            ev.Player.ShowHint($"<color=#FF5E3F> > {Global.Cd[0]} < </color>");
+            ev.Player.ShowHint($"<color=#FF5E3F> > {Cd[0]} < </color>");
         }
     }
     void Dr(DroppingItemEventArgs ev) { 
@@ -184,17 +203,11 @@ public class SCP035 : CustomRole {
             ev.IsAllowed = false;
         }
     }
-    private void OnRoundStarted() {
-        if (Exiled.API.Features.Player.List.Count() >= 8) {
-            if (random.Next(0, 100) < 50) {
-                Global.SCP035 = false;
-                CustomRole.Get((uint)1).AddRole(Exiled.API.Features.Player.List.Where(x => x.IsScp)?.ToList().RandomItem());
-            }
-        }
-    }
     void OnSpawn(SpawnedEventArgs ev) {
         if (Check(ev.Player)) {
+            Global.Player_Role.Add("035", ev.Player);
             Timing.RunCoroutine(Sp());
+            Timing.RunCoroutine(Updater());
         }
     }
     void OnDie(DiedEventArgs ev) { 
@@ -209,18 +222,24 @@ public class SCP035 : CustomRole {
         pl.DisableEffect(EffectType.Flashed);
     }
     private IEnumerator<float> Sp() {
-        yield return Timing.WaitForSeconds(1);
+        yield return Timing.WaitForSeconds(2);
         Cassie.Message("<size=0> SCP - 0 35 has PITCH_0.2 .G2 .G5 PITCH_1 containment room PITCH_1 conditions <color=green> <size=25> SСP-035 НАРУШИЛ УСЛОВИЯ СОДЕРЖАНИЯ </size> </color>");
-        foreach (Player player in Player.List)
-        {
-            if (Check(player))
-            {
+        foreach (Player player in Player.List) {
+            if (Check(player)) {
                 player.IsGodModeEnabled = false;
                 player.MaxHealth = 500;
                 player.Broadcast(5, "<color=#AD4DFE> Ви з'явилися як SCP-035 (Маска).\nВаше завдання – знищити всіх гравців та допомогти SCP, за винятком Бога </color>");
                 Timing.RunCoroutine(API.Damage(player, 1f, 2), 035);
                 player.Teleport(RoomType.HczNuke);
             }
+        }
+    }
+    public static IEnumerator<float> Updater()
+    {
+        for (; ; )
+        {
+            yield return Timing.WaitForSeconds(1);
+            Cd[0]--;
         }
     }
 }
