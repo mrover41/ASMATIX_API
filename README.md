@@ -1,2 +1,2 @@
-SCP-343
+
 Made for ASMATIX
