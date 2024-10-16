@@ -77,6 +77,7 @@
     <Compile Include="GoodMode\GMode.cs" />
     <Compile Include="Handlers\PlayerHandlers.cs" />
     <Compile Include="HUD\HUD.cs" />
+    <Compile Include="HUD\HUD_LOADER.cs" />
     <Compile Include="Item\Dublicator.cs" />
     <Compile Include="Item\FunGranate.cs" />
     <Compile Include="Item\SCP420J.cs" />

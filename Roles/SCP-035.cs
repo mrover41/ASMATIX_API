@@ -15,6 +15,7 @@ using Exiled.Events.EventArgs.Scp173;
 using Exiled.Events.EventArgs.Scp3114;
 using InventorySystem;
 using MEC;
+using Mirror;
 using PlayerRoles;
 using PluginAPI.Core.Zones;
 using System;
@@ -23,6 +24,7 @@ using System.Linq;
 using TestPlugin;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using UserSettings.VideoSettings;
 using VoiceChat;
 using VoiceChat.Networking;
 
@@ -165,6 +167,9 @@ public class SCP035 : CustomRole {
         }
     }
     void Select_Item(ChangedItemEventArgs ev) {
+        if (ev.Player == null) {
+            return;
+        }
         if (Check(ev.Player)) { 
             if (ev.Item.Type == ItemType.Coin) {
                 ev.Player.ShowHint("<color=#c7956b> Під час активації цієї здатності\n ви змушуєте гравця поруч із дверима\n відчинити їх за вашим бажанням, якщо у нього є карта доступу </color>");
@@ -172,6 +177,9 @@ public class SCP035 : CustomRole {
         }
     }
     void Att(FlippingCoinEventArgs ev) { 
+        if (ev.Player == null) {
+            return;
+        }
         if (Check(ev.Player) && Cd[0] <= 0) { 
             foreach (Player player in Player.List) { 
                 if (Vector3.Distance(ev.Player.Position, player.Position) <= 4 && ev.Player.NetId != player.NetId) {
@@ -199,19 +207,31 @@ public class SCP035 : CustomRole {
         }
     }
     void Dr(DroppingItemEventArgs ev) { 
+        if (ev.Player == null) {
+            return;
+        }
         if (Check(ev.Player) && ev.Item.Type == ItemType.Coin) {
             ev.IsAllowed = false;
         }
     }
     void OnSpawn(SpawnedEventArgs ev) {
-        if (Check(ev.Player)) {
-            Global.Player_Role.Add("035", ev.Player);
-            Timing.RunCoroutine(Sp());
-            Timing.RunCoroutine(Updater());
+        if (ev.Player == null) {
+            return;
         }
+        Timing.CallDelayed(1, () => {
+            if (Check(ev.Player)) {
+                Global.Player_Role.Add("035", ev.Player);
+                Timing.RunCoroutine(Sp());
+                Timing.RunCoroutine(Updater());
+            }
+        });
     }
-    void OnDie(DiedEventArgs ev) { 
-        if (Check(ev.Player)) {
+    void OnDie(DiedEventArgs ev) {
+        if (ev.Player == null) {
+            return;
+        }
+        if (ev.Player == Global.Player_Role["035"]) {
+            Global.Player_Role["035"] = null;
             Cassie.Message("<size=0> scp - 0 35 has been containment PITCH_0.1 .G6 PITCH_0.5 <color=green> <size=25> SCP-035 СДЕРЖАН </size> </color>");
             Timing.KillCoroutines(035);
         }

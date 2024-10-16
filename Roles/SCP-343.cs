@@ -97,6 +97,7 @@ public class Good : CustomRole {
 
     void Wp(ActivatingWarheadPanelEventArgs ev) { 
         if (Check(ev.Player)) {
+            Global.Player_Role["343"] = null;
             ev.IsAllowed = false;
         }
     }
@@ -192,6 +193,9 @@ public class Good : CustomRole {
         }
     }
     void Uk(FlippingCoinEventArgs ev) {
+        if (ev.Player == null) {
+            return;
+        }
         if (Check(ev.Player)) {
             if (ev.Item.Type == ItemType.Coin) {
                 if (Manager.it[0] <= 0) {
@@ -211,7 +215,10 @@ public class Good : CustomRole {
         }
     }
 
-    void Us(UsingItemCompletedEventArgs ev) { 
+    void Us(UsingItemCompletedEventArgs ev) {
+        if (ev.Player == null) {
+            return;
+        }
         if (!Check(ev.Player)) {
             return;
         }
@@ -259,12 +266,18 @@ public class Good : CustomRole {
         }
     }
     void Dr(DroppingItemEventArgs ev) {
+        if (ev.Player == null) {
+            return;
+        }
         if (!Check(ev.Player)) {
             return;
         }
         ev.IsAllowed = false;
     }
     void Sp(SpawnedEventArgs ev) {
+        if (ev.Player == null) {
+            return;
+        }
         if (Check(ev.Player)) {
             Global.Player_Role.Add("343", ev.Player);
             ev.Player.Teleport(DoorType.Scp173Armory);
@@ -314,15 +327,14 @@ public class Good : CustomRole {
                         player.Broadcast(2, "<color=#FF5E3F> Ви дуже близько підійшли до SCP-343 </color>");
                     } else if (Global.Player_Role.ContainsKey("035")) {
                         if (player != pl && Global.Player_Role["035"] == player) {
-                            player.Heal(1);
-                            player.EnableEffect(EffectType.MovementBoost, 15, 5);
+                            if (Vector3.Distance(pl.Position, player.Position) < 4) {
+                                player.EnableEffect(EffectType.Blinded, 255, 5);
+                            }
+                            player.EnableEffect(EffectType.AmnesiaVision, 255, 5);
                         }
-                    } else if (!Check(player)) { 
-                        if (Vector3.Distance(pl.Position, player.Position) < 4) {
-                            player.EnableEffect(EffectType.Blinded, 255, 5);
-                        }
-                        player.EnableEffect(EffectType.AmnesiaVision, 255, 5);
-                        player.Broadcast(2, "<color=#FF5E3F> Ви дуже близько підійшли до SCP-343 </color>");
+                    } else if (!Check(player)) {
+                        player.Heal(1);
+                        player.EnableEffect(EffectType.MovementBoost, 15, 5);
                     }
                 }
             }
