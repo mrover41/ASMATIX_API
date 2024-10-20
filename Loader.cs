@@ -61,7 +61,10 @@ public sealed class test : Plugin<Config>
         if (Exiled.API.Features.Player.List.Count() >= 8) {
             if (random.Next(0, 100) < 50) {
                 Global.SCP035 = false;
+                Exiled.API.Features.Player pl = Exiled.API.Features.Player.List.GetRandomValue();
+                Global.Player_Role.Add("035", pl);
                 //Spawn_System.Spawn(Exiled.API.Features.Player.List.Where(x => x.IsScp)?.ToList().RandomItem(), 35);
+                pl.GameObject.AddComponent<SCP035>();
             }
         }
     }
@@ -70,9 +73,9 @@ public sealed class test : Plugin<Config>
         //WaitPlayer_HUD.Run();
         HUD_LOADER.OnEnabled();
         //REGISTER
+        Config.Travka.Register();
         Config.Privid.Register();
         Config.good.Register();
-        Config.SCP035.Register();
         Config.ChipiChipiChapaChpaa.Register();
         Config.Gr.Register();
         Config.water.Register();
@@ -82,9 +85,9 @@ public sealed class test : Plugin<Config>
         //HUD
         HUD_LOADER.OnDisabled();
         //UNREGISTER
+        Config.Travka.Unregister();
         Config.Privid.Unregister();
         Config.good.Unregister();
-        Config.SCP035.Unregister();
         Config.ChipiChipiChapaChpaa.Unregister();
         Config.Gr.Unregister();
         Config.water.Unregister();

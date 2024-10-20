@@ -1,4 +1,5 @@
 ﻿using Discord;
+using Exiled.API.Features;
 using Exiled.CreditTags;
 using Exiled.Loader;
 using MEC;
@@ -31,8 +32,8 @@ namespace TestPlugin {
         static IEnumerator<float> Hud_Updater() {
             yield return Timing.WaitForSeconds(2);
             for (; ; ) { 
-                if (!Round.IsRoundStarted) { 
-                    if (Round.IsLobbyLocked || Player.Count <= 1) { 
+                if (!PluginAPI.Core.Round.IsRoundStarted) { 
+                    if (Exiled.API.Features.Round.IsLobbyLocked || Exiled.API.Features.Player.List.Count <= 1) { 
                         foreach (Exiled.API.Features.Player player in Exiled.API.Features.Player.List) {
                             player.ShowHint(Locked_Round_Texst);
                         }
@@ -55,12 +56,15 @@ namespace TestPlugin {
         string HUD_SCPs;
         string HUD_MyTeam_Player;
         string SCPl;
+        string Generator_HUD;
         //RESULT
         string Mixed_HUD;
         string HUD_Result;
+        //d
+        int size = 23;
         string[] Name = new string[] { "Охоронець", "Вчений", "Д-Клас", "Повстанець Хаосу", "МОГ" };
         void Start() {
-            player = Player.Get(this.gameObject);
+            player = Exiled.API.Features.Player.Get(this.gameObject);
         }
         void Update() {
             if (player == null) {
@@ -79,11 +83,12 @@ namespace TestPlugin {
                     }
                 }
             }
-            HUD_Name = $"<voffset=-600><align=left><color={player.Role.Color.ToHex()}><size=26>         〚⭐〛Ім'я: {player.Nickname} </size></color></voffset></align>\n";
-            HUD_Role = $"<align=left><color={player.Role.Color.ToHex()}><size=26>         〚👨‍〛Клас: {Role_Translste(player)} </size></color></align>\n";
-            HUD_MyTeam_Player = $"<align=left><color={player.Role.Color.ToHex()}><size=26>         〚🍪〛Cоюзникiв: {Exiled.API.Features.Player.List.Where(x => x.LeadingTeam == player.LeadingTeam).ToList().Count()} </size></color></align>\n";
-            HUD_SCPs = $"<align=left><color={player.Role.Color.ToHex()}><size=26>{SCPl} </size></color></align>";
-            Mixed_HUD = HUD_Name + HUD_Role + HUD_MyTeam_Player;
+            HUD_Name = $"<voffset=-600><align=left><color={player.Role.Color.ToHex()}><size={size}>         〚⭐〛Ім'я: {player.Nickname} </size></color></voffset></align>\n";
+            HUD_Role = $"<align=left><color={player.Role.Color.ToHex()}><size={size}>         〚👨‍〛Клас: {Role_Translste(player)} </size></color></align>\n";
+            HUD_MyTeam_Player = $"<align=left><color={player.Role.Color.ToHex()}><size={size}>         〚🍪〛Cоюзникiв: {Exiled.API.Features.Player.List.Where(x => x.LeadingTeam == player.LeadingTeam).ToList().Count()} </size></color></align>\n";
+            HUD_SCPs = $"<align=left><color={player.Role.Color.ToHex()}><size={size}>{SCPl} </size></color></align>";
+            Generator_HUD = $"<align=left><color={player.Role.Color.ToHex()}><size={size}>         〚🧲〛Акт.Генераторів: {Generator.List.Where(x => x.IsActivating).Count()}</size></color></align>\n";
+            Mixed_HUD = HUD_Name + HUD_Role + Generator_HUD + HUD_MyTeam_Player;
             /*if (Config.HUD_Donat_Players.Any(x => player.NetId == x)) {
                 Mixed_HUD += SCPl;
             } else {
@@ -119,18 +124,18 @@ namespace TestPlugin {
         string Mixed_HUD;
         string HUD_Result;
         void Start() {
-            player = Player.Get(this.gameObject);
+            player = Exiled.API.Features.Player.Get(this.gameObject);
         }
         void Update() { 
             if (player == null) {
                 return;
             }
-            RoundTime_HUD = $"<voffset=-400><align=left><color=#00ff08> Час раунду:<color=#00634e> {Round.Duration.Minutes} минут </color></voffset></align>\n";
-            if (Warhead.IsDetonationInProgress) {
-                AlphaWarhed_HUD = $"<align=left><color=#808080> Состояние боеголовки: {Math.Round(Warhead.DetonationTime)} </align>\n";
-            } else if (Warhead.IsLocked) {
+            RoundTime_HUD = $"<voffset=-400><align=left><color=#00ff08> Час раунду:<color=#00634e> {PluginAPI.Core.Round.Duration.Minutes} минут </color></voffset></align>\n";
+            if (PluginAPI.Core.Warhead.IsDetonationInProgress) {
+                AlphaWarhed_HUD = $"<align=left><color=#808080> Состояние боеголовки: {Math.Round(PluginAPI.Core.Warhead.DetonationTime)} </align>\n";
+            } else if (Exiled.API.Features.Warhead.IsLocked) {
                 AlphaWarhed_HUD = "<align=left><color=#808080> Состояние боеголовки: <color=red> заблокированно </color></align>\n";
-            } else if (!Warhead.IsLocked){
+            } else if (!Exiled.API.Features.Warhead.IsLocked){
                 AlphaWarhed_HUD = "<align=left><color=#808080> Состояние боеголовки:<color=#02f723> Готова </color></align>\n";
             } else {
                 AlphaWarhed_HUD = "<align=left><color=#808080> Состояние боеголовки:<color=#f7db02> Сдетанированна </color></align>\n";
@@ -151,7 +156,7 @@ namespace TestPlugin {
         string Mixed_HUD;
         string HUD_Result;
         void Start() {
-            player = Player.Get(this.gameObject);
+            player = Exiled.API.Features.Player.Get(this.gameObject);
         }
         void Update() { 
             GmodEnabled_HUD = $"<voffset=-400><align=left><color={player.Role.Color.ToHex()}> Режим богу: {player.IsGodModeEnabled} минут </color></voffset></align>\n";

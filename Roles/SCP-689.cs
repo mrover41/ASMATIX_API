@@ -190,8 +190,8 @@ namespace TestPlugin.Roles
                 yield return Timing.WaitForSeconds(1);
                 if (target.Health < 15) {
                     target.Role.Set(target.Role.Type);
-                    target.Teleport(new Vector3(68.834f, 892.089f, -105.098f));
-                    player.Teleport(new Vector3(68.834f, 892.089f, -110.098f));
+                    target.Position = new Vector3(68.834f, 892.089f, -105.098f);
+                    player.Position = new Vector3(68.834f, 892.089f, -110.098f);
                     target.Health = 1;
                     i = 6;
                 }
