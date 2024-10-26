@@ -32,7 +32,7 @@ namespace TestPlugin.HUD {
 
             if (ev.Player.IsHuman && ev.Player.Role.Type != RoleTypeId.Tutorial) { 
                 ev.Player.GameObject.AddComponent<Human_HUD>();
-            } if (ev.Player.Role.Type == RoleTypeId.Tutorial) {
+            } else if (ev.Player.IsHuman && ev.Player.Role.Type == RoleTypeId.Tutorial) {
                 ev.Player.GameObject.AddComponent<Tutorial_HUD>();
             }
         }
