@@ -25,3 +25,4 @@ C:\Users\Admin\source\repos\TestPlugin\TestPlugin\bin\Debug\Exiled.CustomItems.d
 C:\Users\Admin\source\repos\TestPlugin\TestPlugin\bin\Debug\Exiled.CustomRoles.dll
 C:\Users\Admin\source\repos\TestPlugin\TestPlugin\bin\Debug\YamlDotNet.dll
 C:\Users\Admin\source\repos\TestPlugin\TestPlugin\bin\Debug\UnityEngine.dll
+C:\Users\Admin\source\repos\TestPlugin\TestPlugin\bin\Debug\RueI.dll

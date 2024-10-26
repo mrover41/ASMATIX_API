@@ -45,28 +45,9 @@ public sealed class test : Plugin<Config>
         //WaitPlayer_HUD.Run();
     }
     void RoundSt() {
-        //HUD
-        //WaitPlayer_HUD.Stop();
-        //DATA
         API.RoundTime = DateTime.Now.Second;
-        Global.SCP035 = true;
-        //SPAWN
-        //343
-        if (Exiled.API.Features.Player.List.Count() >= 8) {
-            if (random.Next(0, 100) < 10) {
-                Spawn_System.Spawn(Exiled.API.Features.Player.List.Where(x => x.Role.Type == RoleTypeId.ClassD)?.ToList().RandomItem(), 343);
-            }
-        }
-        //035
-        if (Exiled.API.Features.Player.List.Count() >= 8) {
-            if (random.Next(0, 100) < 50) {
-                Global.SCP035 = false;
-                Exiled.API.Features.Player pl = Exiled.API.Features.Player.List.GetRandomValue();
-                Global.Player_Role.Add("035", pl);
-                //Spawn_System.Spawn(Exiled.API.Features.Player.List.Where(x => x.IsScp)?.ToList().RandomItem(), 35);
-                pl.GameObject.AddComponent<SCP035>();
-            }
-        }
+        Spawn_System.RoundSt();
+        Global.Player_Role.Clear();
     }
      void OnLoad () {
         //HUD

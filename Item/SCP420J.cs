@@ -2,6 +2,7 @@
 using CustomRendering;
 using Exiled.API.Enums;
 using Exiled.API.Extensions;
+using Exiled.API.Features;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
@@ -20,7 +21,7 @@ namespace TestPlugin {
         public override string Description { get; set; } = ";)";
         public override float Weight { get; set; } = 2f;
         public override string Name { get; set; } = "SCP-420-J";
-        public override uint Id { get; set; } = 122;
+        public override uint Id { get; set; } = 124;
         public override ItemType Type { get; set; } = ItemType.Adrenaline;
         public override SpawnProperties SpawnProperties { get; set; } = null;
 

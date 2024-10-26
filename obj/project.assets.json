@@ -60,6 +60,35 @@
           "lib/net48/PluginAPI.dll": {},
           "lib/net48/YamlDotNet.dll": {}
         }
+      },
+      "Lib.Harmony/2.2.2": {
+        "type": "package",
+        "compile": {
+          "lib/net48/0Harmony.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/0Harmony.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "RueI/2.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Lib.Harmony": "2.2.2"
+        },
+        "compile": {
+          "lib/net48/RueI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/RueI.dll": {
+            "related": ".xml"
+          }
+        }
       }
     },
     ".NETFramework,Version=v4.8/win": {
@@ -120,6 +149,35 @@
           "lib/net48/NorthwoodLib.dll": {},
           "lib/net48/PluginAPI.dll": {},
           "lib/net48/YamlDotNet.dll": {}
+        }
+      },
+      "Lib.Harmony/2.2.2": {
+        "type": "package",
+        "compile": {
+          "lib/net48/0Harmony.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/0Harmony.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "RueI/2.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Lib.Harmony": "2.2.2"
+        },
+        "compile": {
+          "lib/net48/RueI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/RueI.dll": {
+            "related": ".xml"
+          }
         }
       }
     },
@@ -182,6 +240,35 @@
           "lib/net48/PluginAPI.dll": {},
           "lib/net48/YamlDotNet.dll": {}
         }
+      },
+      "Lib.Harmony/2.2.2": {
+        "type": "package",
+        "compile": {
+          "lib/net48/0Harmony.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/0Harmony.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "RueI/2.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Lib.Harmony": "2.2.2"
+        },
+        "compile": {
+          "lib/net48/RueI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/RueI.dll": {
+            "related": ".xml"
+          }
+        }
       }
     },
     ".NETFramework,Version=v4.8/win-x64": {
@@ -242,6 +329,35 @@
           "lib/net48/NorthwoodLib.dll": {},
           "lib/net48/PluginAPI.dll": {},
           "lib/net48/YamlDotNet.dll": {}
+        }
+      },
+      "Lib.Harmony/2.2.2": {
+        "type": "package",
+        "compile": {
+          "lib/net48/0Harmony.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/0Harmony.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "RueI/2.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Lib.Harmony": "2.2.2"
+        },
+        "compile": {
+          "lib/net48/RueI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/RueI.dll": {
+            "related": ".xml"
+          }
         }
       }
     },
@@ -304,6 +420,35 @@
           "lib/net48/PluginAPI.dll": {},
           "lib/net48/YamlDotNet.dll": {}
         }
+      },
+      "Lib.Harmony/2.2.2": {
+        "type": "package",
+        "compile": {
+          "lib/net48/0Harmony.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/0Harmony.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "RueI/2.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Lib.Harmony": "2.2.2"
+        },
+        "compile": {
+          "lib/net48/RueI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/RueI.dll": {
+            "related": ".xml"
+          }
+        }
       }
     }
   },
@@ -338,11 +483,56 @@
         "lib/net48/PluginAPI.dll",
         "lib/net48/YamlDotNet.dll"
       ]
+    },
+    "Lib.Harmony/2.2.2": {
+      "sha512": "70KvWz+DiUELxafsYL/LHxA/jH3PDWeApLo/VwtnrpTvRWQ/eUdPfS/l5funmhZWOy41QXw6UjVv+6C57Nx77A==",
+      "type": "package",
+      "path": "lib.harmony/2.2.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "HarmonyLogo.png",
+        "LICENSE",
+        "lib.harmony.2.2.2.nupkg.sha512",
+        "lib.harmony.nuspec",
+        "lib/net35/0Harmony.dll",
+        "lib/net35/0Harmony.xml",
+        "lib/net45/0Harmony.dll",
+        "lib/net45/0Harmony.xml",
+        "lib/net472/0Harmony.dll",
+        "lib/net472/0Harmony.xml",
+        "lib/net48/0Harmony.dll",
+        "lib/net48/0Harmony.xml",
+        "lib/net5.0/0Harmony.dll",
+        "lib/net5.0/0Harmony.xml",
+        "lib/net6.0/0Harmony.dll",
+        "lib/net6.0/0Harmony.xml",
+        "lib/netcoreapp3.0/0Harmony.dll",
+        "lib/netcoreapp3.0/0Harmony.xml",
+        "lib/netcoreapp3.1/0Harmony.dll",
+        "lib/netcoreapp3.1/0Harmony.xml"
+      ]
+    },
+    "RueI/2.1.0": {
+      "sha512": "9d02xGka5KYdWfwRg3pEUMLAmxlqMhb1xvEePD0LCK4OywR7Es7ZHDfhpMxIkUt+WfjojnRX4mkEebP77eA39g==",
+      "type": "package",
+      "path": "ruei/2.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "README.md",
+        "lib/net48/RueI.dll",
+        "lib/net48/RueI.xml",
+        "ruei.2.1.0.nupkg.sha512",
+        "ruei.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.8": [
-      "EXILEDOFFICIAL >= 8.11.0"
+      "EXILEDOFFICIAL >= 8.11.0",
+      "RueI >= 2.1.0"
     ]
   },
   "packageFolders": {
@@ -386,6 +576,10 @@
           "EXILEDOFFICIAL": {
             "target": "Package",
             "version": "[8.11.0, )"
+          },
+          "RueI": {
+            "target": "Package",
+            "version": "[2.1.0, )"
           }
         }
       }
