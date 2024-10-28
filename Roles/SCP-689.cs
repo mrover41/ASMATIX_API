@@ -198,7 +198,7 @@ namespace TestPlugin.Roles
             }
             for (; ; ) {
                 yield return Timing.WaitForSeconds(1);
-                if (target.Position.z < -54 && API.random.Next(0, 2) == 1) {
+                if (target.Position.z < -54 && API._System.random.Next(0, 2) == 1) {
                     target.Teleport(Room.List.Where(x => x.Type != RoomType.EzShelter && x.Type != RoomType.Pocket).ToList().GetRandomValue());
                     player.Teleport(Room.List.Where(x => x.Type != RoomType.EzShelter && x.Type != RoomType.Pocket).ToList().GetRandomValue());
                     Nv(player);

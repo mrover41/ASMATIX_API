@@ -9,6 +9,7 @@ using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
 using PlayerRoles;
+using System.IO;
 using PluginAPI.Core;
 using System;
 using System.Linq;
@@ -17,6 +18,7 @@ using TestPlugin.Configs;
 using TestPlugin.GoodMode;
 using TestPlugin.HUD;
 using UnityEngine;
+using PluginAPI.Core.Attributes;
 
 public sealed class test : Plugin<Config>
 {
@@ -45,14 +47,14 @@ public sealed class test : Plugin<Config>
         //WaitPlayer_HUD.Run();
     }
     void RoundSt() {
-        API.RoundTime = DateTime.Now.Second;
-        Spawn_System.RoundSt();
+        API.Spawn_System.RoundSt();
         Global.Player_Role.Clear();
     }
      void OnLoad () {
         //HUD
         //WaitPlayer_HUD.Run();
         HUD_LOADER.OnEnabled();
+        API.API.Load();
         //REGISTER
         Config.Travka.Register();
         Config.Privid.Register();
@@ -65,6 +67,7 @@ public sealed class test : Plugin<Config>
     void OnUnload() {
         //HUD
         HUD_LOADER.OnDisabled();
+        API.API.UnLoad();
         //UNREGISTER
         Config.Travka.Unregister();
         Config.Privid.Unregister();

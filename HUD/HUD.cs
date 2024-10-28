@@ -3,6 +3,7 @@ using Exiled.API.Extensions;
 using Exiled.API.Features;
 using Exiled.API.Features.Roles;
 using Exiled.CreditTags;
+using Exiled.CustomItems.API.Features;
 using Exiled.Loader;
 using HarmonyLib;
 using MEC;
@@ -74,7 +75,7 @@ namespace TestPlugin {
         string Mixed_HUD;
         string HUD_Result;
         //d
-        int size = 23;
+        int size = 20;
         string[] Name = new string[] { "Охоронець", "Вчений", "Д-Клас", "Повстанець Хаосу", "МОГ" };
         void Start() {
             player = Exiled.API.Features.Player.Get(this.gameObject);
@@ -98,11 +99,11 @@ namespace TestPlugin {
                         }
                     }
                 }
-                HUD_Name = $"<align=left><color={player.Role.Color.ToHex()}><size={size}>         〚⭐〛Ім'я: {player.Nickname} </size></color></align>\n";
-                HUD_Role = $"<align=left><color={player.Role.Color.ToHex()}><size={size}>         〚🕑〛Час раунду: {PluginAPI.Core.Round.Duration.Minutes.ToString("D2")} : {PluginAPI.Core.Round.Duration.Seconds.ToString("D2")} </size></color></align>\n";
-                HUD_MyTeam_Player = $"<align=left><color={player.Role.Color.ToHex()}><size={size}>         〚🍪〛Cоюзникiв: {Exiled.API.Features.Player.List.Where(x => x.LeadingTeam == player.LeadingTeam).ToList().Count()} </size></color></align>\n";
-                HUD_SCPs = $"<align=left><color={player.Role.Color.ToHex()}><size={size}>{SCPl} </size></color></align>";
-                Generator_HUD = $"<align=left><color={player.Role.Color.ToHex()}><size={size}>         〚🚂〛Акт.Генераторів: {Scp079Recontainer.AllGenerators.Count(x => x.Engaged).ToString()}</size></color></align>\n";
+                HUD_Name = $"<align=left><color={player.Role.Color.ToHex()}><size={size}>         <b>〚⭐〛Ім'я: {player.Nickname} </b></size></color></align>\n";
+                HUD_Role = $"<align=left><color={player.Role.Color.ToHex()}><size={size}>         <b>〚🕑〛Час раунду: {PluginAPI.Core.Round.Duration.Minutes.ToString("D2")} : {PluginAPI.Core.Round.Duration.Seconds.ToString("D2")} </b></size></color></align>\n";
+                HUD_MyTeam_Player = $"<align=left><color={player.Role.Color.ToHex()}><size={size}>         <b>〚🍪〛Cоюзникiв: {Exiled.API.Features.Player.List.Where(x => x.LeadingTeam == player.LeadingTeam).ToList().Count()} </b></size></color></align>\n";
+                HUD_SCPs = $"<align=left><color={player.Role.Color.ToHex()}><size={size}><b>{SCPl} </b></size></color></align>";
+                Generator_HUD = $"<align=left><color={player.Role.Color.ToHex()}><size={size}>         <b>〚🚂〛Акт.Генераторів: {Scp079Recontainer.AllGenerators.Count(x => x.Engaged).ToString()}</b></size></color></align>\n";
                 Mixed_HUD = HUD_Name + HUD_Role + Generator_HUD + HUD_MyTeam_Player;
                 /*if (Config.HUD_Donat_Players.Any(x => player.NetId == x)) {
                     Mixed_HUD += SCPl;
@@ -112,17 +113,23 @@ namespace TestPlugin {
                 _Ghost_HUD = $"<size={size}></size>";
                 DisplayCore displayCore = DisplayCore.Get(player.ReferenceHub);
                 var elementReference_0 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(_Ghost_HUD, 800, TimeSpan.FromSeconds(1f), elementReference_0);
+                displayCore.SetElemTemp(_Ghost_HUD, 775, TimeSpan.FromSeconds(2), elementReference_0);
 
                 var elementReference_1 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(Mixed_HUD, 130, TimeSpan.FromSeconds(1f), elementReference_1);
+                displayCore.SetElemTemp(Mixed_HUD, 120, TimeSpan.FromSeconds(2), elementReference_1);
+
+                var elementReference_2 = new TimedElemRef<SetElement>();
+                if (API.API.Best_Player() == player.Nickname) {
+                    displayCore.SetElemTemp($"<align=left><size={size}><color={player.Role.Color.ToHex()}><b>      〚🏆〛Ви найкращий гравець </b></color></size></align>\n", 160, TimeSpan.FromSeconds(2), elementReference_2);
+                }
 
                 HUD_Result = "" + Mixed_HUD;
-                SCPl = $"         〚🎃〛Аномалії:";
+                SCPl = $" <b>        〚🎃〛Аномалії:";
                 //player.ShowHint(HUD_Result, 5);
-                yield return Timing.WaitForSeconds(0.5f);
+                yield return Timing.WaitForSeconds(1);
                 displayCore.RemoveReference(elementReference_0);
                 displayCore.RemoveReference(elementReference_1);
+                displayCore.RemoveReference(elementReference_2);
             }
         }
         void OnDisable() { 
@@ -152,15 +159,13 @@ namespace TestPlugin {
         string Spawn_T;
         string Spawn_W;
         string Progress_Bar;
-        //RESULT
-        string Mixed_HUD;
         List<string> Info = new List<string>() {
-            "<align=left><size=25>Хотіли б відпочити?\nНапишіть в консоль: .h</size></align>", 
-            "<size=25><align=left>Хочеш дюпати ?\nДублікатор - це ваше рішення.</size></align>",
-            "<size=25><align=left>А ви знали?\nТранквілізатор знаходиться в GR18!</size></align>",
-            "<size=25><align=left>А ви знали?\nЩо у нас є димова граната (тільки у Сержанта МОГ)</size></align>",
-            "<size=25><align=left> А ви знали?\nЩо заряджений MicroHID ламає двері!</size></align>",
-            "<size=25><align=left>Прикиньте!\nА у нас на сервері є SCP-343, SCP-035!</size></align>",
+            "<align=left><size=23>Хотіли б відпочити?\nНапишіть в консоль: .h</size></align>", 
+            "<size=23><align=left>Хочеш дюпати ?\nДублікатор - це ваше рішення.</size></align>",
+            "<size=23><align=left>А ви знали?\nТранквілізатор знаходиться в GR18!</size></align>",
+            "<size=23><align=left>А ви знали?\nЩо у нас є димова граната (тільки у Сержанта МОГ)</size></align>",
+            "<size=23><align=left> А ви знали?\nЩо заряджений MicroHID ламає двері!</size></align>",
+            "<size=23><align=left>Прикиньте!\nА у нас на сервері є SCP-343, SCP-035!</size></align>",
 
         };
         void Start() {
@@ -177,61 +182,63 @@ namespace TestPlugin {
                 displayCore.RemoveReference(elementReference);
             }
         }
-        string Counter() {
+        /*string Counter() {
             try {
                 string Progress_Bar = string.Empty;
                 for (int i = 0; i <= RespawnTokensManager.Counters[1].Amount; i++) {
                     Progress_Bar = Progress_Bar + "█";
                 }
                 return Progress_Bar;
-            }
-            catch (Exception ex) { 
+            } catch (Exception ex) { 
                 Exiled.API.Features.Log.Error(ex.Message);
                 return string.Empty;
             }
-        }
+        }*/
         IEnumerator<float> Update_HINT() {
             for (; ; ) {
                 if (player == null) {
                     yield break;
                 }
                 DisplayCore displayCore = DisplayCore.Get(player.ReferenceHub);
-                Progress_Bar = $"<size=25></size>";
-                RoundTime_HUD = $"<color=#00ff08><size=25><align=right> Час раунду:<color=#00634e> {PluginAPI.Core.Round.Duration.Minutes.ToString("D2")} : {PluginAPI.Core.Round.Duration.Seconds.ToString("D2")} </align></size></color>\n";
+                Progress_Bar = $"<size=23></size>";
+                RoundTime_HUD = $"<color=#00ff08><size=23><align=right> Час раунду:<color=#00634e> {PluginAPI.Core.Round.Duration.Minutes.ToString("D2")} : {PluginAPI.Core.Round.Duration.Seconds.ToString("D2")} </align></size></color>\n";
                 if (PluginAPI.Core.Warhead.IsDetonationInProgress) {
-                    AlphaWarhead_HUD = $"<color=#808080><size=25><align=right> Стан боєголовки: {Math.Round(PluginAPI.Core.Warhead.DetonationTime)} </size></align>\n";
+                    AlphaWarhead_HUD = $"<color=#808080><size=23><align=right> Стан боєголовки: {Math.Round(PluginAPI.Core.Warhead.DetonationTime)} </size></align>\n";
                 } else if (Exiled.API.Features.Warhead.IsLocked) {
-                    AlphaWarhead_HUD = "<color=#808080><size=25><align=right> Стан боєголовки: <color=red> заблокированно </align></size></color>\n";
+                    AlphaWarhead_HUD = "<color=#808080><size=23><align=right> Стан боєголовки: <color=red> заблокированно </align></size></color>\n";
                 } else if (!Exiled.API.Features.Warhead.IsLocked) {
-                    AlphaWarhead_HUD = "<color=#808080><size=25><align=right> Стан боєголовки:<color=#02f723> Готова </align></size></color>\n";
+                    AlphaWarhead_HUD = "<color=#808080><size=23><align=right> Стан боєголовки:<color=#02f723> Готова </align></size></color>\n";
                 } else {
-                    AlphaWarhead_HUD = "<color=#808080><size=25><align=right> Стан боєголовки:<color=#f7db02> Сдетанированна </align></size></color>\n";
+                    AlphaWarhead_HUD = "<color=#808080><size=23><align=right> Стан боєголовки:<color=#f7db02> Сдетанированна </align></size></color>\n";
                 }
                 Spawn_T = $"<color=#00ff08> Ви з'явитесь за: {RespawnTokensManager.DominatingTeam} </size></color>\n";
                 Spawn_W = $"<color=#00ff08> Ви з'явитеся через: {RespawnManager.Singleton.TimeTillRespawn.ToString("D2")} </size></color>\n";
-                Mixed_HUD = $"<size=25> {RoundTime_HUD + AlphaWarhead_HUD + Spawn_T + Spawn_W}</size>";
                 var elementReference = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(RoundTime_HUD, 760, TimeSpan.FromSeconds(1f), elementReference);
+                displayCore.SetElemTemp(RoundTime_HUD, 760, TimeSpan.FromSeconds(2), elementReference);
 
                 var elementReference_0 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(AlphaWarhead_HUD, 800, TimeSpan.FromSeconds(1f), elementReference_0);
-
+                displayCore.SetElemTemp(AlphaWarhead_HUD, 800, TimeSpan.FromSeconds(2), elementReference_0);
+                
                 var elementReference_1 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(Spawn_T, 40, TimeSpan.FromSeconds(1f), elementReference_1);
+                displayCore.SetElemTemp(Spawn_T, 40, TimeSpan.FromSeconds(2), elementReference_1);
 
                 var elementReference_2 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(Spawn_W, 0, TimeSpan.FromSeconds(1f), elementReference_2);
+                displayCore.SetElemTemp(Spawn_W, 0, TimeSpan.FromSeconds(2), elementReference_2);
 
                 var elementReference_3 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(Progress_Bar, 60, TimeSpan.FromSeconds(1f), elementReference_3);
+                displayCore.SetElemTemp("Текст", 80, TimeSpan.FromSeconds(2), elementReference_3);
+
+                var elementReference_4 = new TimedElemRef<SetElement>();
+                displayCore.SetElemTemp($"<color=#808080><size=23>Найкрашчий гравець: {API.API.Best_Player()}</size></color>\n", 120, TimeSpan.FromSeconds(2), elementReference_4);
 
 
-                yield return Timing.WaitForSeconds(0.5f);
+                yield return Timing.WaitForSeconds(1);
                 displayCore.RemoveReference(elementReference_0);
                 displayCore.RemoveReference(elementReference);
                 displayCore.RemoveReference(elementReference_1);
                 displayCore.RemoveReference(elementReference_2);
                 displayCore.RemoveReference(elementReference_3);
+                displayCore.RemoveReference(elementReference_4);
             }
         }
         void OnDisable() {

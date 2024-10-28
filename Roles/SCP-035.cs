@@ -3,9 +3,11 @@ using Exiled.API.Extensions;
 using Exiled.API.Features;
 using Exiled.API.Features.Doors;
 using Exiled.API.Features.Items;
+using Exiled.API.Features.Pickups;
 using Exiled.Events.EventArgs.Player;
 using Exiled.Events.EventArgs.Scp096;
 using Exiled.Events.EventArgs.Scp3114;
+using Exiled.Events.EventArgs.Scp330;
 using Exiled.Events.EventArgs.Warhead;
 using MEC;
 using PlayerRoles;
@@ -53,7 +55,7 @@ class SCP035 : MonoBehaviour {
     }
     void Ch_Role(ChangingRoleEventArgs ev) {
         if (ev.Player == player && ev.NewRole == RoleTypeId.Spectator) {
-            Global.Player_Role["035"] = null;
+            Global.Player_Role.Remove("035");
             Cassie.Message("<size=0> scp - 0 35 has been containment PITCH_0.1 .G6 PITCH_0.5 <color=green> <size=25> ^^ </size> </color>");
             Timing.KillCoroutines(35);
             ev.Player.CustomInfo = string.Empty;
@@ -129,11 +131,17 @@ class SCP035 : MonoBehaviour {
         }
     }
     void Cf(HandcuffingEventArgs ev) { 
-        if (ev.Player == player) {
+        if (ev.Target == player) {
             ev.IsAllowed = false;   
         }
     }
+    void Cand(EatingScp330EventArgs ev) { 
+        if (ev.Player == player) {
+            ev.IsAllowed = false;
+        }
+    }
     void OnEnable() {
+        Exiled.Events.Handlers.Scp330.EatingScp330 += Cand;
         Exiled.Events.Handlers.Player.Handcuffing += Cf;
         Exiled.Events.Handlers.Scp3114.Strangling += HCSCP3114;
         Exiled.Events.Handlers.Player.DroppingItem += Drop;
@@ -146,6 +154,7 @@ class SCP035 : MonoBehaviour {
         Exiled.Events.Handlers.Player.Hurting += OnDamage;
     }
     void OnDisable() {
+        Exiled.Events.Handlers.Scp330.EatingScp330 -= Cand;
         Exiled.Events.Handlers.Player.Handcuffing -= Cf;
         Exiled.Events.Handlers.Scp3114.Strangling -= HCSCP3114;
         Exiled.Events.Handlers.Player.DroppingItem -= Drop;

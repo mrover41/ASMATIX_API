@@ -29,30 +29,4 @@ namespace TestPlugin
         public static Dictionary<Player, int> Player_Oboron = new Dictionary<Player, int>();
         public static Dictionary<string, Player> Player_Role = new Dictionary<string, Player>();
     }
-    public static class Spawn_System
-    {
-        public static void Spawn(Player player, uint ID)
-        {
-            CustomRole.Get(ID).AddRole(player);
-        }
-        public static void RoundSt() {
-            //SPAWN
-            //343
-            if (Exiled.API.Features.Player.List.Count() >= 8) {
-                if (API.random.Next(0, 100) < 1) {
-                    Spawn_System.Spawn(Exiled.API.Features.Player.List.Where(x => x.Role.Type == RoleTypeId.ClassD)?.ToList().RandomItem(), 343);
-                }
-            }
-            //035
-            if (Exiled.API.Features.Player.List.Count() >= 8) {
-                if (API.random.Next(0, 100) < 50) {
-                    Global.SCP035 = false;
-                    Exiled.API.Features.Player pl = Exiled.API.Features.Player.List.GetRandomValue();
-                    Global.Player_Role.Add("035", pl);
-                    //Spawn_System.Spawn(Exiled.API.Features.Player.List.Where(x => x.IsScp)?.ToList().RandomItem(), 35);
-                    pl.GameObject.AddComponent<SCP035>();
-                }
-            }
-        }
-    }
 }

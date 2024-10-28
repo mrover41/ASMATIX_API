@@ -36,12 +36,19 @@ namespace TestPlugin.Item
         protected override void SubscribeEvents() {
             Exiled.Events.Handlers.Player.Hurting += Hut;
             Exiled.Events.Handlers.Player.Spawned += Spawner;
+            Exiled.Events.Handlers.Player.ChangedItem += Select_Info;
             base.SubscribeEvents();
         }
         protected override void UnsubscribeEvents() {
             Exiled.Events.Handlers.Player.Hurting -= Hut;
             Exiled.Events.Handlers.Player.Spawned -= Spawner;
+            Exiled.Events.Handlers.Player.ChangedItem -= Select_Info;
             base.UnsubscribeEvents();
+        }
+        void Select_Info(ChangedItemEventArgs ev) { 
+            if (Check(ev.Item)) {
+                ev.Player.Broadcast(4, "<b><color=#FCF7D9>Ви підібрали</color> <color=#A9BCD4>Димову гранату</color></b>");
+            }
         }
         void Spawner(SpawnedEventArgs ev) { 
             if (ev.Player.Role.Type == RoleTypeId.NtfSergeant) {

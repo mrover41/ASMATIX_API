@@ -28,18 +28,22 @@ public class ItemD : CustomWeapon {
     public override float Damage { get; set; } = 0;
     public override byte ClipSize { get; set; } = 3;
 
-    protected override void SubscribeEvents()
-    {
+    protected override void SubscribeEvents() {
         base.SubscribeEvents();
         Exiled.Events.Handlers.Player.Shot += Wapon;
+        Exiled.Events.Handlers.Player.ChangedItem += Select_Info;
     }
 
-    protected override void UnsubscribeEvents()
-    {
+    protected override void UnsubscribeEvents() {
         Exiled.Events.Handlers.Player.Shot -= Wapon;
+        Exiled.Events.Handlers.Player.ChangedItem -= Select_Info;
         base.UnsubscribeEvents();
     }
-
+    void Select_Info(ChangedItemEventArgs ev) { 
+        if (Check(ev.Item)) {
+            ev.Player.Broadcast(4, "<b><color=#FCF7D9>Ви підібрали</color> <color=#00ADAD>Дублікатор</color></b>");
+        }
+    }
     void Wapon(ShotEventArgs ev) {
         if (!Check(ev.Item)) {
             return;
@@ -47,14 +51,10 @@ public class ItemD : CustomWeapon {
         if (ev.Target != null) {
             Ragdoll.CreateAndSpawn(ev.Target.Role.Type, ev.Target.Nickname, "Душа покинула его убегая от парадоксов", ev.Target.Transform.position, ev.Target.Transform.rotation);
         }
-        if (!Global.it.ContainsKey(ev.Item)) {
-            Global.it.Add(ev.Item, 3);
-        } if (Physics.Linecast(ev.Player.CameraTransform.position, ev.RaycastHit.point, out RaycastHit raycastHit)) {
-            if (raycastHit.transform.TryGetComponent(out ItemPickupBase itemPickupBase) && Global.it[ev.Item] > 0) {
+        if (Physics.Linecast(ev.Player.CameraTransform.position, ev.RaycastHit.point, out RaycastHit raycastHit)) {
+            if (raycastHit.transform.TryGetComponent(out ItemPickupBase itemPickupBase)) {
                 if (itemPickupBase.NetworkInfo.ItemId != ItemType.MicroHID && itemPickupBase.NetworkInfo.ItemId != ItemType.ParticleDisruptor && itemPickupBase.NetworkInfo.ItemId != ItemType.Jailbird) {
                     Pickup.CreateAndSpawn(itemPickupBase.NetworkInfo.ItemId, ev.RaycastHit.point + Vector3.up * 0.5f, default);
-                    Global.it[ev.Item]--;
-                    ev.Firearm.Ammo = (byte)Global.it[ev.Item];
                 } else {
                     if (ev.Player.Health > 30) {
                         ev.Player.Health -= 30;

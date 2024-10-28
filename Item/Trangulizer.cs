@@ -26,13 +26,19 @@ public class Trangulizer : CustomWeapon {
     protected override void SubscribeEvents() {
         base.SubscribeEvents();
         Exiled.Events.Handlers.Player.Shot += Sh;
+        Exiled.Events.Handlers.Player.ChangedItem += Select_Info;
     }
     
     protected override void UnsubscribeEvents() {
         Exiled.Events.Handlers.Player.Shot -= Sh;
+        Exiled.Events.Handlers.Player.ChangedItem -= Select_Info;
         base.UnsubscribeEvents();
     }
-
+    void Select_Info(ChangedItemEventArgs ev) { 
+        if (Check(ev.Item)) {
+            ev.Player.Broadcast(4, "<b><color=#FCF7D9>Ви підібрали</color> <color=#DB633C>Транквілізатор</color></b>");
+        }
+    }
     void Sh(ShotEventArgs ev) {
         if (!Check(ev.Item)) {
             return;
