@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8cev9XuRx34=",
+  "dgSpecHash": "GheqghpskMQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\TestPlugin.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\Documents\\ASMATIX_API\\TestPlugin\\TestPlugin.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\exiledofficial\\8.11.0\\exiledofficial.8.11.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\lib.harmony\\2.2.2\\lib.harmony.2.2.2.nupkg.sha512",
