@@ -1,22 +1,9 @@
-﻿using CommandSystem.Commands.RemoteAdmin;
-using Exiled.API.Enums;
-using Exiled.API.Extensions;
-using Exiled.API.Features;
-using Exiled.API.Features.Items;
-using Exiled.API.Features.Pickups;
-using Exiled.CustomRoles.API.Features;
-using Exiled.Events.EventArgs.Player;
-using MEC;
-using PlayerRoles;
+﻿using Exiled.API.Features;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
-namespace TestPlugin
-{
-    public static class Global
-    {
+namespace TestPlugin {
+    public static class Global {
         //Action
         public static Action Run_ob;
         public static Action Stop_ob;

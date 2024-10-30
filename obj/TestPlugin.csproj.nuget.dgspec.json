@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\TestPlugin.csproj": {}
+    "C:\\Users\\Admin\\Documents\\ASMATIX_API\\TestPlugin\\TestPlugin.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\TestPlugin.csproj": {
+    "C:\\Users\\Admin\\Documents\\ASMATIX_API\\TestPlugin\\TestPlugin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\TestPlugin.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\Documents\\ASMATIX_API\\TestPlugin\\TestPlugin.csproj",
         "projectName": "TestPlugin",
-        "projectPath": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\TestPlugin.csproj",
+        "projectPath": "C:\\Users\\Admin\\Documents\\ASMATIX_API\\TestPlugin\\TestPlugin.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\obj\\",
+        "outputPath": "C:\\Users\\Admin\\Documents\\ASMATIX_API\\TestPlugin\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "configFilePaths": [
@@ -48,20 +48,6 @@
               "version": "[2.1.0, )"
             }
           }
-        }
-      },
-      "runtimes": {
-        "win": {
-          "#import": []
-        },
-        "win-arm64": {
-          "#import": []
-        },
-        "win-x64": {
-          "#import": []
-        },
-        "win-x86": {
-          "#import": []
         }
       }
     }

@@ -1,23 +1,11 @@
 ﻿
-﻿using Exiled.API.Extensions;
 using Exiled.API.Features;
-using Exiled.API.Features.Attributes;
 using Exiled.CustomItems.API;
-using Exiled.CustomItems.API.Features;
 using Exiled.CustomRoles.API;
-using Exiled.CustomRoles.API.Features;
-using Exiled.Events.EventArgs.Player;
-using MEC;
-using PlayerRoles;
-using System.IO;
-using PluginAPI.Core;
 using System;
 using TestPlugin;
-using TestPlugin.Configs;
 using TestPlugin.GoodMode;
 using TestPlugin.HUD;
-using UnityEngine;
-using PluginAPI.Core.Attributes;
 
 public sealed class test : Plugin<Config>
 {
