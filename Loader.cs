@@ -12,7 +12,6 @@ using PlayerRoles;
 using System.IO;
 using PluginAPI.Core;
 using System;
-using System.Linq;
 using TestPlugin;
 using TestPlugin.Configs;
 using TestPlugin.GoodMode;
