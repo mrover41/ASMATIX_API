@@ -60,7 +60,11 @@ namespace API {
         }
         void Add_Token(DiedEventArgs ev) { 
             if (ev.Attacker == player) {
-                Count += 10;
+                if (ev.Attacker.IsScp) {
+                    Count += 1;
+                } else {
+                    Count += 20;
+                }
             }
         }
         void Reset_Token(DiedEventArgs ev) { 
@@ -96,16 +100,16 @@ namespace API {
         static void Disconnect_Player(LeftEventArgs ev) { 
             player_score.Remove(ev.Player);
         }
-        public static string Best_Player() {
+        public static Player Best_Player() {
             int Tmp_Score = 0;
-            string best = Player.List.Last().Nickname;
+            Player best = Player.List.Last();
             try {
                 foreach (Player player in Player.List)
                 {
                     if (player_score[player].Count >= Tmp_Score && player_score.ContainsKey(player))
                     {
                         Tmp_Score = player_score[player].Count;
-                        best = player.Nickname;
+                        best = player;
                     }
                 }
             } catch (Exception ex) { 
