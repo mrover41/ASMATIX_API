@@ -1,5 +1,4 @@
 ﻿using CommandSystem;
-using Cryptography;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using MEC;
