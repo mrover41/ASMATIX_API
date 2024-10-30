@@ -34,6 +34,8 @@ namespace TestPlugin.HUD {
                 ev.Player.GameObject.AddComponent<Human_HUD>();
             } else if (ev.Player.IsHuman && ev.Player.Role.Type == RoleTypeId.Tutorial) {
                 ev.Player.GameObject.AddComponent<Tutorial_HUD>();
+            } else if (ev.Player.Role.Type == RoleTypeId.Spectator) {
+                ev.Player.GameObject.AddComponent<Ghost_HUD>();
             }
         }
         public static void _Died(DiedEventArgs ev) { 

@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|c:\\users\\admin\\source\\repos\\testplugin\\testplugin\\mr_over41\\hud\\hud_loader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:mr_over41\\hud\\hud_loader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|c:\\users\\admin\\source\\repos\\testplugin\\testplugin\\mr_over41\\hud\\hud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:mr_over41\\hud\\hud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -23,12 +27,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "HUD_LOADER.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\HUD\\HUD_LOADER.cs",
+              "RelativeDocumentMoniker": "Mr_Over41\\HUD\\HUD_LOADER.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\HUD\\HUD_LOADER.cs",
+              "RelativeToolTip": "Mr_Over41\\HUD\\HUD_LOADER.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAgwCUAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-30T11:48:42.823Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "HUD.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\HUD\\HUD.cs",
               "RelativeDocumentMoniker": "Mr_Over41\\HUD\\HUD.cs",
               "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\HUD\\HUD.cs",
               "RelativeToolTip": "Mr_Over41\\HUD\\HUD.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAwwDsAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-30T11:43:39.612Z",
               "EditorCaption": ""
