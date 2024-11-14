@@ -40,26 +40,16 @@ public class Trangulizer : CustomWeapon {
         }
     }
     void Sh(ShotEventArgs ev) {
-        if (!Check(ev.Item) || ev.Player == Global.Player_Role["035"]) {
+        if (!Check(ev.Item)) {
             return;
-        }
-        if (ev.Target.IsGodModeEnabled) {
+        } if (ev.Target.IsGodModeEnabled) {
             return;
-        }
-        ev.Damage = 0;
-        if (ev.Target.IsScp) {
+        } if (ev.Target.IsScp) {
             Timing.RunCoroutine(SCPDelay(ev.Target));
         } else if (ev.Player.LeadingTeam != ev.Target.LeadingTeam) {
-            if (Global.Player_Role.ContainsKey("035")) {
-                if (ev.Target == Global.Player_Role["035"]) {
-                    Timing.RunCoroutine(SCPDelay(ev.Target));
-                } else {
-                    Timing.RunCoroutine(Delay(ev.Target));
-                }
-            } else {
-                Timing.RunCoroutine(Delay(ev.Target));
-            }
+            Timing.RunCoroutine(Delay(ev.Target));
         }
+        ev.Damage = 0;
     }
 
 

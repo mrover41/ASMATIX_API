@@ -11,6 +11,7 @@ using Utf8Json.Internal.DoubleConversion;
 using Exiled.CustomRoles.API.Features;
 using Exiled.API.Extensions;
 using Utils.NonAllocLINQ;
+using MapEditorReborn.API.Extensions;
 
 namespace TestPlugin
 {
@@ -37,22 +38,19 @@ namespace TestPlugin
         }
     }
     public static class L { 
-        public static string Logi(Player send,List<string> arguments ,bool isAdmin = false) {
+        public static string Logi(Player send, List<string> arguments ,bool isAdmin = false) {
             string response;
             if (send.Team != Team.SCPs && !isAdmin) {
                 response = "Ви не SCP";
                 return response;
-            }
-            if (arguments.Count < 1) {
+            } if (arguments.Count < 1) {
                 response = "Такого SCP не існує";
                 return response;
-            }
-            if (DateTime.Now.Second - Round.Duration.TotalSeconds < 30 || isAdmin) {
+            } if (Round.Duration.Seconds < 30 || isAdmin) {
                 switch (arguments.First()) {
                     case "035":
                         if (!Global.Player_Role.ContainsKey("035")) {
                             send.GameObject.AddComponent<SCP035>();
-                            Global.Player_Role.Add("035", send);
                         } else {
                             response = "035 уже есть";
                             return response;

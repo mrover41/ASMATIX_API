@@ -48,10 +48,12 @@ namespace TestPlugin.Item
         };
         protected override void SubscribeEvents() {
             Exiled.Events.Handlers.Player.UsingItemCompleted += Us;
+            Exiled.Events.Handlers.Player.ChangedItem += SelectItem;
             base.SubscribeEvents();
         }
         protected override void UnsubscribeEvents() {
             Exiled.Events.Handlers.Player.UsingItemCompleted -= Us;
+            Exiled.Events.Handlers.Player.ChangedItem -= SelectItem;
             base.UnsubscribeEvents();
         }
         void Us(UsingItemCompletedEventArgs ev) { 
@@ -60,12 +62,19 @@ namespace TestPlugin.Item
                 Timing.RunCoroutine(_Effect(ev.Player));
             }
         }
+        void SelectItem(ChangedItemEventArgs ev) {
+            if (!Check(ev.Item)) {
+                return;
+            }
+            ev.Player.Broadcast(4, "<b>Ви підібрали <color=#559EFF>Води</color></b>");
+        }
         IEnumerator<float> _Effect(Player player) {
             player.DisableEffect(EffectType.AntiScp207);
-            player.DisableEffect(EffectType.Scp207);
             player.EnableEffect(EffectType.MovementBoost, 40, 10);
+            player.DisableEffect(EffectType.Scp207);
             yield return Timing.WaitForSeconds(5);
             player.DisableEffect(EffectType.MovementBoost);
+            player.DisableEffect(EffectType.Scp207);
         }
     }
 }

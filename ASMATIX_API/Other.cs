@@ -10,7 +10,6 @@ namespace TestPlugin {
         //bpr
         public static bool d = false;
         public static bool f = true;
-        public static bool SCP035 = true;
         //Information
         public static Dictionary<Exiled.API.Features.Items.Item, int> it = new Dictionary<Exiled.API.Features.Items.Item, int>();
         public static Dictionary<Player, int> Player_Oboron = new Dictionary<Player, int>();

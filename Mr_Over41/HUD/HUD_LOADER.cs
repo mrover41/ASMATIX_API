@@ -6,46 +6,61 @@ using UnityEngine;
 namespace TestPlugin.HUD {
     internal class HUD_LOADER {
         public static void OnEnabled() {
-            Exiled.Events.Handlers.Player.Spawned += Spawn;
-            Exiled.Events.Handlers.Player.Died += _Died;
+            Exiled.Events.Handlers.Player.Spawned += Sp;
+            Exiled.Events.Handlers.Player.Died += ChRole;
         }
         public static void OnDisabled() {
-            Exiled.Events.Handlers.Player.Spawned -= Spawn;
-            Exiled.Events.Handlers.Player.Died -= _Died;
+            Exiled.Events.Handlers.Player.Spawned -= Sp;
+            Exiled.Events.Handlers.Player.Died -= ChRole;
         }
-        static void Spawn(SpawnedEventArgs ev) {
-            if (ev.Player == null) {
-                return;
-            } if (Round.IsLobby) {
-                return;
-            }
-            Human_HUD human_HUD = ev.Player.GameObject.GetComponent<Human_HUD>();
-            Ghost_HUD ghost_HUD = ev.Player.GameObject.GetComponent<Ghost_HUD>();
-            Tutorial_HUD tutorial_HUD = ev.Player.GameObject.GetComponent<Tutorial_HUD>();
-            if (human_HUD != null) {
-                MonoBehaviour.Destroy(human_HUD);
-            } if (ghost_HUD != null) { 
-                MonoBehaviour.Destroy(ghost_HUD);
-            } if (tutorial_HUD != null) {
-                MonoBehaviour.Destroy(tutorial_HUD);
+        static void Sp(SpawnedEventArgs ev) { 
+            HudCh(ev.Player);
+        }
+        static void ChRole(DiedEventArgs ev) {
+            DiedGhost(ev.Player);
+        }
+        static void HudCh(Player player) {
+            if (player.GameObject.TryGetComponent<Human_HUD>(out var component)) {
+                UnityEngine.Object.Destroy(component);
+            } if (player.GameObject.TryGetComponent<Tutorial_HUD>(out var component0)) {
+                UnityEngine.Object.Destroy(component0);
+            } if (player.GameObject.TryGetComponent<SCP_HUD>(out var component1)) {
+                UnityEngine.Object.Destroy(component1);
+            } if (player.GameObject.TryGetComponent<Ghost_HUD>(out var component2)) {
+                UnityEngine.Object.Destroy(component2);
+            } if (player.GameObject.TryGetComponent<SCP035_HUD>(out var component3)) {
+                UnityEngine.Object.Destroy(component3);
             }
 
-            if (ev.Player.IsHuman && ev.Player.Role.Type != RoleTypeId.Tutorial) { 
-                ev.Player.GameObject.AddComponent<Human_HUD>();
-            } else if (ev.Player.IsHuman && ev.Player.Role.Type == RoleTypeId.Tutorial) {
-                ev.Player.GameObject.AddComponent<Tutorial_HUD>();
-            } else if (ev.Player.Role.Type == RoleTypeId.Spectator) {
-                ev.Player.GameObject.AddComponent<Ghost_HUD>();
+            if (player.IsHuman) {
+                if (Global.Player_Role.ContainsKey("035")) { 
+                    if (player != Global.Player_Role["035"]) {
+                        player.GameObject.AddComponent<Human_HUD>();
+                    } else { 
+                        player.GameObject.AddComponent<SCP035_HUD>();
+                    }
+                } else {
+                    player.GameObject.AddComponent<Human_HUD>();
+                }
+            } if (player.IsScp) {
+                player.GameObject.AddComponent<SCP_HUD>();
+            } if (player.IsTutorial) {
+                //player.GameObject.AddComponent<Tutorial_HUD>();
             }
         }
-        public static void _Died(DiedEventArgs ev) { 
-            Human_HUD human_HUD = ev.Player.GameObject.GetComponent<Human_HUD>();
-            Ghost_HUD ghost_HUD = ev.Player.GameObject.GetComponent<Ghost_HUD>();
-            if (human_HUD != null) { 
-                MonoBehaviour.Destroy(human_HUD);
-            } if (ghost_HUD == null) {
-                ev.Player.GameObject.AddComponent<Ghost_HUD>();
+
+        static void DiedGhost(Player player) {
+            if (player.GameObject.TryGetComponent<Human_HUD>(out var component)) {
+                UnityEngine.Object.Destroy(component);
+            } if (player.GameObject.TryGetComponent<Tutorial_HUD>(out var component0)) {
+                UnityEngine.Object.Destroy(component0);
+            } if (player.GameObject.TryGetComponent<SCP_HUD>(out var component1)) {
+                UnityEngine.Object.Destroy(component1);
+            } if (player.GameObject.TryGetComponent<SCP035_HUD>(out var component2)) {
+                UnityEngine.Object.Destroy(component2);
             }
+
+            //player.GameObject.AddComponent<Ghost_HUD>();
         }
     }
 }

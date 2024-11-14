@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace API {
+    class EventPool {
+
+    }
     public static class Player_Mod {
         public static IEnumerator<float> Damage(Player player, float s, int damage) {
             for (; ; ) {
@@ -18,7 +21,6 @@ namespace API {
                     player.Health -= damage;
                 } else {
                     player.Kill(DamageType.ParticleDisruptor);
-                    Timing.KillCoroutines(035);
                 }
             }
         }
@@ -56,7 +58,7 @@ namespace API {
         void Add_Token(DiedEventArgs ev) { 
             if (ev.Attacker == player) {
                 if (ev.Attacker.IsScp) {
-                    Count += 1;
+                    Count = 0;
                 } else {
                     Count += 20;
                 }
@@ -99,16 +101,14 @@ namespace API {
             int Tmp_Score = 0;
             Player best = Player.List.Last();
             try {
-                foreach (Player player in Player.List)
-                {
-                    if (player_score[player].Count >= Tmp_Score && player_score.ContainsKey(player))
-                    {
+                foreach (Player player in Player.List) {
+                    if (player_score[player].Count >= Tmp_Score && player_score.ContainsKey(player)) {
                         Tmp_Score = player_score[player].Count;
                         best = player;
                     }
                 }
             } catch (Exception ex) { 
-                Log.Info(ex.Message);
+                //Log.Info(ex.Message);
             }
             return best;
         }
@@ -128,9 +128,7 @@ namespace API {
             //035
             if (Exiled.API.Features.Player.List.Count() >= 8) {
                 if (_System.random.Next(0, 100) < 50) {
-                    Exiled.API.Features.Player pl = Exiled.API.Features.Player.List.GetRandomValue();
-                    TestPlugin.Global.Player_Role.Add("035", pl);
-                    //Spawn_System.Spawn(Exiled.API.Features.Player.List.Where(x => x.IsScp)?.ToList().RandomItem(), 35);
+                    Exiled.API.Features.Player pl = Exiled.API.Features.Player.List.Where(x => x.IsScp)?.ToList().GetRandomValue();
                     pl.GameObject.AddComponent<SCP035>();
                 }
             }

@@ -26,3 +26,5 @@ C:\Users\Admin\source\repos\TestPlugin\TestPlugin\bin\Debug\Exiled.CustomRoles.d
 C:\Users\Admin\source\repos\TestPlugin\TestPlugin\bin\Debug\YamlDotNet.dll
 C:\Users\Admin\source\repos\TestPlugin\TestPlugin\bin\Debug\UnityEngine.dll
 C:\Users\Admin\source\repos\TestPlugin\TestPlugin\bin\Debug\RueI.dll
+C:\Users\Admin\source\repos\TestPlugin\TestPlugin\bin\Debug\MapEditorReborn.dll
+C:\Users\Admin\source\repos\TestPlugin\TestPlugin\bin\Debug\SCPSLAudioApi.dll

@@ -31,13 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Desktop\ref\0Harmony.dll</HintPath>
-    </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Desktop\ref\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="AudioPlayer">
+      <HintPath>..\..\..\..\Desktop\ref\AudioPlayer.dll</HintPath>
+    </Reference>
+    <Reference Include="MapEditorReborn">
+      <HintPath>..\..\..\..\Desktop\ref\MapEditorReborn.dll</HintPath>
     </Reference>
     <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -47,8 +49,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Desktop\ref\Mono.Posix.dll</HintPath>
     </Reference>
-    <Reference Include="RueI">
-      <HintPath>..\..\..\..\Desktop\ref\RueI.dll</HintPath>
+    <Reference Include="SCPSLAudioApi">
+      <HintPath>..\..\..\..\Desktop\ref\SCPSLAudioApi.dll</HintPath>
     </Reference>
     <Reference Include="SemanticVersioning, Version=2.0.2.0, Culture=neutral, PublicKeyToken=a89bb7dc6f7a145c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

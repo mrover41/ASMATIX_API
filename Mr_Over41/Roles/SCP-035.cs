@@ -9,22 +9,32 @@ using Exiled.Events.EventArgs.Scp096;
 using Exiled.Events.EventArgs.Scp3114;
 using Exiled.Events.EventArgs.Scp330;
 using Exiled.Events.EventArgs.Warhead;
+using HarmonyLib;
+using MapEditorReborn.API.Features;
 using MEC;
+using Mirror;
 using PlayerRoles;
+using RueI.Displays.Scheduling;
+using RueI.Displays;
+using RueI.Elements;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TestPlugin;
 using UnityEngine;
+using RueI.Extensions;
 
 
 class SCP035 : MonoBehaviour {
     Player player;
+    MapEditorReborn.API.Features.Objects.SchematicObject spawnedSchematic = ObjectSpawner.SpawnSchematic("scp035", new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), null, null, false);
     public static int Coin_CD = 0;
     void Start() {
         player = Player.Get(this.gameObject);
         if (player == null) {
             return;
         }
+        Global.Player_Role.Add("035", player);
         player.CustomInfo = "SCP-035";
         Timing.RunCoroutine(Updater(player), 35);
         Timing.RunCoroutine(Cd_Updater(), 35);
@@ -39,7 +49,9 @@ class SCP035 : MonoBehaviour {
         player.AddItem(ItemType.Coin);
         player.AddItem(ItemType.SCP500);
         player.AddItem(ItemType.KeycardZoneManager);
-        Global.Player_Role.Add("035", player);
+        spawnedSchematic = ObjectSpawner.SpawnSchematic("scp035mask", player.Transform.position, Quaternion.identity, null, null, false);
+        spawnedSchematic.transform.SetParent(player.CameraTransform.transform);
+        spawnedSchematic.transform.localPosition = new Vector3(-0.1f, 0f, 0.2f);
     }
     void OnDamage(HurtingEventArgs ev) { 
         if (ev.Player == player && ev.DamageHandler.Type.IsScp(true)) { 
@@ -49,6 +61,8 @@ class SCP035 : MonoBehaviour {
         }
     }
     void Update() {
+        //spawnedSchematic.transform.position = player.Transform.position + new Vector3(0, 0.6f, 0);
+        //spawnedSchematic.transform.rotation = player.CameraTransform.rotation * Quaternion.Euler(0, 90, 0);
         if (player == null) { 
             return;
         }
@@ -56,7 +70,7 @@ class SCP035 : MonoBehaviour {
     void Ch_Role(ChangingRoleEventArgs ev) {
         if (ev.Player == player && ev.NewRole == RoleTypeId.Spectator) {
             Global.Player_Role.Remove("035");
-            Cassie.Message("<size=0> scp - 0 35 has been containment PITCH_0.1 .G6 PITCH_0.5 <color=green> <size=25> ^^ </size> </color>");
+            Cassie.Message($"<size=0> scp - 0 35 has been containment <color=green> <size=25> ^^ </size> </color>");
             Timing.KillCoroutines(35);
             ev.Player.CustomInfo = string.Empty;
             Destroy(this);
@@ -115,7 +129,9 @@ class SCP035 : MonoBehaviour {
         }
         if (ev.Player == player) { 
             if (ev.Item.Type == ItemType.Coin) {
-                ev.Player.ShowHint("<color=#c7956b> Ця здібность дає змогу вкрасти у ближнього гравця 37 хп\n (Примітка: Здатність підсумовується, якщо гравці, що стоять поруч із маскою (SCP 035), більше, ніж 1 людина). </color>");
+                DisplayCore displayCore = DisplayCore.Get(player.ReferenceHub);
+                var elementReference_1 = new TimedElemRef<SetElement>();
+                displayCore.SetElemTemp("<color=#c7956b> Краде у ближнього гравця 37 ХП\nСумується, якщо поруч більше 1 гравця </color>", 200, TimeSpan.FromSeconds(2), elementReference_1);
             }
         }
     }
@@ -144,20 +160,30 @@ class SCP035 : MonoBehaviour {
             ev.IsAllowed = false;
         }
     }
+
+    void Generator(ActivatingGeneratorEventArgs ev) { 
+        if (ev.Player == player) {
+            ev.IsAllowed = false;
+        }
+    }
+
     void OnEnable() {
+        Exiled.Events.Handlers.Player.ActivatingGenerator += Generator;
         Exiled.Events.Handlers.Scp330.EatingScp330 += Cand;
         Exiled.Events.Handlers.Player.Handcuffing += Cf;
         Exiled.Events.Handlers.Scp3114.Strangling += HCSCP3114;
         Exiled.Events.Handlers.Player.DroppingItem += Drop;
         Exiled.Events.Handlers.Player.FlippingCoin += _Coin;
         Exiled.Events.Handlers.Player.ChangingRole += Ch_Role;
-        Exiled.Events.Handlers.Player.PickingUpItem += Pk;
+        Exiled.Events.Handlers.Player.PickingUpItem += Pk;  
         Exiled.Events.Handlers.Player.ChangedItem += Select_Item;
         Exiled.Events.Handlers.Scp096.AddingTarget += OnAddTarget;
         Exiled.Events.Handlers.Player.InteractingDoor += Door_Interact;
         Exiled.Events.Handlers.Player.Hurting += OnDamage;
+        //AudioPlayer.API.AudioController.SpawnDummy(0, "SCP-035 Controller");
     }
     void OnDisable() {
+        Exiled.Events.Handlers.Player.ActivatingGenerator -= Generator;
         Exiled.Events.Handlers.Scp330.EatingScp330 -= Cand;
         Exiled.Events.Handlers.Player.Handcuffing -= Cf;
         Exiled.Events.Handlers.Scp3114.Strangling -= HCSCP3114;
@@ -169,6 +195,10 @@ class SCP035 : MonoBehaviour {
         Exiled.Events.Handlers.Scp096.AddingTarget -= OnAddTarget;
         Exiled.Events.Handlers.Player.InteractingDoor -= Door_Interact;
         Exiled.Events.Handlers.Player.Hurting -= OnDamage;
+        //AudioPlayer.API.AudioController.DisconnectDummy(0);
+        spawnedSchematic.Destroy();
+        Global.Player_Role.Remove("035");
+        Timing.KillCoroutines("035");
     }
     IEnumerator<float> Updater(Player pl) {
         yield return Timing.WaitForSeconds(2f);
@@ -179,11 +209,21 @@ class SCP035 : MonoBehaviour {
     }
     IEnumerator<float> Cd_Updater() {
         yield return Timing.WaitForSeconds(1f);
+        var elementReference = new TimedElemRef<SetElement>();
+        DisplayCore displayCore = DisplayCore.Get(player.ReferenceHub);
         for (; ; ) {
-            yield return Timing.WaitForSeconds(1);
             if (Coin_CD > 0) {
                 Coin_CD--;
+                displayCore = DisplayCore.Get(player.ReferenceHub);
+                elementReference = new TimedElemRef<SetElement>();
+                displayCore.SetElemTemp($"<align=left><color=#ff008c><size={20}><b>       〚🎭〛Здiбнoсть: <color=#F9F1FF>{Coin_CD}</color></align></size>", 10, TimeSpan.FromSeconds(2), elementReference);
+            } else {
+                displayCore = DisplayCore.Get(player.ReferenceHub);
+                elementReference = new TimedElemRef<SetElement>();
+                displayCore.SetElemTemp($"<align=left><color=#ff008c><size={20}><b>       〚🎭〛Здiбнoсть: <color=#66F261>Готово</color></align></size>", 10, TimeSpan.FromSeconds(2), elementReference);
             }
+            yield return Timing.WaitForSeconds(1);
+            displayCore.RemoveReference(elementReference);
         }
     }
 }

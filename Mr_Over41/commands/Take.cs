@@ -28,7 +28,7 @@ namespace TestPlugin.commands
                 response = "У вас нету ручек ;)";
                 return false;
             }
-            if (Physics.Linecast(player.Camera.gameObject.transform.position, player.Camera.gameObject.transform.position * 10, out RaycastHit info)) {
+            if (Physics.Linecast(player.Camera.gameObject.transform.position, player.Camera.forward * 100, out RaycastHit info)) {
                 if (info.transform.TryGetComponent(out ItemPickupBase pickupBase)) {
                     if (pickupBase.NetworkInfo.ItemId.IsKeycard()) {
                         player.AddItem(pickupBase.NetworkInfo.ItemId);
