@@ -75,7 +75,7 @@ namespace TestPlugin {
                     yield break;
                 }
                 offset = -20;
-                //TEXT
+
                 HUD_Name = $"<align=left><size={size}><b><color=#F5F5F5>       〚<color={player.Role.Color.ToHex()}>⭐<color=#F5F5F5>〛<color={player.Role.Color.ToHex()}>Роль: SCP035 </b></size></color></align>";
                 HUD_Role = $"<align=left><size={size}><b><color=#F5F5F5>       〚<color={player.Role.Color.ToHex()}>🕑<color=#F5F5F5>〛<color={player.Role.Color.ToHex()}>Час раунду: <color=#F5F5F5>{PluginAPI.Core.Round.Duration.Minutes.ToString("D2")} : {PluginAPI.Core.Round.Duration.Seconds.ToString("D2")} </b></size></color></align>";
                 HUD_MyTeam_Player = $"<align=left><size={size}><b><color=#F5F5F5>       〚<color={player.Role.Color.ToHex()}>🍪<color=#F5F5F5>〛<color={player.Role.Color.ToHex()}>Cоюзникiв(SCP): {Exiled.API.Features.Player.List.Where(x => x.IsScp).ToList().Count()} </b></size></color></align>";
