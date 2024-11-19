@@ -13,14 +13,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using PluginAPI.Roles;
-using Exiled.API.Features.Items;
 
 namespace TestPlugin {
     public static class WaitPlayer_HUD {
         static CoroutineHandle coroutine;
         static string Base_Texst = $"<color=#FED93B> Очікування гравців </color>\n" +
-            $"<color=#407DFE> Раунд розпочнеться через {0} секунд </color>";
+            $"<color=#407DFE> Раунд розпочнеться через 0 секунд </color>";
         static string Locked_Round_Texst = $"<color=#FED93B> Очікування гравців </color>\n" +
             $"<color=#407DFE> Раунд заблоковано </color>";
         public static void Run() {
@@ -78,7 +76,7 @@ namespace TestPlugin {
 
                 HUD_Name = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚⭐〛Ник: {player.Nickname} </b></size></color></align>";
                 HUD_Role = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🕑〛Час раунду: <color=#F5F5F5>{PluginAPI.Core.Round.Duration.Minutes.ToString("D2")} : {PluginAPI.Core.Round.Duration.Seconds.ToString("D2")} </b></size></color></align>";
-                HUD_MyTeam_Player = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🍪〛Cоюзникiв(SCP):<color=#F5F5F5> {Exiled.API.Features.Player.List.Where(x => x.IsScp).ToList().Count()} </b></size></color></align>";
+                HUD_MyTeam_Player = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🍪〛Cоюзникiв:<color=#F5F5F5> {Exiled.API.Features.Player.List.Where(x => x.IsScp).ToList().Count()} </b></size></color></align>";
                 HUD_SCPs = $"<align=left><color={player.Role.Color.ToHex()}><size={size}><b>{SCPl} </b></size></color></align>";
                 Generator_HUD = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🚂〛Акт.Генераторів: <color=#F5F5F5>{Scp079Recontainer.AllGenerators.Count(x => x.Engaged).ToString()}</b></size></color></align>";
 
@@ -396,7 +394,7 @@ namespace TestPlugin {
                 }
                 int offset = -15;
                 //TEXT
-                HUD_Name = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚⭐〛Ник: {player.Nickname} </b></size></color></align>";
+                HUD_Name = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚⭐〛ім'я: {player.Nickname} </b></size></color></align>";
                 HUD_Role = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🕑〛Час раунду: <color=#F5F5F5>{PluginAPI.Core.Round.Duration.Minutes.ToString("D2")} : {PluginAPI.Core.Round.Duration.Seconds.ToString("D2")} </b></size></color></align>";
                 HUD_MyTeam_Player = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🍪〛Cоюзникiв(SCP):<color=#F5F5F5> {Exiled.API.Features.Player.List.Where(x => x.IsScp).ToList().Count()} </b></size></color></align>";
                 HUD_SCPs = $"<align=left><color={player.Role.Color.ToHex()}><size={size}><b>{SCPl} </b></size></color></align>";

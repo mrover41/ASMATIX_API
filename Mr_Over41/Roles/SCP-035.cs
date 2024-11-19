@@ -1,9 +1,6 @@
 ﻿using Exiled.API.Enums;
 using Exiled.API.Extensions;
 using Exiled.API.Features;
-using Exiled.API.Features.Doors;
-using Exiled.API.Features.Items;
-using Exiled.API.Features.Pickups;
 using Exiled.Events.EventArgs.Player;
 using Exiled.Events.EventArgs.Scp096;
 using Exiled.Events.EventArgs.Scp3114;
@@ -166,6 +163,11 @@ class SCP035 : MonoBehaviour {
             ev.IsAllowed = false;
         }
     }
+    void Voice(VoiceChattingEventArgs ev) { 
+        if (ev.Player == player) {
+            ev.VoiceModule.CurrentChannel = VoiceChat.VoiceChatChannel.ScpChat;
+        }
+    }
 
     void OnEnable() {
         Exiled.Events.Handlers.Player.ActivatingGenerator += Generator;
@@ -181,6 +183,7 @@ class SCP035 : MonoBehaviour {
         Exiled.Events.Handlers.Player.InteractingDoor += Door_Interact;
         Exiled.Events.Handlers.Player.Hurting += OnDamage;
         //AudioPlayer.API.AudioController.SpawnDummy(0, "SCP-035 Controller");
+        Exiled.Events.Handlers.Player.VoiceChatting += Voice;
     }
     void OnDisable() {
         Exiled.Events.Handlers.Player.ActivatingGenerator -= Generator;
@@ -196,6 +199,7 @@ class SCP035 : MonoBehaviour {
         Exiled.Events.Handlers.Player.InteractingDoor -= Door_Interact;
         Exiled.Events.Handlers.Player.Hurting -= OnDamage;
         //AudioPlayer.API.AudioController.DisconnectDummy(0);
+        Exiled.Events.Handlers.Player.VoiceChatting -= Voice;
         spawnedSchematic.Destroy();
         Global.Player_Role.Remove("035");
         Timing.KillCoroutines("035");
