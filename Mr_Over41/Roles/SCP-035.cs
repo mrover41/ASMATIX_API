@@ -24,7 +24,7 @@ using RueI.Extensions;
 
 class SCP035 : MonoBehaviour {
     Player player;
-    MapEditorReborn.API.Features.Objects.SchematicObject spawnedSchematic = ObjectSpawner.SpawnSchematic("scp035", new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), null, null, false);
+    //MapEditorReborn.API.Features.Objects.SchematicObject spawnedSchematic = ObjectSpawner.SpawnSchematic("scp035", new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), null, null, false);
     public static int Coin_CD = 0;
     void Start() {
         player = Player.Get(this.gameObject);
@@ -46,9 +46,9 @@ class SCP035 : MonoBehaviour {
         player.AddItem(ItemType.Coin);
         player.AddItem(ItemType.SCP500);
         player.AddItem(ItemType.KeycardZoneManager);
-        spawnedSchematic = ObjectSpawner.SpawnSchematic("scp035mask", player.Transform.position, Quaternion.identity, null, null, false);
-        spawnedSchematic.transform.SetParent(player.CameraTransform.transform);
-        spawnedSchematic.transform.localPosition = new Vector3(-0.1f, 0f, 0.2f);
+        //spawnedSchematic = ObjectSpawner.SpawnSchematic("scp035mask", player.Transform.position, Quaternion.identity, null, null, false);
+        //spawnedSchematic.transform.SetParent(player.CameraTransform.transform);
+        //spawnedSchematic.transform.localPosition = new Vector3(-0.1f, 0f, 0.2f);
     }
     void OnDamage(HurtingEventArgs ev) { 
         if (ev.Player == player && ev.DamageHandler.Type.IsScp(true)) { 
@@ -87,8 +87,6 @@ class SCP035 : MonoBehaviour {
                     player.Health = 500;
                 }
             }
-        } else if (ev.Player == player && Coin_CD > 0) {
-            player.ShowHint($">> {Coin_CD} <<");
         }
     }
     void Drop(DroppingItemEventArgs ev) { 
@@ -200,7 +198,7 @@ class SCP035 : MonoBehaviour {
         Exiled.Events.Handlers.Player.Hurting -= OnDamage;
         //AudioPlayer.API.AudioController.DisconnectDummy(0);
         Exiled.Events.Handlers.Player.VoiceChatting -= Voice;
-        spawnedSchematic.Destroy();
+        //spawnedSchematic.Destroy();
         Global.Player_Role.Remove("035");
         Timing.KillCoroutines("035");
     }

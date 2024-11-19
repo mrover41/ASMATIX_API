@@ -74,7 +74,7 @@ namespace TestPlugin {
                 }
                 offset = -20;
 
-                HUD_Name = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚⭐〛Ник: {player.Nickname} </b></size></color></align>";
+                HUD_Name = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚⭐〛Iм'я: {player.Nickname} </b></size></color></align>";
                 HUD_Role = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🕑〛Час раунду: <color=#F5F5F5>{PluginAPI.Core.Round.Duration.Minutes.ToString("D2")} : {PluginAPI.Core.Round.Duration.Seconds.ToString("D2")} </b></size></color></align>";
                 HUD_MyTeam_Player = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🍪〛Cоюзникiв:<color=#F5F5F5> {Exiled.API.Features.Player.List.Where(x => x.IsScp).ToList().Count()} </b></size></color></align>";
                 HUD_SCPs = $"<align=left><color={player.Role.Color.ToHex()}><size={size}><b>{SCPl} </b></size></color></align>";
@@ -230,7 +230,7 @@ namespace TestPlugin {
                 }
                 
                 if (Exiled.API.Features.Player.List.Any(x => x.Role.Type == RoleTypeId.Scp079)) {
-                    Team_Information += $"SCP-079 || {Scp079.GainingLevel} Level\n";
+                    Team_Information += $"SCP-079 || 0 Level\n";
                     offset += 31;
                 }
                 
