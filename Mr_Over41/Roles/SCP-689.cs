@@ -37,7 +37,7 @@ using VoiceChat;
 
 namespace TestPlugin.Roles
 {
-    public class SCP689 : CustomRole {
+    /*public class SCP689 : CustomRole {
         public override RoleTypeId Role { get; set; } = RoleTypeId.Scp3114;
         public override uint Id { get; set; } = 689;
         public override float SpawnChance { get; set; } = 0;
@@ -253,5 +253,37 @@ namespace TestPlugin.Roles
             }
         }
 
+    }*/
+    class SCP689 : MonoBehaviour {
+        Exiled.API.Features.Player player;
+        void Start() {
+            player = Exiled.API.Features.Player.Get(this.gameObject);
+            player.Role.Set(RoleTypeId.Scp3114);
+            player.MaxHealth = 1750;
+            player.Health = 1750;
+            player.CustomInfo = "SCP689";
+            player.EnableEffect(EffectType.Invisible);
+            Global.Player_Role.Add("689", player);
+        }
+        void Update() {
+            foreach (Pickup item in Pickup.List.ToList()) {
+                if (Vector3.Distance(player.Position, item.Position) < 5) {
+                    Vector3 pos = player.Position - item.Position;
+                    pos.Normalize();
+                    pos *= 50 * Time.deltaTime;
+                    item.PhysicsModule.Rb.useGravity = false;
+                    item.PhysicsModule.Rb.AddForce(pos);
+                } else {
+                    item.PhysicsModule.Rb.useGravity = true;
+                }
+            }
+        }
+        void OnEnable() { 
+        
+        }
+        void OnDisable() {
+            player.CustomInfo = string.Empty;
+            Global.Player_Role.Remove("689");
+        }
     }
 }

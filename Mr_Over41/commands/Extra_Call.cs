@@ -17,15 +17,18 @@ namespace TestPlugin.commands {
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response) {
             Player send = Player.Get(sender);
             Player admin = Player.List.Where(x => x.Role.Type == RoleTypeId.Overwatch && x.CheckPermission("Ex_Call")).GetRandomValue();
+            foreach (Player ad in Player.List.Where(x => x.AdminChatAccess)) { 
+                ad.Broadcast(5, $"Вас покликав гравець {send.Nickname}, для того щоб ви прослідкували за гравцями в цьому місці, ID: {send.Id}");
+            }
             if (admin == null) {
-                response = "Немає адмінів";
+                response = "Вибачаємося,  але поки що Адміністрації на цьому сервері немає, тому залиште свою скаргу через SCP:SL натиснувши на англіську кнопку 'N' і чекайте на Адміністрацію!";
                 return false;
             }
             admin.Role.Set(RoleTypeId.Tutorial);
             admin.EnableEffect(EffectType.Invisible);
             admin.Position = send.Position;
             admin.Broadcast(5, "Этот игрок призвал вас");
-            response = "Вы призали дявола(админа), теперь он следит за вами";
+            response = "Адміністратор вже слідкує за вами! Дякуємо за виклик!";
             return true;
         }
     }

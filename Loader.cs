@@ -44,7 +44,6 @@ public sealed class test : Plugin<Config>
         API.API.Load();
         //REGISTER
         Config.Travka.Register();
-        Config.Privid.Register();
         Config.good.Register();
         Config.ChipiChipiChapaChpaa.Register();
         Config.Gr.Register();
@@ -57,7 +56,6 @@ public sealed class test : Plugin<Config>
         API.API.UnLoad();
         //UNREGISTER
         Config.Travka.Unregister();
-        Config.Privid.Unregister();
         Config.good.Unregister();
         Config.ChipiChipiChapaChpaa.Unregister();
         Config.Gr.Unregister();

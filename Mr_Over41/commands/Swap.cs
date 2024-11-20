@@ -12,6 +12,7 @@ using Exiled.CustomRoles.API.Features;
 using Exiled.API.Extensions;
 using Utils.NonAllocLINQ;
 using MapEditorReborn.API.Extensions;
+using TestPlugin.Roles;
 
 namespace TestPlugin
 {
@@ -51,6 +52,14 @@ namespace TestPlugin
                     case "035":
                         if (!Global.Player_Role.ContainsKey("035")) {
                             send.GameObject.AddComponent<SCP035>();
+                        } else {
+                            response = "035 уже есть";
+                            return response;
+                        }
+                        break;
+                    case "689":
+                        if (!Global.Player_Role.ContainsKey("689")) {
+                                send.GameObject.AddComponent<SCP689>();
                         } else {
                             response = "035 уже есть";
                             return response;
