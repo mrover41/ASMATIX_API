@@ -8,6 +8,7 @@ using System.Linq;
 using Exiled.API.Enums;
 using System.Text;
 using System.Threading.Tasks;
+using Exiled.Permissions.Extensions;
 
 namespace TestPlugin.commands {
      [CommandHandler(typeof(ClientCommandHandler))]
@@ -18,7 +19,7 @@ namespace TestPlugin.commands {
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response) {
             Player send = Player.Get(sender);
-            Player admin = Player.List.Where(x => x.Role.Type == RoleTypeId.Overwatch && x.RemoteAdminPermissions == PlayerPermissions.Overwatch).GetRandomValue();
+            Player admin = Player.List.Where(x => x.Role.Type == RoleTypeId.Overwatch && x.CheckPermission("Ex_Call")).GetRandomValue();
             if (send == null) {
                 response = "Немає адмінів";
                 return false;

@@ -15,7 +15,7 @@
       "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:mr_over41\\hud\\hud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|c:\\users\\admin\\source\\repos\\testplugin\\testplugin\\mr_over41\\roles\\scp-035.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\mr_over41\\roles\\scp-035.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:mr_over41\\roles\\scp-035.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -68,7 +68,7 @@
               "RelativeDocumentMoniker": "Mr_Over41\\commands\\Extra_Call.cs",
               "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Extra_Call.cs",
               "RelativeToolTip": "Mr_Over41\\commands\\Extra_Call.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-20T13:59:02.742Z",
               "EditorCaption": ""
@@ -155,8 +155,7 @@
               "RelativeToolTip": "Mr_Over41\\commands\\Hud_Controll.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAAAwAMAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T14:58:44.365Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-30T14:58:44.365Z"
             },
             {
               "$type": "Document",
@@ -180,8 +179,7 @@
               "RelativeToolTip": "Mr_Over41\\HUD\\HUD.cs",
               "ViewState": "AgIAAEgAAAAAAAAAAAAAwEwAAABnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T11:43:39.612Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-30T11:43:39.612Z"
             },
             {
               "$type": "Document",
@@ -193,8 +191,7 @@
               "RelativeToolTip": "Mr_Over41\\Roles\\SCP-035.cs",
               "ViewState": "AgIAALQAAAAAAAAAAAAQwMgAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T16:43:49.217Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-02T16:43:49.217Z"
             }
           ]
         }
