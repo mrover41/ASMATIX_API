@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using Exiled.API.Enums;
 using Exiled.Permissions.Extensions;
+using MEC;
 
 namespace TestPlugin.commands {
      [CommandHandler(typeof(ClientCommandHandler))]
@@ -17,18 +18,16 @@ namespace TestPlugin.commands {
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response) {
             Player send = Player.Get(sender);
             Player admin = Player.List.Where(x => x.Role.Type == RoleTypeId.Overwatch && x.CheckPermission("Ex_Call")).GetRandomValue();
-            foreach (Player ad in Player.List.Where(x => x.AdminChatAccess)) { 
-                ad.Broadcast(5, $"Вас покликав гравець {send.Nickname}, для того щоб ви прослідкували за гравцями в цьому місці, ID: {send.Id}");
-            }
             if (admin == null) {
-                response = "Вибачаємося,  але поки що Адміністрації на цьому сервері немає, тому залиште свою скаргу через SCP:SL натиснувши на англіську кнопку 'N' і чекайте на Адміністрацію!";
+                response = "Вибачаємося, але поки що Адміністрація не спостерігає, тому залиште свою скаргу через SCP:SL натиснувши на англіську кнопку \"N\" і очікуйте на Адміністрацію! З повагою ©ASMATIX SCP:SL UKR.";
                 return false;
             }
+            admin.Broadcast(5, $"<b><color=#E6E8FC>Вас покликав гравець</color> <color=#4B88FE>{send.Nickname} (ID: {send.Id})</color><color=#E6E8FC>, для того щоб</color> <color=#FF9550>ви прослідкували</color> <color=#E6E8FC>за гравцями в цьому місці</color></b>");
             admin.Role.Set(RoleTypeId.Tutorial);
             admin.EnableEffect(EffectType.Invisible);
-            admin.Position = send.Position;
+            Timing.CallDelayed(1, () => admin.Position = send.Position);
             admin.Broadcast(5, "Этот игрок призвал вас");
-            response = "Адміністратор вже слідкує за вами! Дякуємо за виклик!";
+            response = "Адміністратор вже слідкує за вами! Дякуємо за виклик! Просимо невзловживати цією командую просто так, в іншому випадку вам може видатися бан на 3 дні, а в найгіршому на місяць! З повагою ©ASMATIX SCP:SL UKR.";
             return true;
         }
     }

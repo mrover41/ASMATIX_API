@@ -29,6 +29,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.SymbolStore;
 using System.Linq;
+using System.Threading.Tasks;
 using TestPlugin;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
@@ -256,13 +257,15 @@ namespace TestPlugin.Roles
     }*/
     class SCP689 : MonoBehaviour {
         Exiled.API.Features.Player player;
+        bool invLock = true;
         void Start() {
             player = Exiled.API.Features.Player.Get(this.gameObject);
             player.Role.Set(RoleTypeId.Scp3114);
             player.MaxHealth = 1750;
             player.Health = 1750;
             player.CustomInfo = "SCP689";
-            player.EnableEffect(EffectType.Invisible);
+            Enable_Inv(player);
+            player.EnableEffect(EffectType.Ghostly);
             Global.Player_Role.Add("689", player);
         }
         void Update() {
@@ -278,12 +281,82 @@ namespace TestPlugin.Roles
                 }
             }
         }
-        void OnEnable() { 
-        
+        void OnEnable() {
+            Exiled.Events.Handlers.Player.ReceivingEffect += EffLock;
+            Exiled.Events.Handlers.Scp3114.Strangling += Att;
+            Exiled.Events.Handlers.Player.TogglingNoClip += _Alt;
+            Exiled.Events.Handlers.Player.Died += Die;
         }
         void OnDisable() {
+            Exiled.Events.Handlers.Player.ReceivingEffect += EffLock;
+            Exiled.Events.Handlers.Scp3114.Strangling -= Att;
+            Exiled.Events.Handlers.Player.TogglingNoClip -= _Alt;
+            Exiled.Events.Handlers.Player.Died -= Die;
             player.CustomInfo = string.Empty;
             Global.Player_Role.Remove("689");
+        }
+        void Die(DiedEventArgs ev) {
+            if (ev.Player == player) {
+                Destroy(this);
+            }
+        }
+        void _Alt(TogglingNoClipEventArgs ev) { 
+            if (ev.Player == player) {
+                Enable_Inv(player);
+            }
+        }
+        void EffLock(ReceivingEffectEventArgs ev) { 
+            if (invLock && ev.Player == player && ev.Effect.GetEffectType() == EffectType.Invisible) {
+                ev.IsAllowed = false;
+            }
+        }
+        void Att(StranglingEventArgs ev) { 
+            if (ev.Player == player) {
+                if (invLock) {
+                    Enable_Inv(player, false);
+                    Timing.CallDelayed(4, () => Pk(player, ev.Target));
+                } else {
+                    ev.IsAllowed = false;
+                }
+            }
+        }
+        async void Pk(Exiled.API.Features.Player player, Exiled.API.Features.Player target) {
+            player.Broadcast(2, $"{target.Health}");
+            if (!target.IsHuman || target.Health <= 50) return;
+            target.Role.Set(target.Role.Type);
+            target.Position = new Vector3(68.834f, 892.089f, -105.098f); target.EnableEffect(EffectType.Ensnared, 255, 5);
+            player.Position = new Vector3(68.834f, 892.089f, -110.098f); player.EnableEffect(EffectType.Ensnared, 255, 10);
+            target.Health = 1;
+            target.Broadcast(5, "<b><color=#ff0000>Бежи!</color></b>");
+            player.Broadcast(5, "<b><color=#00ff00>Наздожени</color></b>");
+            await Task.Run(() => {
+                for (; ; ) { 
+                    if (!target.IsHuman) {
+                        player.Teleport(Room.List.Where(x => x.Type != RoomType.HczTestRoom).GetRandomValue());
+                        break;
+                    } if (target.Position.z < -54 && API._System.random.Next(0, 100) < 50) {
+                        player.Teleport(Room.List.Where(x => x.Type != RoomType.HczTestRoom).GetRandomValue());
+                        target.Teleport(Room.List.Where(x => x.Type != RoomType.HczTestRoom).GetRandomValue());
+                        break;
+                    }
+                }
+            }
+            );
+        }
+        void Enable_Inv(Exiled.API.Features.Player player, bool isEnable = true) {
+            if (!isEnable) {
+                invLock = false;
+                player.IsGodModeEnabled = false;
+                player.DisableEffect(EffectType.Invisible);
+                player.DisableEffect(EffectType.MovementBoost);
+                player.EnableEffect(EffectType.Slowness, 15);
+            } else {
+                player.IsGodModeEnabled = true;
+                player.EnableEffect(EffectType.Invisible);
+                player.EnableEffect(EffectType.MovementBoost, 40);
+                player.DisableEffect(EffectType.Slowness);
+                invLock = true;
+            }
         }
     }
 }
