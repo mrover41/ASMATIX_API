@@ -18,11 +18,13 @@ using Exiled.Events.EventArgs.Scp173;
 using Exiled.Events.EventArgs.Scp3114;
 using Exiled.Events.Handlers;
 using InventorySystem;
+using MapEditorReborn.Commands.ToolgunCommands;
 using MEC;
 using Microsoft.Win32;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp049.Zombies;
 using PluginAPI.Core;
+using PluginAPI.Core.Interfaces;
 using PluginAPI.Core.Items;
 using PluginAPI.Core.Zones;
 using System;
@@ -35,6 +37,7 @@ using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.Windows;
 using VoiceChat;
+using static UnityEngine.GraphicsBuffer;
 
 namespace TestPlugin.Roles
 {
@@ -258,15 +261,19 @@ namespace TestPlugin.Roles
     class SCP689 : MonoBehaviour {
         Exiled.API.Features.Player player;
         bool invLock = true;
+        GameObject collider;
+        int timer;
         void Start() {
             player = Exiled.API.Features.Player.Get(this.gameObject);
             player.Role.Set(RoleTypeId.Scp3114);
             player.MaxHealth = 1750;
             player.Health = 1750;
             player.CustomInfo = "SCP689";
-            Enable_Inv(player);
+            Timing.CallDelayed(2, () => Enable_Inv());
             player.EnableEffect(EffectType.Ghostly);
             Global.Player_Role.Add("689", player);
+            collider = new GameObject("689_Collider"); collider.transform.position = new Vector3(65.31f, 893f, -53.098f);
+            collider.AddComponent<SCP_689_Controller>();
         }
         void Update() {
             foreach (Pickup item in Pickup.List.ToList()) {
@@ -279,6 +286,12 @@ namespace TestPlugin.Roles
                 } else {
                     item.PhysicsModule.Rb.useGravity = true;
                 }
+            } foreach (Exiled.API.Features.Player player1 in Exiled.API.Features.Player.List) {
+                if (Vector3.Distance(player1.Position, player.Position) < 10) {
+                    if (player1.CurrentItem != null && player1.CurrentItem.Type == ItemType.Lantern) {
+                        player.Hurt(30 * Time.deltaTime, "Облучился RTXом");
+                    }
+                }
             }
         }
         void OnEnable() {
@@ -286,64 +299,58 @@ namespace TestPlugin.Roles
             Exiled.Events.Handlers.Scp3114.Strangling += Att;
             Exiled.Events.Handlers.Player.TogglingNoClip += _Alt;
             Exiled.Events.Handlers.Player.Died += Die;
+            Exiled.Events.Handlers.Player.Hurting += Attak_Block;
+            Exiled.Events.Handlers.Player.Died += Kill_Teleport;
         }
         void OnDisable() {
             Exiled.Events.Handlers.Player.ReceivingEffect += EffLock;
             Exiled.Events.Handlers.Scp3114.Strangling -= Att;
             Exiled.Events.Handlers.Player.TogglingNoClip -= _Alt;
             Exiled.Events.Handlers.Player.Died -= Die;
+            Exiled.Events.Handlers.Player.Hurting -= Attak_Block;
+            Exiled.Events.Handlers.Player.Died -= Kill_Teleport;
             player.CustomInfo = string.Empty;
             Global.Player_Role.Remove("689");
         }
-        void Die(DiedEventArgs ev) {
-            if (ev.Player == player) {
-                Destroy(this);
+        void Kill_Teleport(DiedEventArgs ev) { 
+            if (ev.Attacker == player) {
+                player.Teleport(Room.List.Where(x => x.Type != RoomType.HczTestRoom).GetRandomValue());
             }
         }
+        void Attak_Block(HurtingEventArgs ev) {
+            if (ev.Attacker == player && invLock) ev.IsAllowed = false;
+        }
+        void Die(DiedEventArgs ev) {
+            if (ev.Player == player) Destroy(this);
+        }
         void _Alt(TogglingNoClipEventArgs ev) { 
-            if (ev.Player == player) {
-                Enable_Inv(player);
-            }
+            if (ev.Player == player) Enable_Inv();
         }
         void EffLock(ReceivingEffectEventArgs ev) { 
             if (invLock && ev.Player == player && ev.Effect.GetEffectType() == EffectType.Invisible) {
                 ev.IsAllowed = false;
             }
         }
-        void Att(StranglingEventArgs ev) { 
+        void Att(StranglingEventArgs ev) {
             if (ev.Player == player) {
                 if (invLock) {
-                    Enable_Inv(player, false);
-                    Timing.CallDelayed(4, () => Pk(player, ev.Target));
+                    Enable_Inv(false);
+                    Timing.CallDelayed(3, () => Pk(player, ev.Target));
                 } else {
                     ev.IsAllowed = false;
                 }
             }
         }
         async void Pk(Exiled.API.Features.Player player, Exiled.API.Features.Player target) {
-            player.Broadcast(2, $"{target.Health}");
             if (!target.IsHuman || target.Health <= 50) return;
-            target.Role.Set(target.Role.Type);
-            target.Position = new Vector3(68.834f, 892.089f, -105.098f); target.EnableEffect(EffectType.Ensnared, 255, 5);
-            player.Position = new Vector3(68.834f, 892.089f, -110.098f); player.EnableEffect(EffectType.Ensnared, 255, 10);
+            player.Role.Set(target.Role.Type);
+            target.Position = new Vector3(68.834f, 892.089f, -105.098f); target.EnableEffect(EffectType.Ensnared, 255, 5); target.Inventory.enabled = false;
+            player.Position = new Vector3(68.834f, 892.089f, -110.098f); player.EnableEffect(EffectType.Ensnared, 255, 10); Enable_Inv();
             target.Health = 1;
             target.Broadcast(5, "<b><color=#ff0000>Бежи!</color></b>");
             player.Broadcast(5, "<b><color=#00ff00>Наздожени</color></b>");
-            await Task.Run(() => {
-                for (; ; ) { 
-                    if (!target.IsHuman) {
-                        player.Teleport(Room.List.Where(x => x.Type != RoomType.HczTestRoom).GetRandomValue());
-                        break;
-                    } if (target.Position.z < -54 && API._System.random.Next(0, 100) < 50) {
-                        player.Teleport(Room.List.Where(x => x.Type != RoomType.HczTestRoom).GetRandomValue());
-                        target.Teleport(Room.List.Where(x => x.Type != RoomType.HczTestRoom).GetRandomValue());
-                        break;
-                    }
-                }
-            }
-            );
         }
-        void Enable_Inv(Exiled.API.Features.Player player, bool isEnable = true) {
+        void Enable_Inv(bool isEnable = true) {
             if (!isEnable) {
                 invLock = false;
                 player.IsGodModeEnabled = false;
@@ -357,6 +364,22 @@ namespace TestPlugin.Roles
                 player.DisableEffect(EffectType.Slowness);
                 invLock = true;
             }
+        }
+    }
+}
+
+class SCP_689_Controller : MonoBehaviour { 
+    void Start() {
+        Collider _collider = this.gameObject.AddComponent<BoxCollider>();
+        _collider.isTrigger = true;
+        BoxCollider boxCollider = GetComponent<BoxCollider>();
+        boxCollider.size = new Vector3(10, 10, 10);
+    }
+    void OnTriggerEnter(Collider other) {
+        Exiled.API.Features.Player player = Exiled.API.Features.Player.Get(other.gameObject);
+        if (player != null) {
+            player.Teleport(Room.List.Where(x => x.Type != RoomType.HczTestRoom).GetRandomValue());
+            player.Inventory.enabled = true;
         }
     }
 }

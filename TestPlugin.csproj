@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -77,6 +78,7 @@
     <Compile Include="Mr_Over41\commands\Extra_Call.cs" />
     <Compile Include="Mr_Over41\commands\Home.cs" />
     <Compile Include="Mr_Over41\commands\Hud_Controll.cs" />
+    <Compile Include="Mr_Over41\commands\Kill.cs" />
     <Compile Include="Mr_Over41\commands\Plugin_Updater.cs" />
     <Compile Include="Mr_Over41\commands\runI.cs" />
     <Compile Include="Mr_Over41\commands\star.cs" />

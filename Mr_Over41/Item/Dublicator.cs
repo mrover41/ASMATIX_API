@@ -47,6 +47,7 @@ public class ItemD : CustomWeapon {
             if (raycastHit.transform.TryGetComponent(out ItemPickupBase itemPickupBase)) {
                 if (itemPickupBase.NetworkInfo.ItemId != ItemType.MicroHID && itemPickupBase.NetworkInfo.ItemId != ItemType.ParticleDisruptor && itemPickupBase.NetworkInfo.ItemId != ItemType.Jailbird) {
                     Pickup.CreateAndSpawn(itemPickupBase.NetworkInfo.ItemId, ev.RaycastHit.point + Vector3.up * 0.5f, default);
+                    Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 2);
                 } else {
                     if (ev.Player.Health > 30) {
                         ev.Player.Health -= 30;

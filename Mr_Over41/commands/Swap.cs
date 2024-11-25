@@ -1,17 +1,9 @@
 ﻿using CommandSystem;
-using MEC;
 using PlayerRoles;
 using PluginAPI.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Utf8Json.Internal.DoubleConversion;
-using Exiled.CustomRoles.API.Features;
-using Exiled.API.Extensions;
-using Utils.NonAllocLINQ;
-using MapEditorReborn.API.Extensions;
 using TestPlugin.Roles;
 
 namespace TestPlugin
@@ -61,7 +53,7 @@ namespace TestPlugin
                         if (!Global.Player_Role.ContainsKey("689")) {
                                 send.GameObject.AddComponent<SCP689>();
                         } else {
-                            response = "035 уже есть";
+                            response = "689 уже есть";
                             return response;
                         }
                         break;

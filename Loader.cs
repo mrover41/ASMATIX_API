@@ -2,6 +2,7 @@
 using Exiled.API.Features;
 using Exiled.CustomItems.API;
 using Exiled.CustomRoles.API;
+using HarmonyLib;
 using System;
 using TestPlugin;
 using TestPlugin.GoodMode;
@@ -13,9 +14,13 @@ public sealed class test : Plugin<Config>
     public override string Name => "API";
     public override string Prefix => "Asmatix_API";
     public override Version Version => new Version(1, 0, 2);
+    //Harmony patch;
 
     public override void OnEnabled() {
         OnLoad();
+        //patch = new Harmony("com.patch.asmatix");
+        //patch.PatchAll();
+        Harmony.DEBUG = true;
         Exiled.Events.Handlers.Server.RoundStarted += RoundSt;
         Exiled.Events.Handlers.Server.WaitingForPlayers += OnRoundRest;
         Exiled.Events.Handlers.Player.ChangingRole += GMode._ChaingRole;
@@ -24,6 +29,7 @@ public sealed class test : Plugin<Config>
 
     public override void OnDisabled() {
         OnUnload();
+        //patch.UnpatchAll();
         Exiled.Events.Handlers.Server.RoundStarted -= RoundSt;
         Exiled.Events.Handlers.Server.WaitingForPlayers -= OnRoundRest;
         Exiled.Events.Handlers.Player.ChangingRole -= GMode._ChaingRole;

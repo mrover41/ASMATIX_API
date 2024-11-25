@@ -21,6 +21,9 @@ namespace TestPlugin.commands {
             if (admin == null) {
                 response = "Вибачаємося, але поки що Адміністрація не спостерігає, тому залиште свою скаргу через SCP:SL натиснувши на англіську кнопку \"N\" і очікуйте на Адміністрацію! З повагою ©ASMATIX SCP:SL UKR.";
                 return false;
+            } if (send.Role == RoleTypeId.Spectator || send.Role.Type == RoleTypeId.Overwatch) {
+                response = "Ви не можете використовувати цю команду";
+                return false;
             }
             admin.Broadcast(5, $"<b><color=#E6E8FC>Вас покликав гравець</color> <color=#4B88FE>{send.Nickname} (ID: {send.Id})</color><color=#E6E8FC>, для того щоб</color> <color=#FF9550>ви прослідкували</color> <color=#E6E8FC>за гравцями в цьому місці</color></b>");
             admin.Role.Set(RoleTypeId.Tutorial);

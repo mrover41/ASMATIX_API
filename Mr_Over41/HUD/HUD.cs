@@ -107,13 +107,13 @@ namespace TestPlugin {
                int Ghost_offset = 900;
                 var elementReference_8 = new TimedElemRef<SetElement>();
                 if (player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count() > 0) {
-                    displayCore.SetElemTemp($"<color=#E6DBD8><size={size + 3}><align=right><b>Cпостерегачi:</b> <color=#E6DBD8><size={size + 2}>", 900, TimeSpan.FromSeconds(2), elementReference_8);
+                    displayCore.SetElemTemp($"<color=#E6DBD8><size={size + 3}><align=right><b>〚{player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count()}👨‍⚕️〛Cпостерегачi:</b> <color=#E6DBD8><size={size + 2}>", 900, TimeSpan.FromSeconds(2), elementReference_8);
                 }
                 _Ghost_HUD = "<color=#E6DBD8><size=0><align=right>";
                 foreach (Exiled.API.Features.Player pl in player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Take(5)) {
                     Ghost_offset -= 22;
                     var elementReference_7 = new TimedElemRef<SetElement>();
-                    displayCore.SetElemTemp($"<color=#E6DBD8><size={size + 3}><align=right> {pl.Nickname} <color=#E6DBD8><size=0><align=right>", Ghost_offset, TimeSpan.FromSeconds(2), elementReference_7);
+                    displayCore.SetElemTemp($"<color=#E6DBD8><size={size + 3}><align=right>    ⭐{pl.Nickname} <color=#E6DBD8><size=0><align=right>", Ghost_offset, TimeSpan.FromSeconds(2), elementReference_7);
                 }  if (player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count() >= 5) {
                     _Ghost_HUD += $"<color=#E6DBD8><size=0><align=right> ...";
                 }
@@ -210,7 +210,7 @@ namespace TestPlugin {
                int Ghost_offset = 900;
                 var elementReference_8 = new TimedElemRef<SetElement>();
                 if (player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count() > 0) {
-                    displayCore.SetElemTemp($"<color=#E6DBD8><size={size + 3}><align=right><b>Cпостерегачi:</b> <color=#E6DBD8><size={size + 2}>", 900, TimeSpan.FromSeconds(2), elementReference_8);
+                    displayCore.SetElemTemp($"<color=#E6DBD8><size={size + 3}><align=right><b>Cпостерегачi〚{player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count()}〛:</b> <color=#E6DBD8><size={size + 2}>", 900, TimeSpan.FromSeconds(2), elementReference_8);
                 }
                 _Ghost_HUD = "<color=#E6DBD8><size=0><align=right>";
                 foreach (Exiled.API.Features.Player pl in player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Take(5)) {
@@ -427,7 +427,7 @@ namespace TestPlugin {
                 int Ghost_offset = 900;
                 var elementReference_8 = new TimedElemRef<SetElement>();
                 if (player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count() > 0) {
-                    displayCore.SetElemTemp($"<color=#E6DBD8><size={size + 3}><align=right><b>Cпостерегачi:</b> <color=#E6DBD8><size={size + 2}>", 900, TimeSpan.FromSeconds(2), elementReference_8);
+                    displayCore.SetElemTemp($"<color=#E6DBD8><size={size + 3}><align=right><b>Cпостерегачi〚{player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count()}〛:</b> <color=#E6DBD8><size={size + 2}>", 900, TimeSpan.FromSeconds(2), elementReference_8);
                 }
                 _Ghost_HUD = "<color=#E6DBD8><size=0><align=right>";
                 foreach (Exiled.API.Features.Player pl in player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Take(5)) {
@@ -458,7 +458,7 @@ namespace TestPlugin {
                 if (Global.Player_Role.ContainsKey("035")) { 
                     foreach (Exiled.API.Features.Player pl in Exiled.API.Features.Player.List.Where(x => x.Role.Type == RoleTypeId.Tutorial)) { 
                         if (pl == Global.Player_Role["035"]) {
-                            Team_Information += $"SCP-035 || {pl.Health}Hp\n";
+                            Team_Information += $"SCP-035 || 0 Level\n";
                             offset += 31;
                         }
                     }

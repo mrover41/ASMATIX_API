@@ -1,13 +1,22 @@
 ﻿using Exiled.API.Enums;
 using Exiled.API.Extensions;
 using Exiled.API.Features;
+using Exiled.API.Features.Items;
+using Exiled.API.Structs;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
+using HarmonyLib;
 using MEC;
+using Mirror;
 using PlayerRoles;
+using PlayerRoles.PlayableScps.Scp3114;
+using PlayerRoles.Voice;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using VoiceChat.Networking;
+using static MapGeneration.ImageGenerator;
+using static PlayerRoles.PlayableScps.Scp3114.Scp3114Strangle;
 
 namespace API {
     class EventPool {
@@ -137,4 +146,30 @@ namespace API {
     public static class _System {
         public static System.Random random = new System.Random();
     }
+    
 }
+
+/*namespace Patches {
+    [HarmonyPatch(typeof(Scp3114Strangle), nameof(Scp3114Strangle.ProcessAttackRequest))]
+    public static class SCP035_Voice_Patch {
+        public static bool Prefix(Scp3114Strangle __instance, NetworkReader reader, StrangleTarget? __target) {
+            foreach (Player pl in Player.List) {
+                pl.Broadcast(1, "Кислород душат");
+            }
+            __target = default;
+            return false;
+        }
+    }
+    [HarmonyPatch(typeof(Radio))]
+    [HarmonyPatch(nameof(Radio.SetRangeSettings))]
+    internal static class RadioPatch {
+        static bool Prefix(Radio __instance, RadioRange range, RadioRangeSettings settings) {
+            foreach (Player pl in Player.List) {
+                pl.Broadcast(1, "Кислород душат");
+            }
+            __instance.BatteryLevel = 100;
+            settings.MaxRange = 0;
+            return false;
+        }
+    }
+}*/

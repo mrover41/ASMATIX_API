@@ -3,44 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|c:\\users\\admin\\source\\repos\\testplugin\\testplugin\\mr_over41\\hud\\hud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:mr_over41\\hud\\hud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\mr_over41\\roles\\scp-689.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:mr_over41\\roles\\scp-689.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\mr_over41\\item\\dublicator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:mr_over41\\item\\dublicator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\asmatix_api\\api.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:asmatix_api\\api.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\loader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:loader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\mr_over41\\roles\\scp-035.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:mr_over41\\roles\\scp-035.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\mr_over41\\commands\\kill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:mr_over41\\commands\\kill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\mr_over41\\commands\\swap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:mr_over41\\commands\\swap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Item\\Trangulizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:Mr_Over41\\Item\\Trangulizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|c:\\users\\admin\\source\\repos\\testplugin\\testplugin\\mr_over41\\commands\\extra_call.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\mr_over41\\commands\\extra_call.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:mr_over41\\commands\\extra_call.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\HUD\\HUD_LOADER.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:Mr_Over41\\HUD\\HUD_LOADER.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\mr_over41\\commands\\take.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:mr_over41\\commands\\take.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\mr_over41\\hud\\hud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:mr_over41\\hud\\hud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Hud_Controll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:Mr_Over41\\commands\\Hud_Controll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\ASMATIX_API\\API.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:ASMATIX_API\\API.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Item\\FunGranate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:Mr_Over41\\Item\\FunGranate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Item\\Trangulizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C170015E-CB88-4D1C-B257-193E1E50FD9C}|TestPlugin.csproj|solutionrelative:Mr_Over41\\Item\\Trangulizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,7 +54,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,128 +62,136 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Swap.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Swap.cs",
-              "RelativeDocumentMoniker": "Mr_Over41\\commands\\Swap.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Swap.cs",
-              "RelativeToolTip": "Mr_Over41\\commands\\Swap.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAUwD4AAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T17:36:06.74Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SCP-689.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Roles\\SCP-689.cs",
-              "RelativeDocumentMoniker": "Mr_Over41\\Roles\\SCP-689.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Roles\\SCP-689.cs",
-              "RelativeToolTip": "Mr_Over41\\Roles\\SCP-689.cs",
-              "ViewState": "AgIAADYBAAAAAAAAAAAwwEQBAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T17:16:42.31Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Extra_Call.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Extra_Call.cs",
-              "RelativeDocumentMoniker": "Mr_Over41\\commands\\Extra_Call.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Extra_Call.cs",
-              "RelativeToolTip": "Mr_Over41\\commands\\Extra_Call.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAAzAAAAAAAAAA==",
+              "Title": "Loader.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Loader.cs",
+              "RelativeDocumentMoniker": "Loader.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Loader.cs",
+              "RelativeToolTip": "Loader.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAmwB8AAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T13:59:02.742Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-22T15:42:09.003Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Trangulizer.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Item\\Trangulizer.cs",
-              "RelativeDocumentMoniker": "Mr_Over41\\Item\\Trangulizer.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Item\\Trangulizer.cs",
-              "RelativeToolTip": "Mr_Over41\\Item\\Trangulizer.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAA5wDwAAABcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-08T15:27:20.928Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
               "Title": "API.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\ASMATIX_API\\API.cs",
               "RelativeDocumentMoniker": "ASMATIX_API\\API.cs",
               "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\ASMATIX_API\\API.cs",
               "RelativeToolTip": "ASMATIX_API\\API.cs",
-              "ViewState": "AgIAAGYAAAAAAAAAAAD4v3cAAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAiwHkAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-06T14:14:40.191Z"
+              "WhenOpened": "2024-11-22T15:32:09.326Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "FunGranate.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Item\\FunGranate.cs",
-              "RelativeDocumentMoniker": "Mr_Over41\\Item\\FunGranate.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Item\\FunGranate.cs",
-              "RelativeToolTip": "Mr_Over41\\Item\\FunGranate.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAAADAAAAAhAAAAAAAAAA==",
+              "Title": "Take.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Take.cs",
+              "RelativeDocumentMoniker": "Mr_Over41\\commands\\Take.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Take.cs",
+              "RelativeToolTip": "Mr_Over41\\commands\\Take.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAuwCIAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T16:36:27.107Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Hud_Controll.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Hud_Controll.cs",
-              "RelativeDocumentMoniker": "Mr_Over41\\commands\\Hud_Controll.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Hud_Controll.cs",
-              "RelativeToolTip": "Mr_Over41\\commands\\Hud_Controll.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAAwAMAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T14:58:44.365Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "HUD_LOADER.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\HUD\\HUD_LOADER.cs",
-              "RelativeDocumentMoniker": "Mr_Over41\\HUD\\HUD_LOADER.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\HUD\\HUD_LOADER.cs",
-              "RelativeToolTip": "Mr_Over41\\HUD\\HUD_LOADER.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAzwB8AAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T11:48:42.823Z"
+              "WhenOpened": "2024-11-22T10:22:00.905Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "Kill.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Kill.cs",
+              "RelativeDocumentMoniker": "Mr_Over41\\commands\\Kill.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Kill.cs",
+              "RelativeToolTip": "Mr_Over41\\commands\\Kill.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T08:43:47.129Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Swap.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Swap.cs",
+              "RelativeDocumentMoniker": "Mr_Over41\\commands\\Swap.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Swap.cs",
+              "RelativeToolTip": "Mr_Over41\\commands\\Swap.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-20T17:36:06.74Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SCP-689.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Roles\\SCP-689.cs",
+              "RelativeDocumentMoniker": "Mr_Over41\\Roles\\SCP-689.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Roles\\SCP-689.cs",
+              "RelativeToolTip": "Mr_Over41\\Roles\\SCP-689.cs",
+              "ViewState": "AgIAAAoBAAAAAAAAAAAgwCMBAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-20T17:16:42.31Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Extra_Call.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Extra_Call.cs",
+              "RelativeDocumentMoniker": "Mr_Over41\\commands\\Extra_Call.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\commands\\Extra_Call.cs",
+              "RelativeToolTip": "Mr_Over41\\commands\\Extra_Call.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABgAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-20T13:59:02.742Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Trangulizer.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Item\\Trangulizer.cs",
+              "RelativeDocumentMoniker": "Mr_Over41\\Item\\Trangulizer.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Item\\Trangulizer.cs",
+              "RelativeToolTip": "Mr_Over41\\Item\\Trangulizer.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAUwDwAAABcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T15:27:20.928Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "HUD.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\HUD\\HUD.cs",
               "RelativeDocumentMoniker": "Mr_Over41\\HUD\\HUD.cs",
               "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\HUD\\HUD.cs",
               "RelativeToolTip": "Mr_Over41\\HUD\\HUD.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAuwE4AAADVAAAAAAAAAA==",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAwHMAAABgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T11:43:39.612Z"
+              "WhenOpened": "2024-10-30T11:43:39.612Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "SCP-035.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Roles\\SCP-035.cs",
               "RelativeDocumentMoniker": "Mr_Over41\\Roles\\SCP-035.cs",
               "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Roles\\SCP-035.cs",
               "RelativeToolTip": "Mr_Over41\\Roles\\SCP-035.cs",
-              "ViewState": "AgIAAGgAAAAAAAAAAAAIwMkAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAQwBgAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T16:43:49.217Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-02T16:43:49.217Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Dublicator.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Item\\Dublicator.cs",
+              "RelativeDocumentMoniker": "Mr_Over41\\Item\\Dublicator.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\Mr_Over41\\Item\\Dublicator.cs",
+              "RelativeToolTip": "Mr_Over41\\Item\\Dublicator.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAwwDAAAAB/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T10:26:49.378Z"
             }
           ]
         }
