@@ -41,6 +41,7 @@ public class ItemD : CustomWeapon {
             return;
         } if (ev.Target != null) {
             ev.Damage = 0;
+            Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
             Ragdoll.CreateAndSpawn(ev.Target.Role.Type, ev.Target.Nickname, "Душа покинула его убегая от парадоксов", ev.Target.Transform.position, ev.Target.Transform.rotation);
         }
         if (Physics.Linecast(ev.Player.CameraTransform.position, ev.RaycastHit.point, out RaycastHit raycastHit)) {

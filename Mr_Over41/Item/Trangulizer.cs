@@ -45,8 +45,10 @@ public class Trangulizer : CustomWeapon {
         } if (ev.Target.IsGodModeEnabled) {
             return;
         } if (ev.Target.IsScp) {
+            Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
             Timing.RunCoroutine(SCPDelay(ev.Target));
         } else if (ev.Player.LeadingTeam != ev.Target.LeadingTeam) {
+            Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
             Timing.RunCoroutine(Delay(ev.Target));
         }
         ev.Damage = 0;
