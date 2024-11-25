@@ -96,6 +96,7 @@ namespace TestPlugin {
 
                 var elementReference_2 = new TimedElemRef<SetElement>();
                 var elementReference_6 = new TimedElemRef<SetElement>();
+               var elementReference_7 = new TimedElemRef<SetElement>();
                 if (API.API.Best_Player() == player) {
                     offset += 45;
                     displayCore.SetElemTemp($"<align=right><size={size}><color={player.Role.Color.ToHex()}><b>〚🏆〛Ви найкращий гравець </b></color></size></align>", offset, TimeSpan.FromSeconds(2), elementReference_2);
@@ -112,7 +113,6 @@ namespace TestPlugin {
                 _Ghost_HUD = "<color=#E6DBD8><size=0><align=right>";
                 foreach (Exiled.API.Features.Player pl in player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Take(5)) {
                     Ghost_offset -= 22;
-                    var elementReference_7 = new TimedElemRef<SetElement>();
                     displayCore.SetElemTemp($"<color=#E6DBD8><size={size + 3}><align=right>    ⭐{pl.Nickname} <color=#E6DBD8><size=0><align=right>", Ghost_offset, TimeSpan.FromSeconds(2), elementReference_7);
                 }  if (player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count() >= 5) {
                     _Ghost_HUD += $"<color=#E6DBD8><size=0><align=right> ...";
@@ -126,6 +126,7 @@ namespace TestPlugin {
                 displayCore.RemoveReference(elementReference_4);
                 displayCore.RemoveReference(elementReference_5);
                 displayCore.RemoveReference(elementReference_6);
+                displayCore.RemoveReference(elementReference_7  );
             }
         }
         void OnDisable() { 
