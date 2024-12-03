@@ -6,8 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TestPlugin.Roles;
 
-namespace TestPlugin
-{
+namespace TestPlugin {
     [CommandHandler(typeof(ClientCommandHandler))]
     internal class Swap : ICommand {
         public string Command => "CustomSwap";
@@ -31,7 +30,7 @@ namespace TestPlugin
         }
     }
     public static class L { 
-        public static string Logi(Player send, List<string> arguments ,bool isAdmin = false) {
+        public static string Logi(Player send, List<string> arguments, bool isAdmin = false) {
             string response;
             if (send.Team != Team.SCPs && !isAdmin) {
                 response = "Ви не SCP";

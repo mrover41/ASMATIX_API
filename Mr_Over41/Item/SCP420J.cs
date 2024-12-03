@@ -23,23 +23,23 @@ namespace TestPlugin {
         public override string Name { get; set; } = "SCP-420-J";
         public override uint Id { get; set; } = 124;
         public override ItemType Type { get; set; } = ItemType.Adrenaline;
-        public override SpawnProperties SpawnProperties { get; set; } = null;
+        //public override SpawnProperties SpawnProperties { get; set; } = null;
 
-        /*public override SpawnProperties SpawnProperties { get; set; } = new SpawnProperties() {
-            Limit = 1,
+        public override SpawnProperties SpawnProperties { get; set; } = new SpawnProperties() {
+            Limit = 10,
             DynamicSpawnPoints = new List<DynamicSpawnPoint> {
             new DynamicSpawnPoint() {
-                Location = SpawnLocationType.InsideIntercom,
+                Location = SpawnLocationType.Inside173Armory,
                 Chance = 100
             }
         },
             StaticSpawnPoints = new List<StaticSpawnPoint> {
             new StaticSpawnPoint() {
                 Chance = 100,
-                Position = new UnityEngine.Vector3(0, 0, 0), Name = "SCP-420-J"
+                Position = new UnityEngine.Vector3(0, 1, 0), Name = "SCP-420-J"
             }
         }
-        };*/
+        };
         List<Exiled.API.Features.Player> playersList = new List<Exiled.API.Features.Player>();
         protected override void SubscribeEvents() {
             Exiled.Events.Handlers.Player.UsingItemCompleted += OnUsed;
@@ -69,6 +69,7 @@ namespace TestPlugin {
             FogControl fogControl = ev.Player.GetEffect(EffectType.FogControl) as FogControl;
             fogControl.Duration = 10;
             EffectTypeExtension.SetFogType(fogControl, FogType.Decontamination);
+            ev.Player.EnableEffect<Strangled>();
             Timing.CallDelayed(10, () => { playersList.Remove(ev.Player); });
         }
     }

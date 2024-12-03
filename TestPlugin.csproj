@@ -92,9 +92,11 @@
     <Compile Include="Mr_Over41\HUD\HUD_LOADER.cs" />
     <Compile Include="Mr_Over41\Item\Dublicator.cs" />
     <Compile Include="Mr_Over41\Item\FunGranate.cs" />
+    <Compile Include="Mr_Over41\Item\gravityGranate.cs" />
     <Compile Include="Mr_Over41\Item\SCP420J.cs" />
     <Compile Include="Mr_Over41\Item\Trangulizer.cs" />
     <Compile Include="Mr_Over41\Item\Water.cs" />
+    <Compile Include="Mr_Over41\Item\WtfGranate.cs" />
     <Compile Include="Mr_Over41\Lobby\Lobby_Fix.cs" />
     <Compile Include="Mr_Over41\Roles\SCP-035.cs" />
     <Compile Include="Mr_Over41\Roles\SCP-343.cs" />
@@ -104,8 +106,8 @@
     <Compile Include="Mr_Over41\Roles\SCP-689.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EXILEDOFFICIAL">
-      <Version>8.11.0</Version>
+    <PackageReference Include="ExMod.Exiled">
+      <Version>8.14.1</Version>
     </PackageReference>
     <PackageReference Include="RueI">
       <Version>2.1.0</Version>

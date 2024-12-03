@@ -39,9 +39,9 @@
       "frameworks": {
         "net48": {
           "dependencies": {
-            "EXILEDOFFICIAL": {
+            "ExMod.Exiled": {
               "target": "Package",
-              "version": "[8.11.0, )"
+              "version": "[8.14.1, )"
             },
             "RueI": {
               "target": "Package",

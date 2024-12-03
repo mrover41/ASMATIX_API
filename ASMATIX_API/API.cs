@@ -1,8 +1,6 @@
 ﻿using Exiled.API.Enums;
 using Exiled.API.Extensions;
 using Exiled.API.Features;
-using Exiled.API.Features.Items;
-using Exiled.API.Structs;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
 using HarmonyLib;
@@ -10,12 +8,13 @@ using MEC;
 using Mirror;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp3114;
-using PlayerRoles.Voice;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TestPlugin;
+using UnityEngine;
+using VoiceChat;
 using VoiceChat.Networking;
-using static MapGeneration.ImageGenerator;
 using static PlayerRoles.PlayableScps.Scp3114.Scp3114Strangle;
 
 namespace API {
@@ -29,7 +28,7 @@ namespace API {
                 if (player.Health > damage) {
                     player.Health -= damage;
                 } else {
-                    player.Kill(DamageType.ParticleDisruptor);
+                    player.Kill(Exiled.API.Enums.DamageType.ParticleDisruptor);
                 }
             }
         }
@@ -104,20 +103,24 @@ namespace API {
             player_score.Add(ev.Player, score_Counter);
         }
         static void Disconnect_Player(LeftEventArgs ev) { 
-            player_score.Remove(ev.Player);
+            if (player_score.ContainsKey(ev.Player)) {
+                player_score.Remove(ev.Player);
+            }
         }
         public static Player Best_Player() {
             int Tmp_Score = 0;
-            Player best = Player.List.Last();
+            Player best = Player.List.First();
             try {
                 foreach (Player player in Player.List) {
-                    if (player_score[player].Count >= Tmp_Score && player_score.ContainsKey(player)) {
-                        Tmp_Score = player_score[player].Count;
-                        best = player;
+                    if (player_score.ContainsKey(player)) {
+                        if (player_score[player].Count >= Tmp_Score) {
+                            Tmp_Score = player_score[player].Count;
+                            best = player;
+                        }
                     }
                 }
             } catch (Exception ex) { 
-                //Log.Info(ex.Message);
+                Log.Info($"[Asmatix_API] Error in metod 'BestPlayer': {ex.Message}");
             }
             return best;
         }
@@ -149,27 +152,42 @@ namespace API {
     
 }
 
-/*namespace Patches {
-    [HarmonyPatch(typeof(Scp3114Strangle), nameof(Scp3114Strangle.ProcessAttackRequest))]
-    public static class SCP035_Voice_Patch {
-        public static bool Prefix(Scp3114Strangle __instance, NetworkReader reader, StrangleTarget? __target) {
-            foreach (Player pl in Player.List) {
-                pl.Broadcast(1, "Кислород душат");
+namespace Patches {
+    [HarmonyPatch(typeof(VoiceChat.Networking.VoiceTransceiver), nameof(VoiceChat.Networking.VoiceTransceiver.ServerReceiveMessage))]
+    public class SCP035_Voice_Patch {
+        public static bool Prefix(NetworkConnection conn, VoiceMessage msg) {
+            try { 
+                if (Global.Player_Role.ContainsKey("035")) {
+                    Player pl = Player.Get(msg.Speaker.PlayerId);
+                    if (pl == Global.Player_Role["035"]) {
+                        Log.Info($"{pl.Nickname} sp to {msg.Channel}");
+                        foreach (ReferenceHub allHub in ReferenceHub.AllHubs) {
+                            VoiceChatChannel voiceChatChannel2 = pl.VoiceModule.ValidateReceive(msg.Speaker, VoiceChatChannel.ScpChat);
+                            msg.Channel = voiceChatChannel2;
+                            pl.VoiceChannel = msg.Channel;
+                            allHub.connectionToClient.Send(msg);
+                        }
+                    }
+                }
+                return false;
+            } catch (Exception ex) {
+                Log.Error($"[ASMATIX_API] Error in SCP035_Voice_Patch: {ex.Message}");
+                return true;
             }
-            __target = default;
-            return false;
         }
     }
-    [HarmonyPatch(typeof(Radio))]
-    [HarmonyPatch(nameof(Radio.SetRangeSettings))]
-    internal static class RadioPatch {
-        static bool Prefix(Radio __instance, RadioRange range, RadioRangeSettings settings) {
-            foreach (Player pl in Player.List) {
-                pl.Broadcast(1, "Кислород душат");
-            }
-            __instance.BatteryLevel = 100;
-            settings.MaxRange = 0;
-            return false;
+    [HarmonyPatch(typeof(Scp3114Dance), nameof(Scp3114Dance.ClientProcessRpc))]
+    public class SCP_3114_P {
+        static void Postfix(Scp3114Dance __instance, NetworkReader reader) {
+            __instance.DanceVariant = 1;
         }
     }
-}*/
+
+    /*[HarmonyPatch(typeof(Scp3114Strangle), nameof(Scp3114Strangle.ProcessAttackRequest))]
+    internal static class Patch689 {
+        public static bool Prefix(Scp3114Strangle __instance, NetworkReader reader, ref StrangleTarget? __result) {
+            __result = default;
+            return true;
+        }
+    }*/
+}

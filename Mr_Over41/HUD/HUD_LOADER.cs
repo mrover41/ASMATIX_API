@@ -60,7 +60,7 @@ namespace TestPlugin.HUD {
                 UnityEngine.Object.Destroy(component2);
             }
 
-            //player.GameObject.AddComponent<Ghost_HUD>();
+            player.GameObject.AddComponent<Ghost_HUD>();
         }
     }
 }

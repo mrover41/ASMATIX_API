@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.8": {
-      "EXILEDOFFICIAL/8.11.0": {
+      "ExMod.Exiled/8.14.1": {
         "type": "package",
         "compile": {
           "lib/net48/Assembly-CSharp-Publicized.dll": {},
@@ -92,7 +92,7 @@
       }
     },
     ".NETFramework,Version=v4.8/win": {
-      "EXILEDOFFICIAL/8.11.0": {
+      "ExMod.Exiled/8.14.1": {
         "type": "package",
         "compile": {
           "lib/net48/Assembly-CSharp-Publicized.dll": {},
@@ -182,7 +182,7 @@
       }
     },
     ".NETFramework,Version=v4.8/win-arm64": {
-      "EXILEDOFFICIAL/8.11.0": {
+      "ExMod.Exiled/8.14.1": {
         "type": "package",
         "compile": {
           "lib/net48/Assembly-CSharp-Publicized.dll": {},
@@ -272,7 +272,7 @@
       }
     },
     ".NETFramework,Version=v4.8/win-x64": {
-      "EXILEDOFFICIAL/8.11.0": {
+      "ExMod.Exiled/8.14.1": {
         "type": "package",
         "compile": {
           "lib/net48/Assembly-CSharp-Publicized.dll": {},
@@ -362,7 +362,7 @@
       }
     },
     ".NETFramework,Version=v4.8/win-x86": {
-      "EXILEDOFFICIAL/8.11.0": {
+      "ExMod.Exiled/8.14.1": {
         "type": "package",
         "compile": {
           "lib/net48/Assembly-CSharp-Publicized.dll": {},
@@ -453,16 +453,16 @@
     }
   },
   "libraries": {
-    "EXILEDOFFICIAL/8.11.0": {
-      "sha512": "qY6ZBFxcG742VoRXcmQ66hqtspFEVGx03bcaKNtDeENISE9Wbt5KtaxuuAEcw9vrhrb4W+oYqhsPEOcQkXby5w==",
+    "ExMod.Exiled/8.14.1": {
+      "sha512": "6zsCnxEI0UJKI/+PqeTgiEvo7pC3YPahNqVLDmSt81lkqYMzhCUjGsmar+awlEDguNu/9yV6PTZu8rgHkySfTA==",
       "type": "package",
-      "path": "exiledofficial/8.11.0",
+      "path": "exmod.exiled/8.14.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "exiledofficial.8.11.0.nupkg.sha512",
-        "exiledofficial.nuspec",
-        "images/Exiled_Icon.jpg",
+        "exmod.exiled.8.14.1.nupkg.sha512",
+        "exmod.exiled.nuspec",
+        "images/Exiled_Icon.png",
         "lib/net48/Assembly-CSharp-Publicized.dll",
         "lib/net48/CommandSystem.Core.dll",
         "lib/net48/Exiled.API.dll",
@@ -531,7 +531,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.8": [
-      "EXILEDOFFICIAL >= 8.11.0",
+      "ExMod.Exiled >= 8.14.1",
       "RueI >= 2.1.0"
     ]
   },
@@ -573,9 +573,9 @@
     "frameworks": {
       "net48": {
         "dependencies": {
-          "EXILEDOFFICIAL": {
+          "ExMod.Exiled": {
             "target": "Package",
-            "version": "[8.11.0, )"
+            "version": "[8.14.1, )"
           },
           "RueI": {
             "target": "Package",

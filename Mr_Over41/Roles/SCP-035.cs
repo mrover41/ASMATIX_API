@@ -31,7 +31,6 @@ class SCP035 : MonoBehaviour {
         if (player == null) {
             return;
         }
-        Global.Player_Role.Add("035", player);
         player.CustomInfo = "SCP-035";
         Timing.RunCoroutine(Updater(player), 35);
         Timing.RunCoroutine(Cd_Updater(), 35);
@@ -46,6 +45,7 @@ class SCP035 : MonoBehaviour {
         player.AddItem(ItemType.Coin);
         player.AddItem(ItemType.SCP500);
         player.AddItem(ItemType.KeycardZoneManager);
+        Global.Player_Role.Add("035", player);
         //spawnedSchematic = ObjectSpawner.SpawnSchematic("scp035mask", player.Transform.position, Quaternion.identity, null, null, false);
         //spawnedSchematic.transform.SetParent(player.CameraTransform.transform);
         //spawnedSchematic.transform.localPosition = new Vector3(-0.1f, 0f, 0.2f);

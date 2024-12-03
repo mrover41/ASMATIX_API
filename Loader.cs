@@ -1,5 +1,6 @@
 ﻿
 using Exiled.API.Features;
+using Exiled.API.Features.Doors;
 using Exiled.CustomItems.API;
 using Exiled.CustomRoles.API;
 using HarmonyLib;
@@ -8,18 +9,17 @@ using TestPlugin;
 using TestPlugin.GoodMode;
 using TestPlugin.HUD;
 
-public sealed class test : Plugin<Config>
-{
+public sealed class test : Plugin<Config> {
     public override string Author => "Mr_Over41";
     public override string Name => "API";
     public override string Prefix => "Asmatix_API";
     public override Version Version => new Version(1, 0, 2);
-    //Harmony patch;
+    public static Harmony patch;
 
     public override void OnEnabled() {
         OnLoad();
-        //patch = new Harmony("com.patch.asmatix");
-        //patch.PatchAll();
+        patch = new Harmony("com.patch.asmatix");
+        patch.PatchAll();
         Harmony.DEBUG = true;
         Exiled.Events.Handlers.Server.RoundStarted += RoundSt;
         Exiled.Events.Handlers.Server.WaitingForPlayers += OnRoundRest;
@@ -29,7 +29,7 @@ public sealed class test : Plugin<Config>
 
     public override void OnDisabled() {
         OnUnload();
-        //patch.UnpatchAll();
+        patch.UnpatchAll();
         Exiled.Events.Handlers.Server.RoundStarted -= RoundSt;
         Exiled.Events.Handlers.Server.WaitingForPlayers -= OnRoundRest;
         Exiled.Events.Handlers.Player.ChangingRole -= GMode._ChaingRole;
@@ -55,6 +55,8 @@ public sealed class test : Plugin<Config>
         Config.Gr.Register();
         Config.water.Register();
         Config.Trangulizer.Register();
+        Config.Wtf.Register();
+        Config.gravity.Register();
      }
     void OnUnload() {
         //HUD
@@ -67,6 +69,8 @@ public sealed class test : Plugin<Config>
         Config.Gr.Unregister();
         Config.water.Unregister();
         Config.Trangulizer.Unregister();
+        Config.Wtf.Unregister();
+        Config.gravity.Unregister();
     }
 }
 
