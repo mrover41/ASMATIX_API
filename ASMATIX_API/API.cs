@@ -162,6 +162,7 @@ namespace Patches {
                     if (pl == Global.Player_Role["035"]) {
                         Log.Info($"{pl.Nickname} sp to {msg.Channel}");
                         foreach (ReferenceHub allHub in ReferenceHub.AllHubs) {
+                            //pl.VoiceChannel = VoiceChatChannel.ScpChat;
                             VoiceChatChannel voiceChatChannel2 = pl.VoiceModule.ValidateReceive(msg.Speaker, VoiceChatChannel.ScpChat);
                             msg.Channel = voiceChatChannel2;
                             pl.VoiceChannel = msg.Channel;
@@ -176,14 +177,14 @@ namespace Patches {
             }
         }
     }
-    [HarmonyPatch(typeof(Scp3114Dance), nameof(Scp3114Dance.ClientProcessRpc))]
+    /*[HarmonyPatch(typeof(Scp3114Dance), nameof(Scp3114Dance.ClientProcessRpc))]
     public class SCP_3114_P {
         static void Postfix(Scp3114Dance __instance, NetworkReader reader) {
             __instance.DanceVariant = 1;
         }
     }
 
-    /*[HarmonyPatch(typeof(Scp3114Strangle), nameof(Scp3114Strangle.ProcessAttackRequest))]
+    [HarmonyPatch(typeof(Scp3114Strangle), nameof(Scp3114Strangle.ProcessAttackRequest))]
     internal static class Patch689 {
         public static bool Prefix(Scp3114Strangle __instance, NetworkReader reader, ref StrangleTarget? __result) {
             __result = default;

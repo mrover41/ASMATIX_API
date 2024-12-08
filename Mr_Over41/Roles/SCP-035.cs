@@ -161,11 +161,7 @@ class SCP035 : MonoBehaviour {
             ev.IsAllowed = false;
         }
     }
-    void Voice(VoiceChattingEventArgs ev) { 
-        if (ev.Player == player) {
-            ev.VoiceModule.CurrentChannel = VoiceChat.VoiceChatChannel.ScpChat;
-        }
-    }
+
 
     void OnEnable() {
         Exiled.Events.Handlers.Player.ActivatingGenerator += Generator;
@@ -181,7 +177,6 @@ class SCP035 : MonoBehaviour {
         Exiled.Events.Handlers.Player.InteractingDoor += Door_Interact;
         Exiled.Events.Handlers.Player.Hurting += OnDamage;
         //AudioPlayer.API.AudioController.SpawnDummy(0, "SCP-035 Controller");
-        Exiled.Events.Handlers.Player.VoiceChatting += Voice;
     }
     void OnDisable() {
         Exiled.Events.Handlers.Player.ActivatingGenerator -= Generator;
@@ -197,7 +192,6 @@ class SCP035 : MonoBehaviour {
         Exiled.Events.Handlers.Player.InteractingDoor -= Door_Interact;
         Exiled.Events.Handlers.Player.Hurting -= OnDamage;
         //AudioPlayer.API.AudioController.DisconnectDummy(0);
-        Exiled.Events.Handlers.Player.VoiceChatting -= Voice;
         //spawnedSchematic.Destroy();
         Global.Player_Role.Remove("035");
         Timing.KillCoroutines("035");
@@ -218,11 +212,11 @@ class SCP035 : MonoBehaviour {
                 Coin_CD--;
                 displayCore = DisplayCore.Get(player.ReferenceHub);
                 elementReference = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp($"<align=left><color=#ff008c><size={20}><b>       〚🎭〛Здiбнoсть: <color=#F9F1FF>{Coin_CD}</color></align></size>", 10, TimeSpan.FromSeconds(2), elementReference);
+                displayCore.SetElemTemp($"<align=left><color=#ff008c><size={17}><b>       〚🎭〛Здiбнoсть: <color=#F9F1FF>{Coin_CD}</color></align></size>", 10, TimeSpan.FromSeconds(2), elementReference);
             } else {
                 displayCore = DisplayCore.Get(player.ReferenceHub);
                 elementReference = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp($"<align=left><color=#ff008c><size={20}><b>       〚🎭〛Здiбнoсть: <color=#66F261>Готово</color></align></size>", 10, TimeSpan.FromSeconds(2), elementReference);
+                displayCore.SetElemTemp($"<align=left><color=#ff008c><size={17}><b>       〚🎭〛Здiбнoсть: <color=#66F261>Готово</color></align></size>", 10, TimeSpan.FromSeconds(2), elementReference);
             }
             yield return Timing.WaitForSeconds(1);
             displayCore.RemoveReference(elementReference);

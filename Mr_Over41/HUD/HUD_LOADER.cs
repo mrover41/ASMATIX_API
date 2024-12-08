@@ -1,6 +1,8 @@
 ﻿using Exiled.API.Features;
 using Exiled.Events.EventArgs.Player;
+using MEC;
 using PlayerRoles;
+using System;
 using UnityEngine;
 
 namespace TestPlugin.HUD {
@@ -33,20 +35,14 @@ namespace TestPlugin.HUD {
             }
 
             if (player.IsHuman) {
-                if (Global.Player_Role.ContainsKey("035")) { 
-                    if (player != Global.Player_Role["035"]) {
-                        player.GameObject.AddComponent<Human_HUD>();
-                    } else { 
-                        player.GameObject.AddComponent<SCP035_HUD>();
-                    }
-                } else {
-                    player.GameObject.AddComponent<Human_HUD>();
-                }
+                player.GameObject.AddComponent<Human_HUD>();
             } if (player.IsScp) {
                 player.GameObject.AddComponent<SCP_HUD>();
             } if (player.IsTutorial) {
                 //player.GameObject.AddComponent<Tutorial_HUD>();
             }
+
+            Timing.CallDelayed(2, () => Roles());
         }
 
         static void DiedGhost(Player player) {
@@ -61,6 +57,14 @@ namespace TestPlugin.HUD {
             }
 
             player.GameObject.AddComponent<Ghost_HUD>();
+        }
+        static void Roles() { 
+            if (Global.Player_Role.ContainsKey("035")) {
+                if (Global.Player_Role["035"].GameObject.TryGetComponent<Human_HUD>(out var component_035_FIX)) {
+                    UnityEngine.Object.Destroy(component_035_FIX);
+                    Global.Player_Role["035"].GameObject.AddComponent<SCP035_HUD>();
+                }
+            }
         }
     }
 }
