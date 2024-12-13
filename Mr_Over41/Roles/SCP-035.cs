@@ -20,6 +20,7 @@ using System.Linq;
 using TestPlugin;
 using UnityEngine;
 using RueI.Extensions;
+using Exiled.API.Features.Items;
 
 
 class SCP035 : MonoBehaviour {
@@ -74,18 +75,10 @@ class SCP035 : MonoBehaviour {
         }
     }
     void _Coin(FlippingCoinEventArgs ev) {
-        if (ev.Player == player && Coin_CD <= 0) { 
-            foreach(Player pla in Player.List.Where(x => Vector3.Distance(x.Position, player.Position) <= 7 && x != player && !x.IsScp)) {
-                pla.EnableEffect(EffectType.Slowness, 15, 4);
-                pla.EnableEffect(EffectType.Deafened, 255, 4);
-                ev.Player.Broadcast(2, "Поглинення Активовано");
+        if (ev.Player == player && Coin_CD <= 0) {
+            foreach (Player pla in Player.List.Where(x => Vector3.Distance(x.Position, player.Position) <= 7 && x != player && !x.IsScp)) {
+                pla.DropItem(Item.Get(pla.Inventory.CurItem.SerialNumber));
                 Coin_CD = 100;
-                pla.Hurt(37);
-                if (player.Health + 37 <= 500) {
-                    player.Health += 37;
-                } else {
-                    player.Health = 500;
-                }
             }
         }
     }
@@ -201,6 +194,14 @@ class SCP035 : MonoBehaviour {
         for (; ; ) {
             yield return Timing.WaitForSeconds(1f);
             pl.Hurt(2, "Ловля ебалай");
+            foreach(Player pla in Player.List.Where(x => Vector3.Distance(x.Position, player.Position) <= 7 && x != player && !x.IsScp)) {
+                pla.Hurt(1);
+                if (player.Health + 1 <= 500) {
+                    player.Health += 1;
+                } else {
+                    player.Health = 500;
+                }
+            }
         }
     }
     IEnumerator<float> Cd_Updater() {

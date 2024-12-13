@@ -60,6 +60,7 @@ namespace TestPlugin.Item
             if (Check(ev.Item)) {
                 ev.Player.RemoveItem(ev.Item);
                 Timing.RunCoroutine(_Effect(ev.Player));
+                ev.IsAllowed = false;
             }
         }
         void SelectItem(ChangedItemEventArgs ev) {
@@ -72,9 +73,11 @@ namespace TestPlugin.Item
             player.DisableEffect(EffectType.AntiScp207);
             player.EnableEffect(EffectType.MovementBoost, 40, 10);
             player.DisableEffect(EffectType.Scp207);
+            player.DisableEffect(EffectType.Poisoned);
             yield return Timing.WaitForSeconds(5);
             player.DisableEffect(EffectType.MovementBoost);
             player.DisableEffect(EffectType.Scp207);
+            player.DisableEffect(EffectType.Poisoned);
         }
     }
 }

@@ -20,8 +20,9 @@ namespace TestPlugin.Mr_Over41.Item
         public override uint Id { get; set; } = 200;
         public override string Name { get; set; } = "g";
         public override bool ExplodeOnCollision { get; set; } = false;
-        public override Vector3 Scale { get; set; } = new Vector3(2, 5, 2); 
-        public override SpawnProperties SpawnProperties { get; set; } = new SpawnProperties()
+        public override Vector3 Scale { get; set; } = new Vector3(2, 5, 2);
+        public override SpawnProperties SpawnProperties { get; set; } = null;
+        /*public override SpawnProperties SpawnProperties { get; set; } = new SpawnProperties()
         {
             Limit = 1,
             DynamicSpawnPoints = new List<DynamicSpawnPoint> {
@@ -36,7 +37,7 @@ namespace TestPlugin.Mr_Over41.Item
                 Position = new UnityEngine.Vector3(0, 0, 0), Name = "f"
             }
         }
-        };
+        };*/
         protected override void SubscribeEvents() {
             Exiled.Events.Handlers.Player.ChangedItem += Select_Info;
             base.SubscribeEvents();

@@ -36,7 +36,7 @@ namespace TestPlugin.HUD {
 
             if (player.IsHuman) {
                 player.GameObject.AddComponent<Human_HUD>();
-            } if (player.IsScp) {
+            } if (player.IsScp && player.Role != RoleTypeId.Scp079) {
                 player.GameObject.AddComponent<SCP_HUD>();
             } if (player.IsTutorial) {
                 //player.GameObject.AddComponent<Tutorial_HUD>();
@@ -56,7 +56,7 @@ namespace TestPlugin.HUD {
                 UnityEngine.Object.Destroy(component2);
             }
 
-            player.GameObject.AddComponent<Ghost_HUD>();
+            //player.GameObject.AddComponent<Ghost_HUD>();
         }
         static void Roles() { 
             if (Global.Player_Role.ContainsKey("035")) {

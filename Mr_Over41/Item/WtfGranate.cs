@@ -13,8 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace TestPlugin.Mr_Over41.Item
-{
+namespace TestPlugin.Mr_Over41.Item {
     public class WtfGranate : CustomGrenade {
         public float Duration { get; set; } = 10f;
         public override ItemType Type { get; set; } = ItemType.GrenadeHE;
@@ -24,7 +23,8 @@ namespace TestPlugin.Mr_Over41.Item
         public override uint Id { get; set; } = 141;
         public override string Name { get; set; } = "granatef";
         public override bool ExplodeOnCollision { get; set; } = true;
-        public override SpawnProperties SpawnProperties { get; set; } = new SpawnProperties()
+        public override SpawnProperties SpawnProperties { get; set; } = null;
+        /*public override SpawnProperties SpawnProperties { get; set; } = new SpawnProperties()
         {
             Limit = 5,
             DynamicSpawnPoints = new List<DynamicSpawnPoint> {
@@ -39,7 +39,7 @@ namespace TestPlugin.Mr_Over41.Item
                 Position = new UnityEngine.Vector3(0, 0, 0), Name = "f"
             }
         }
-        };
+        };*/
         protected override void SubscribeEvents() {
             Exiled.Events.Handlers.Player.ChangedItem += Select_Info;
             base.SubscribeEvents();

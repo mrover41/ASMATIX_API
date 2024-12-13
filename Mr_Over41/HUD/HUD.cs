@@ -12,6 +12,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Exiled.Events.EventArgs.Scp079;
+using PluginAPI.Core;
+using Exiled.Events.Handlers;
+using PlayerRoles.PlayableScps.Scp079.Pinging;
+using Exiled.API.Features.Pickups;
 
 namespace TestPlugin {
     public static class WaitPlayer_HUD {
@@ -59,7 +63,7 @@ namespace TestPlugin {
         string Mixed_HUD;
         string HUD_Result;
         //d
-        int size = 15;
+        int size = 17;
         int offset = 0;
         string[] Name = new string[] { "Охоронець", "Вчений", "Д-Клас", "Повстанець Хаосу", "МОГ" };
         void Start() {
@@ -71,51 +75,52 @@ namespace TestPlugin {
                 if (player == null) {
                     yield break;
                 }
-                offset = -20;
+                offset = -22;
 
-                HUD_Name = $"<align=left><size={size}><b>       〚⭐〛Iм'я: <color={player.Role.Color.ToHex()}>{player.Nickname} </b></size></color></align>";
-                HUD_Role = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🕑〛Час раунду: <color=#F5F5F5>{PluginAPI.Core.Round.Duration.Minutes.ToString("D2")} : {PluginAPI.Core.Round.Duration.Seconds.ToString("D2")} </b></size></color></align>";
-                HUD_MyTeam_Player = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🍪〛Cоюзникiв:<color=#F5F5F5> {Exiled.API.Features.Player.List.Where(x => x.Role.Type == player.Role.Type).ToList().Count()} </b></size></color></align>";
+                HUD_Name = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>        〚⭐〛Iм'я: <color=#{API.API.MakeColorLighter(player.Role.Color.ToHex(), 0.17f)}>{player.Nickname} </b></size></color></align>";
+                HUD_Role = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>        〚🕑〛Час раунду: <color=#F5F5F5>{PluginAPI.Core.Round.Duration.Minutes.ToString("D2")} : {PluginAPI.Core.Round.Duration.Seconds.ToString("D2")} </b></size></color></align>";
+                HUD_MyTeam_Player = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>        〚🍪〛Cоюзникiв:<color=#F5F5F5> {Exiled.API.Features.Player.List.Where(x => x.LeadingTeam == player.LeadingTeam).ToList().Count()} </b></size></color></align>";
                 HUD_SCPs = $"<align=left><color={player.Role.Color.ToHex()}><size={size}><b>{SCPl} </b></size></color></align>";
-                Generator_HUD = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🚂〛Акт.Генераторів: <color=#F5F5F5>{Scp079Recontainer.AllGenerators.Count(x => x.Engaged).ToString()}</b></size></color></align>";
+                Generator_HUD = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>        〚🚂〛Акт.Генераторів: <color=#F5F5F5>{Scp079Recontainer.AllGenerators.Count(x => x.Engaged).ToString()}</b></size></color></align>";
 
                 DisplayCore displayCore = DisplayCore.Get(player.ReferenceHub);
-
+                
                 var elementReference_1 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(HUD_Name, 100, TimeSpan.FromSeconds(2), elementReference_1);
+                displayCore.SetElemTemp(HUD_Name, 88, TimeSpan.FromSeconds(2), elementReference_1);
 
                 var elementReference_3 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(HUD_Role, 70, TimeSpan.FromSeconds(2), elementReference_3);
+                displayCore.SetElemTemp(HUD_Role, 61, TimeSpan.FromSeconds(2), elementReference_3);
 
                 var elementReference_4 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(HUD_MyTeam_Player, 40, TimeSpan.FromSeconds(2), elementReference_4);
-
+                displayCore.SetElemTemp(HUD_MyTeam_Player, 34, TimeSpan.FromSeconds(2), elementReference_4);
+                
                 var elementReference_5 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(Generator_HUD, 10, TimeSpan.FromSeconds(2), elementReference_5);
+                displayCore.SetElemTemp(Generator_HUD, 7, TimeSpan.FromSeconds(2), elementReference_5);
 
                 var elementReference_2 = new TimedElemRef<SetElement>();
                 var elementReference_6 = new TimedElemRef<SetElement>();
                 var elementReference_7 = new TimedElemRef<SetElement>();
                 if (API.API.Best_Player() == player) {
-                    offset += 45;
+                    offset += 27;
                     displayCore.SetElemTemp($"<align=right><size={size}><color={player.Role.Color.ToHex()}><b>〚🏆〛Ви найкращий гравець </b></color></size></align>", offset, TimeSpan.FromSeconds(2), elementReference_2);
                 } if (PluginAPI.Core.Warhead.IsDetonationInProgress) {
-                    offset += 45;
-                    displayCore.SetElemTemp($"<align=right><size={size}><color={player.Role.Color.ToHex()}><b>〚💥〛Час до вибуху: {Math.Round(PluginAPI.Core.Warhead.DetonationTime)}</b></color></size></align>", offset, TimeSpan.FromSeconds(2), elementReference_6);
+                    offset += 27;
+                    displayCore.SetElemTemp($"<align=right><size={size}><color={player.Role.Color.ToHex()}><b>〚💥〛Час до вибуху: <color=#ffffff>{Math.Round(PluginAPI.Core.Warhead.DetonationTime)}</b></color></size></align>", offset, TimeSpan.FromSeconds(2), elementReference_6);
                 }
 
                 int Ghost_offset = 900;
                 var elementReference_8 = new TimedElemRef<SetElement>();
                 if (player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count() > 0) {
-                    displayCore.SetElemTemp($"<color=#E6DBD8><size={size}><align=right><b>〚{player.CurrentSpectatingPlayers.Where(x => x.Role.Type != RoleTypeId.Overwatch).Count()}🔥〛Cпостерегачi:</b> <color=#E6DBD8><size={size + 2}>", Ghost_offset, TimeSpan.FromSeconds(2), elementReference_8);
+                    _Ghost_HUD += $"<color=#E6DBD8><size={size}><align=right><b>〚{player.CurrentSpectatingPlayers.Where(x => x.Role.Type != RoleTypeId.Overwatch).Count()}🔥〛Cпостерегачi:</b> <color=#E6DBD8><size={size + 2}>\n";
                 }
-                _Ghost_HUD = "<color=#E6DBD8><size=0><align=right>";
+                _Ghost_HUD += "<color=#E6DBD8><size=0><align=right>";
                 foreach (Exiled.API.Features.Player pl in player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Take(5)) {
                     Ghost_offset -= 22;
-                    displayCore.SetElemTemp($"<color=#E6DBD8><size={size}><align=right>    {pl.Nickname} ⭐<color=#E6DBD8><size=0><align=right>", Ghost_offset, TimeSpan.FromSeconds(2), elementReference_7);
+                    _Ghost_HUD += $"<color=#E6DBD8><size={size}><align=right>    {pl.Nickname} ⭐<color=#E6DBD8><size=0><align=right>\n";
                 }  if (player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count() >= 5) {
                     _Ghost_HUD += $"<color=#E6DBD8><size=0><align=right> ...";
                 }
+                displayCore.SetElemTemp(_Ghost_HUD, Ghost_offset, TimeSpan.FromSeconds(2), elementReference_8);
                 _Ghost_HUD = "";
 
                 yield return Timing.WaitForSeconds(1);
@@ -127,6 +132,31 @@ namespace TestPlugin {
                 displayCore.RemoveReference(elementReference_6);
                 displayCore.RemoveReference(elementReference_7);
             }
+            /*string Conv(Exiled.API.Features.Player player) {
+                switch(player.Role.Type) {
+                    case RoleTypeId.ClassD:
+                        return "#FFB44E";
+                        break;
+                    case RoleTypeId.NtfSpecialist:
+                        return "#43B0FF";
+                        break;
+                    case RoleTypeId.NtfCaptain:
+                        return "#3971FF";
+                        break;
+                    case RoleTypeId.NtfPrivate:
+                        return "#9BD6FF";
+                        break;
+                    case RoleTypeId.FacilityGuard:
+                        return "#768394";
+                    case RoleTypeId.ChaosRepressor:
+                        return "#008533";
+                        break;
+                    case RoleTypeId.ChaosMarauder:
+                        return "#0C963F";
+                        break;
+                }
+                return "#e600ff";
+            }*/
         }
         void OnDisable() { 
             Timing.KillCoroutines($"{player.Id}");
@@ -165,6 +195,8 @@ namespace TestPlugin {
         //d
         int size = 17;
         int offset = 0;
+        int scp079l = 0;
+        int exp079;
         string[] Name = new string[] { "Охоронець", "Вчений", "Д-Клас", "Повстанець Хаосу", "МОГ" };
         void Start() {
             player = Exiled.API.Features.Player.Get(this.gameObject);
@@ -182,7 +214,7 @@ namespace TestPlugin {
                 HUD_MyTeam_Player = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🍪〛Cоюзникiв(SCP):<color=#F5F5F5> {Exiled.API.Features.Player.List.Where(x => x.IsScp).ToList().Count()} </b></size></color></align>";
                 HUD_SCPs = $"<align=left><color={player.Role.Color.ToHex()}><size={size}><b>{SCPl} </b></size></color></align>";
                 Generator_HUD = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🚂〛Акт.Генераторів: <color=#F5F5F5>{Scp079Recontainer.AllGenerators.Count(x => x.Engaged).ToString()}</b></size></color></align>";
-
+                
                 DisplayCore displayCore = DisplayCore.Get(player.ReferenceHub);
 
                 var elementReference_1 = new TimedElemRef<SetElement>();
@@ -211,29 +243,32 @@ namespace TestPlugin {
                 int Ghost_offset = 900;
                 var elementReference_8 = new TimedElemRef<SetElement>();
                 if (player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count() > 0) {
-                    displayCore.SetElemTemp($"<color=#E6DBD8><size={size}><align=right><b>〚{player.CurrentSpectatingPlayers.Where(x => x.Role.Type != RoleTypeId.Overwatch).Count()}🔥〛Cпостерегачi:</b> <color=#E6DBD8><size={size + 2}>", Ghost_offset, TimeSpan.FromSeconds(2), elementReference_8);
+                    _Ghost_HUD += $"<color=#E6DBD8><size={size}><align=right><b>〚{player.CurrentSpectatingPlayers.Where(x => x.Role.Type != RoleTypeId.Overwatch).Count()}🔥〛Cпостерегачi:</b> <color=#E6DBD8><size={size + 2}>\n";
                 }
-                _Ghost_HUD = "<color=#E6DBD8><size=0><align=right>";
+                _Ghost_HUD += "<color=#E6DBD8><size=0><align=right>";
                 foreach (Exiled.API.Features.Player pl in player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Take(5)) {
                     Ghost_offset -= 22;
-                    displayCore.SetElemTemp($"<color=#E6DBD8><size={size}><align=right>    {pl.Nickname} ⭐<color=#E6DBD8><size=0><align=right>", Ghost_offset, TimeSpan.FromSeconds(2), elementReference_7);
+                    _Ghost_HUD += $"<color=#E6DBD8><size={size}><align=right>    {pl.Nickname} ⭐<color=#E6DBD8><size=0><align=right>\n";
                 }  if (player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count() >= 5) {
                     _Ghost_HUD += $"<color=#E6DBD8><size=0><align=right> ...";
                 }
+                displayCore.SetElemTemp(_Ghost_HUD, Ghost_offset, TimeSpan.FromSeconds(2), elementReference_8);
                 _Ghost_HUD = "";
 
 
                 Team_Information = $"<align=right><size={size}><color={player.Role.Color.ToHex()}><b> ";
-                foreach (Exiled.API.Features.Player pl in Exiled.API.Features.Player.List.Where(x => x.IsScp && x != player && x.Role.Type != RoleTypeId.Scp0492 && x.Role.Type != RoleTypeId.Scp079)) {
-                    Team_Information += $"{pl.Role.Type} <color=#F9F1FF>〚<color=#66F261> {pl.Health}HP <color=#F9F1FF>| <color=#ADCBFF> {pl.ArtificialHealth}HS <color=#F9F1FF>〛</color>\n";
+                foreach (Exiled.API.Features.Player pl in Exiled.API.Features.Player.List.Where(x => x.IsScp && x != player && x.Role.Type != RoleTypeId.Scp0492 && x.Role.Type != RoleTypeId.Scp079 && x != player))
+                {
+                    Team_Information += $"{pl.Role.Type.GetFullName()} <color=#F9F1FF>〚<color=#66F261> {Math.Round(pl.Health)}HP <color=#F9F1FF>| <color=#ADCBFF> {Math.Round(pl.HumeShield)}HS <color=#F9F1FF>〛<color={player.Role.Color.ToHex()}>\n";
                     offset += 31;
                 }
-                
-                if (Exiled.API.Features.Player.List.Any(x => x.Role.Type == RoleTypeId.Scp079)) {
-                    Team_Information += $"SCP-079 || - Level\n";
+
+                if (Exiled.API.Features.Player.List.Any(x => x.Role.Type == RoleTypeId.Scp079))
+                {
+                    Team_Information += $"SCP-079<color=#F9F1FF>〚 <color=#FFD386>{scp079l} LVL | <color=#F9F1FF>{exp079} EXP<color=#F9F1FF> 〛\n";
                     offset += 31;
                 }
-                
+
                 Team_Information += "</size></color></align></b>";
 
                 var elementReference_0 = new TimedElemRef<SetElement>();
@@ -251,7 +286,19 @@ namespace TestPlugin {
 
             }
         }
-        void OnDisable() { 
+        void Lev(GainingLevelEventArgs ev) { 
+            scp079l = ev.NewLevel;
+        }
+        void Exp(GainingExperienceEventArgs ev) {
+            exp079 = ev.Scp079.Experience;
+        }
+        void OnEnable() {
+            Exiled.Events.Handlers.Scp079.GainingLevel += Lev;
+            Exiled.Events.Handlers.Scp079.GainingExperience += Exp;
+        }
+
+        void OnDisable() {
+            Exiled.Events.Handlers.Scp079.GainingLevel -= Lev;
             Timing.KillCoroutines($"{player.Id}");
         }
         /*string Role_Translste(Exiled.API.Features.Player player) { 
@@ -379,8 +426,9 @@ namespace TestPlugin {
         string Mixed_HUD;
         string HUD_Result;
         //d
-        int size = 15;
-        int scp079l = 0;
+        int size = 17;
+        int scp079l = 1;
+        int exp079 = 100;
 
         Exiled.API.Features.Player player;
         string Team_Information;
@@ -393,7 +441,7 @@ namespace TestPlugin {
                 if (player == null) yield break;
                 int offset = -17;
                 //TEXT
-                HUD_Name = $"<align=left><size={size}><b>       〚⭐〛Iм'я: <color={player.Role.Color.ToHex()}>{player.Nickname} </b></size></color></align>";
+                HUD_Name = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚⭐〛Iм'я: <color=#{API.API.MakeColorLighter(player.Role.Color.ToHex(), 0.17f)}>{player.Nickname} </b></size></color></align>";
                 HUD_Role = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🕑〛Час раунду: <color=#F5F5F5>{PluginAPI.Core.Round.Duration.Minutes.ToString("D2")} : {PluginAPI.Core.Round.Duration.Seconds.ToString("D2")} </b></size></color></align>";
                 HUD_MyTeam_Player = $"<align=left><size={size}><b><color={player.Role.Color.ToHex()}>       〚🍪〛Cоюзникiв(SCP):<color=#F5F5F5> {Exiled.API.Features.Player.List.Where(x => x.IsScp).ToList().Count()} </b></size></color></align>";
                 HUD_SCPs = $"<align=left><color={player.Role.Color.ToHex()}><size={size}><b>{SCPl} </b></size></color></align>";
@@ -402,16 +450,16 @@ namespace TestPlugin {
                 DisplayCore displayCore = DisplayCore.Get(player.ReferenceHub);
 
                 var elementReference_1 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(HUD_Name, 91, TimeSpan.FromSeconds(2), elementReference_1);
+                displayCore.SetElemTemp(HUD_Name, 88, TimeSpan.FromSeconds(2), elementReference_1);
 
                 var elementReference_3 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(HUD_Role, 64, TimeSpan.FromSeconds(2), elementReference_3);
+                displayCore.SetElemTemp(HUD_Role, 62, TimeSpan.FromSeconds(2), elementReference_3);
 
                 var elementReference_4 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(HUD_MyTeam_Player, 37, TimeSpan.FromSeconds(2), elementReference_4);
+                displayCore.SetElemTemp(HUD_MyTeam_Player, 34, TimeSpan.FromSeconds(2), elementReference_4);
 
                 var elementReference_5 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp(Generator_HUD, 10, TimeSpan.FromSeconds(2), elementReference_5);
+                displayCore.SetElemTemp(Generator_HUD, 8, TimeSpan.FromSeconds(2), elementReference_5);
 
                 var elementReference_2 = new TimedElemRef<SetElement>();
                 var elementReference_6 = new TimedElemRef<SetElement>();
@@ -427,15 +475,16 @@ namespace TestPlugin {
                 int Ghost_offset = 900;
                 var elementReference_8 = new TimedElemRef<SetElement>();
                 if (player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count() > 0) {
-                    displayCore.SetElemTemp($"<color=#E6DBD8><size={size}><align=right><b>〚{player.CurrentSpectatingPlayers.Where(x => x.Role.Type != RoleTypeId.Overwatch).Count()}🔥〛Cпостерегачi:</b> <color=#E6DBD8><size={size + 2}>", Ghost_offset, TimeSpan.FromSeconds(2), elementReference_8);
+                    _Ghost_HUD += $"<color=#E6DBD8><size={size}><align=right><b>〚{player.CurrentSpectatingPlayers.Where(x => x.Role.Type != RoleTypeId.Overwatch).Count()}🔥〛Cпостерегачi:</b> <color=#E6DBD8><size={size + 2}>\n";
                 }
-                _Ghost_HUD = "<color=#E6DBD8><size=0><align=right>";
+                _Ghost_HUD += "<color=#E6DBD8><size=0><align=right>";
                 foreach (Exiled.API.Features.Player pl in player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Take(5)) {
                     Ghost_offset -= 22;
-                    displayCore.SetElemTemp($"<color=#E6DBD8><size={size}><align=right>    {pl.Nickname} ⭐<color=#E6DBD8><size=0><align=right>", Ghost_offset, TimeSpan.FromSeconds(2), elementReference_7);
+                    _Ghost_HUD += $"<color=#E6DBD8><size={size}><align=right>    {pl.Nickname} ⭐<color=#E6DBD8><size=0><align=right>\n";
                 }  if (player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count() >= 5) {
                     _Ghost_HUD += $"<color=#E6DBD8><size=0><align=right> ...";
                 }
+                displayCore.SetElemTemp(_Ghost_HUD, Ghost_offset, TimeSpan.FromSeconds(2), elementReference_8);
                 _Ghost_HUD = "";
 
 
@@ -445,17 +494,17 @@ namespace TestPlugin {
                 //DisplayCore displayCore = DisplayCore.Get(player.ReferenceHub);
                 Team_Information = $"<align=right><size={size}><color={player.Role.Color.ToHex()}><b> ";
                 foreach (Exiled.API.Features.Player pl in Exiled.API.Features.Player.List.Where(x => x.IsScp && x != player && x.Role.Type != RoleTypeId.Scp0492 && x.Role.Type != RoleTypeId.Scp079)) {
-                    Team_Information += $"{pl.Role.Type} <color=#F9F1FF>〚<color=#66F261> {Math.Round(pl.Health)}HP <color=#F9F1FF>| <color=#ADCBFF> {pl.ArtificialHealth}HS <color=#F9F1FF>〛</color>\n";
+                    Team_Information += $"{pl.Role.Type.GetFullName()} <color=#F9F1FF>〚<color=#66F261> {Math.Round(pl.Health)}HP <color=#F9F1FF>| <color=#ADCBFF> {Math.Round(pl.HumeShield)}HS <color=#F9F1FF>〛<color={player.Role.Color.ToHex()}>\n";
                     offset += 31;
                 }
                 
                 if (Exiled.API.Features.Player.List.Any(x => x.Role.Type == RoleTypeId.Scp079)) {
-                    Team_Information += $"SCP079 || {scp079l}Level\n";
+                    Team_Information += $"SCP-079<color=#F9F1FF>〚 <color=#FFD386>{scp079l} LVL <color=#F9F1FF> 〛\n";
                     offset += 31;
                 }
                 
                 if (Global.Player_Role.ContainsKey("035")) {
-                    Team_Information += $"SCP-035 <color=#F9F1FF>〚<color=#66F261> {Global.Player_Role["035"].Health}HP <color=#F9F1FF> <color=#F9F1FF>〛</color>\n";
+                    Team_Information += $"SCP-035 <color=#F9F1FF>〚<color=#66F261> {Global.Player_Role["035"].Health}HP <color=#F9F1FF><color=#F9F1FF>〛</color>\n";
                     offset += 31;
                 }
                 Team_Information += "</size></color></align></b>";
@@ -471,10 +520,14 @@ namespace TestPlugin {
                 displayCore.RemoveReference(elementReference_5);
                 displayCore.RemoveReference(elementReference_6);
                 displayCore.RemoveReference(elementReference_7);
+                displayCore.RemoveReference(elementReference_8);
             }
         }
         void Lev(GainingLevelEventArgs ev) { 
             scp079l = ev.NewLevel;
+        }
+        void Exp(GainingExperienceEventArgs ev) {
+            exp079 = ev.Amount;
         }
         void OnEnable() {
             Exiled.Events.Handlers.Scp079.GainingLevel += Lev;

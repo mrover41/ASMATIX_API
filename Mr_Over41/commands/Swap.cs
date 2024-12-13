@@ -38,13 +38,13 @@ namespace TestPlugin {
             } if (arguments.Count < 1) {
                 response = "Такого SCP не існує";
                 return response;
-            } if (Round.Duration.Seconds < 30 || isAdmin) {
+            } if (Round.Duration.TotalSeconds < 30 || isAdmin) {
                 switch (arguments.First()) {
                     case "035":
                         if (!Global.Player_Role.ContainsKey("035")) {
                             send.GameObject.AddComponent<SCP035>();
                         } else {
-                            response = "035 уже есть";
+                            response = "035 вже есть";
                             return response;
                         }
                         break;
@@ -52,13 +52,13 @@ namespace TestPlugin {
                         if (!Global.Player_Role.ContainsKey("689")) {
                                 send.GameObject.AddComponent<SCP689>();
                         } else {
-                            response = "689 уже есть";
+                            response = "689 вже есть";
                             return response;
                         }
                         break;
                 }
             } else {
-                response = "Время вышло";
+                response = "Час вийшов";
                 return response;
             }
             response = "Done";

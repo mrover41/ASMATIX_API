@@ -111,8 +111,13 @@ namespace API {
             int Tmp_Score = 0;
             Player best = Player.List.First();
             try {
-                foreach (Player player in Player.List) {
+                foreach (Player player in Player.List.Where(x => !x.IsScp)) {
                     if (player_score.ContainsKey(player)) {
+                        if (Global.Player_Role.ContainsKey("035")) { 
+                            if (Global.Player_Role["035"] == player) {
+                                break;
+                            }
+                        }
                         if (player_score[player].Count >= Tmp_Score) {
                             Tmp_Score = player_score[player].Count;
                             best = player;
@@ -123,6 +128,26 @@ namespace API {
                 Log.Info($"[Asmatix_API] Error in metod 'BestPlayer': {ex.Message}");
             }
             return best;
+        }
+        public static string MakeColorLighter(string hexColor, float lightenFactor = 0.1f)
+        {
+            // Убедитесь, что lightenFactor в диапазоне 0-1
+            lightenFactor = Mathf.Clamp01(lightenFactor);
+
+            // Конвертация HEX в Color
+            if (ColorUtility.TryParseHtmlString(hexColor, out Color color))
+            {
+                // Увеличиваем яркость
+                color.r = Mathf.Clamp01(color.r + lightenFactor);
+                color.g = Mathf.Clamp01(color.g + lightenFactor);
+                color.b = Mathf.Clamp01(color.b + lightenFactor);
+
+                // Конвертация обратно в HEX
+                return ColorUtility.ToHtmlStringRGB(color);
+            }
+
+            Debug.LogError("Invalid HEX color format.");
+            return hexColor; // Возвращаем исходный, если формат неверный
         }
     }
     public static class Spawn_System {
@@ -153,7 +178,7 @@ namespace API {
 }
 
 namespace Patches {
-    [HarmonyPatch(typeof(VoiceChat.Networking.VoiceTransceiver), nameof(VoiceChat.Networking.VoiceTransceiver.ServerReceiveMessage))]
+   /* [HarmonyPatch(typeof(VoiceChat.Networking.VoiceTransceiver), nameof(VoiceChat.Networking.VoiceTransceiver.ServerReceiveMessage))]
     public class SCP035_Voice_Patch {
         public static bool Prefix(NetworkConnection conn, VoiceMessage msg) {
             try { 
@@ -176,7 +201,7 @@ namespace Patches {
                 return true;
             }
         }
-    }
+    }*/
     /*[HarmonyPatch(typeof(Scp3114Dance), nameof(Scp3114Dance.ClientProcessRpc))]
     public class SCP_3114_P {
         static void Postfix(Scp3114Dance __instance, NetworkReader reader) {
