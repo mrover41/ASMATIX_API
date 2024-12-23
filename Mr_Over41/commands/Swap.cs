@@ -38,7 +38,18 @@ namespace TestPlugin {
             } if (arguments.Count < 1) {
                 response = "Такого SCP не існує";
                 return response;
-            } if (Round.Duration.TotalSeconds < 30 || isAdmin) {
+            } if (Round.Duration.TotalSeconds < 30 && !isAdmin) {
+                switch (arguments.First()) {
+                    case "035":
+                        if (!Global.Player_Role.ContainsKey("035")) {
+                            send.GameObject.AddComponent<SCP035>();
+                        } else {
+                            response = "035 вже есть";
+                            return response;
+                        }
+                        break;
+                }
+            } if (isAdmin) { 
                 switch (arguments.First()) {
                     case "035":
                         if (!Global.Player_Role.ContainsKey("035")) {
@@ -50,9 +61,17 @@ namespace TestPlugin {
                         break;
                     case "689":
                         if (!Global.Player_Role.ContainsKey("689")) {
-                                send.GameObject.AddComponent<SCP689>();
+                            send.GameObject.AddComponent<SCP689>();
                         } else {
                             response = "689 вже есть";
+                            return response;
+                        }
+                        break;
+                    case "080":
+                        if (!Global.Player_Role.ContainsKey("080")) {
+                            send.GameObject.AddComponent<SCP080>();
+                        } else {
+                            response = "080 вже есть";
                             return response;
                         }
                         break;

@@ -63,7 +63,9 @@ namespace TestPlugin {
         string Mixed_HUD;
         string HUD_Result;
         //d
-        int size = 17;
+        public float sl = 0;
+        public float maxSl = 0;
+        public int size { get; private set; } = 17;
         int offset = 0;
         string[] Name = new string[] { "Охоронець", "Вчений", "Д-Клас", "Повстанець Хаосу", "МОГ" };
         void Start() {
@@ -115,15 +117,22 @@ namespace TestPlugin {
                 }
                 _Ghost_HUD += "<color=#E6DBD8><size=0><align=right>";
                 foreach (Exiled.API.Features.Player pl in player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Take(5)) {
-                    Ghost_offset -= 22;
+                    //Ghost_offset -= 22;
                     _Ghost_HUD += $"<color=#E6DBD8><size={size}><align=right>    {pl.Nickname} ⭐<color=#E6DBD8><size=0><align=right>\n";
                 }  if (player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count() >= 5) {
                     _Ghost_HUD += $"<color=#E6DBD8><size=0><align=right> ...";
                 }
-                displayCore.SetElemTemp(_Ghost_HUD, Ghost_offset, TimeSpan.FromSeconds(2), elementReference_8);
+                displayCore.SetElemTemp(_Ghost_HUD, 900, TimeSpan.FromSeconds(2), elementReference_8);
                 _Ghost_HUD = "";
 
+
+                var elementReference = new TimedElemRef<SetElement>();
+                if (Global.Player_Role.ContainsKey("080")) {
+                    offset += 27;
+                    displayCore.SetElemTemp($"<align=right><size={size}><color={player.Role.Color.ToHex()}><b> 〚 🌙 〛Сонливість: {Math.Round((sl / maxSl) * 100)}%</align></size></color></b>", offset, TimeSpan.FromSeconds(2), elementReference);
+                }
                 yield return Timing.WaitForSeconds(1);
+                displayCore.RemoveReference(elementReference);
                 displayCore.RemoveReference(elementReference_1);
                 displayCore.RemoveReference(elementReference_2);
                 displayCore.RemoveReference(elementReference_3);
@@ -252,7 +261,7 @@ namespace TestPlugin {
                 }  if (player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count() >= 5) {
                     _Ghost_HUD += $"<color=#E6DBD8><size=0><align=right> ...";
                 }
-                displayCore.SetElemTemp(_Ghost_HUD, Ghost_offset, TimeSpan.FromSeconds(2), elementReference_8);
+                displayCore.SetElemTemp(_Ghost_HUD, 900, TimeSpan.FromSeconds(2), elementReference_8);
                 _Ghost_HUD = "";
 
 
@@ -484,7 +493,7 @@ namespace TestPlugin {
                 }  if (player.CurrentSpectatingPlayers.Where(x => x.Role != RoleTypeId.Overwatch).Count() >= 5) {
                     _Ghost_HUD += $"<color=#E6DBD8><size=0><align=right> ...";
                 }
-                displayCore.SetElemTemp(_Ghost_HUD, Ghost_offset, TimeSpan.FromSeconds(2), elementReference_8);
+                displayCore.SetElemTemp(_Ghost_HUD, 900, TimeSpan.FromSeconds(2), elementReference_8);
                 _Ghost_HUD = "";
 
 

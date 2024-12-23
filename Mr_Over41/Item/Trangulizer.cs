@@ -3,9 +3,11 @@ using Exiled.API.Features;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
+using Exiled.Events.Handlers;
 using MEC;
 using PlayerRoles;
 using PlayerRoles.Ragdolls;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -45,17 +47,72 @@ public class Trangulizer : CustomWeapon {
         } if (ev.Target.IsGodModeEnabled) {
             return;
         } if (ev.Target.IsScp) {
-            Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
-            Timing.RunCoroutine(SCPDelay(ev.Target));
+            Timing.KillCoroutines("SCP_tr");
+            switch (ev.Target.Role.Type) {
+                case RoleTypeId.Scp173:
+                    break;
+                case RoleTypeId.Scp106:
+                    Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
+                    Timing.RunCoroutine(BDelay(ev.Target, 10, true), "SCP_tr");
+                    ev.Target.EnableEffect(EffectType.Slowness, 25, 10);
+                    ev.Target.EnableEffect(EffectType.Blinded, 255, 10);
+                    break;
+                case RoleTypeId.Scp049:
+                    Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
+                    Timing.RunCoroutine(BDelay(ev.Target, 10, true), "SCP_tr");
+                    ev.Target.EnableEffect(EffectType.SinkHole, 255, 10);
+                    ev.Target.EnableEffect(EffectType.AmnesiaVision, 255, 10);
+                    ev.Target.EnableEffect(EffectType.Blinded, 255, 10);
+                    break;
+                case RoleTypeId.Scp096:
+                    Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
+                    Timing.RunCoroutine(BDelay(ev.Target, 10, true), "SCP_tr");
+                    ev.Target.EnableEffect(EffectType.SinkHole, 255, 10);
+                    ev.Target.EnableEffect(EffectType.Blinded, 255, 10);
+                    break;
+                case RoleTypeId.Scp3114:
+                    Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
+                    Timing.RunCoroutine(BDelay(ev.Target, 10, true), "SCP_tr");
+                    ev.Target.EnableEffect(EffectType.Flashed, 255, 10);
+                    ev.Target.EnableEffect(EffectType.Deafened, 255, 10);
+                    ev.Target.EnableEffect(EffectType.SinkHole, 255, 10);
+                    break;
+                case RoleTypeId.Scp939:
+                    Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
+                    Timing.RunCoroutine(BDelay(ev.Target, 10, true), "SCP_tr");
+                    ev.Target.EnableEffect(EffectType.Slowness, 40, 10);
+                    ev.Target.EnableEffect(EffectType.AmnesiaVision, 200, 10);
+                    break;
+            }
         } else if (ev.Player.LeadingTeam != ev.Target.LeadingTeam) {
             Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
-            Timing.RunCoroutine(Delay(ev.Target));
+            if (Global.Player_Role.ContainsKey("035")) { 
+                if (ev.Target == Global.Player_Role["035"]) {
+                    Timing.RunCoroutine(BDelay(ev.Target, 15));
+                    Timing.RunCoroutine(SCPDelay(ev.Player));
+                } else {
+                    Timing.RunCoroutine(Delay(ev.Target));
+                }
+            } else {
+                Timing.RunCoroutine(Delay(ev.Target));
+            }
         }
         ev.Damage = 0;
     }
 
 
-    private IEnumerator<float> Delay(Player player) {
+    private IEnumerator<float> BDelay(Exiled.API.Features.Player player, int s, bool isSCP = false) { 
+        for (int i = s; i > 0; i--) {
+            if (isSCP) {
+                //player.Broadcast(10, $"<b><color=#FF3C36>Ви під впливом Транквілізатора ({i} сек.)");
+            } else {
+                //player.Broadcast(10, $"<b><color=#1A1A1A>Ви під впливом Транквілізатора ({i} сек.)");
+            }
+            yield return Timing.WaitForSeconds(1);
+        }
+    }
+
+    private IEnumerator<float> Delay(Exiled.API.Features.Player player) {
         player.CurrentItem = null;
         player.Inventory.enabled = false;
         player.Scale = new Vector3(0.5f, 0.5f, 0.5f);
@@ -65,7 +122,7 @@ public class Trangulizer : CustomWeapon {
         player.EnableEffect(EffectType.Invisible);
         player.EnableEffect(EffectType.Ensnared);
         player.EnableEffect(EffectType.Flashed);
-        yield return Timing.WaitForSeconds(12);
+        yield return Timing.WaitForSeconds(5);
         player.DisableEffect(EffectType.Deafened);
         player.DisableEffect(EffectType.Invisible);
         player.DisableEffect(EffectType.Ensnared);
@@ -76,7 +133,7 @@ public class Trangulizer : CustomWeapon {
         rg.Destroy();
     }
 
-    private IEnumerator<float> SCPDelay(Player player) {
+    private IEnumerator<float> SCPDelay(Exiled.API.Features.Player player) {
         player.EnableEffect(EffectType.Flashed);
         player.EnableEffect(EffectType.SinkHole);
         yield return Timing.WaitForSeconds(4);

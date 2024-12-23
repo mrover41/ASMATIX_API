@@ -30,9 +30,9 @@ class SCP035 : MonoBehaviour {
     void Start() {
         player = Player.Get(this.gameObject);
         if (player == null) {
+            Log.Error($"[ASMATIX_API] Error in 'SCP035', player = null, player: {player}");
             return;
         }
-        player.CustomInfo = "SCP-035";
         Timing.RunCoroutine(Updater(player), 35);
         Timing.RunCoroutine(Cd_Updater(), 35);
         player.Role.Set(RoleTypeId.Tutorial);
@@ -47,6 +47,7 @@ class SCP035 : MonoBehaviour {
         player.AddItem(ItemType.SCP500);
         player.AddItem(ItemType.KeycardZoneManager);
         Global.Player_Role.Add("035", player);
+        player.CustomInfo = "<color=#C50000> SCP-035 </color>";
         //spawnedSchematic = ObjectSpawner.SpawnSchematic("scp035mask", player.Transform.position, Quaternion.identity, null, null, false);
         //spawnedSchematic.transform.SetParent(player.CameraTransform.transform);
         //spawnedSchematic.transform.localPosition = new Vector3(-0.1f, 0f, 0.2f);
@@ -119,7 +120,7 @@ class SCP035 : MonoBehaviour {
             if (ev.Item.Type == ItemType.Coin) {
                 DisplayCore displayCore = DisplayCore.Get(player.ReferenceHub);
                 var elementReference_1 = new TimedElemRef<SetElement>();
-                displayCore.SetElemTemp("<color=#c7956b> Краде у ближнього гравця 37 ХП\nСумується, якщо поруч більше 1 гравця </color>", 200, TimeSpan.FromSeconds(2), elementReference_1);
+                displayCore.SetElemTemp("<color=#c7956b> Коли ви активуєте свою здатність\n ви змушуєте гравців психічно викидати зброю з рук </color>", 240, TimeSpan.FromSeconds(2), elementReference_1);
             }
         }
     }

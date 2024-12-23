@@ -16,7 +16,7 @@ namespace TestPlugin.commands {
             Player send = Player.Get(sender);
             if (send.Role.Type == RoleTypeId.Spectator) {
                 send.Role.Set(RoleTypeId.Tutorial);
-                send.Position = new Vector3(-122.890f, 1095.255f, 115.723f);
+                send.Position = new Vector3(-121.996f, 951.513f, 101.876f);
                 response = "Done";
                 return true;
             } else if (send.Role.Type == RoleTypeId.Tutorial) { 

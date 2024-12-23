@@ -28,16 +28,7 @@ namespace TestPlugin.commands
                 response = "У вас нету ручек ;)";
                 return false;
             }
-            foreach (Pickup pickup in Pickup.List) { 
-                if (Vector3.Distance(player.Position, pickup.Position) < 20) {
-                    player.AddItem(pickup.Info.ItemId);
-                    player.CurrentItem = pickup.Info.ItemId.GetItemBase();
-                    pickup.Destroy();
-                    response = "Вы подняли ключкарту";
-                    return true;
-                }
-            }
-            /*if (Physics.Linecast(player.Camera.gameObject.transform.position, player.Camera.forward * 100, out RaycastHit info)) {
+            if (Physics.Linecast(player.Camera.gameObject.transform.position, player.Camera.position + player.Camera.forward * 10, out RaycastHit info)) {
                 if (info.transform.TryGetComponent(out ItemPickupBase pickupBase)) {
                     if (pickupBase.NetworkInfo.ItemId.IsKeycard()) {
                         player.AddItem(pickupBase.NetworkInfo.ItemId);
@@ -53,7 +44,7 @@ namespace TestPlugin.commands
                     response = "Это не предмет";
                     return false;
                 }
-            }*/
+            }
             response = "Чтото вызывает скриптовые ошибки";
             return false;
         }
