@@ -41,7 +41,7 @@
           "dependencies": {
             "ExMod.Exiled": {
               "target": "Package",
-              "version": "[8.14.1, )"
+              "version": "[9.0.1, )"
             },
             "RueI": {
               "target": "Package",

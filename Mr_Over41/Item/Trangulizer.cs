@@ -97,7 +97,7 @@ public class Trangulizer : CustomWeapon {
                 Timing.RunCoroutine(Delay(ev.Target));
             }
         }
-        ev.Damage = 0;
+        ev.CanHurt = false;
     }
 
 

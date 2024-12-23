@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "oxk82ti5izs=",
+  "dgSpecHash": "zSvz/kvwB9E=",
   "success": true,
   "projectFilePath": "C:\\Users\\Admin\\source\\repos\\TestPlugin\\TestPlugin\\TestPlugin.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Admin\\.nuget\\packages\\exmod.exiled\\8.14.1\\exmod.exiled.8.14.1.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\exmod.exiled\\9.0.1\\exmod.exiled.9.0.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\lib.harmony\\2.2.2\\lib.harmony.2.2.2.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\ruei\\2.1.0\\ruei.2.1.0.nupkg.sha512"
   ],

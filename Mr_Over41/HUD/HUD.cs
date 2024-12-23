@@ -388,8 +388,8 @@ namespace TestPlugin {
                 } else {
                     AlphaWarhead_HUD = "<color=#808080><size=23><align=right> Стан боєголовки:<color=#f7db02> Сдетанированна </align></size></color>\n";
                 }
-                Spawn_T = $"<color=#00ff08><size=23> Ви з'явитесь за: {RespawnTokensManager.DominatingTeam} </size></color>\n";
-                Spawn_W = $"<color=#00ff08><size=23> Ви з'явитеся через: {RespawnManager.Singleton.TimeTillRespawn.ToString("D2")} </size></color>\n";
+                Spawn_T = $"<color=#00ff08><size=23> Ви з'явитесь за: // </size></color>\n";
+                Spawn_W = $"<color=#00ff08><size=23> Ви з'явитеся через: // </size></color>\n";
                 var elementReference = new TimedElemRef<SetElement>();
                 displayCore.SetElemTemp(RoundTime_HUD, 760, TimeSpan.FromSeconds(2), elementReference);
 
