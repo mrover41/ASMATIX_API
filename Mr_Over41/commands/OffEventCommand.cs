@@ -16,7 +16,7 @@ namespace TestPlugin {
     internal class OffEventCommand {
         public string Command => "Weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
         public string[] Aliases => new string[] { "we1" };
-        public string Description => "Ивент гле стая гусей хуярит дКласс";
+        public string Description => "Ивент где стая гусей хуярит дКласс";
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response) {
             GameObject obj = new GameObject("Event_Controller");
