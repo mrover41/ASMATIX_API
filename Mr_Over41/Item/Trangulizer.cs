@@ -3,14 +3,9 @@ using Exiled.API.Features;
 using Exiled.API.Features.Spawn;
 using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
-using Exiled.Events.Handlers;
 using MEC;
 using PlayerRoles;
-using PlayerRoles.Ragdolls;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 using TestPlugin;
 using UnityEngine;
 
@@ -53,33 +48,33 @@ public class Trangulizer : CustomWeapon {
                     break;
                 case RoleTypeId.Scp106:
                     Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
-                    Timing.RunCoroutine(BDelay(ev.Target, 10, true), "SCP_tr");
+                    Timing.RunCoroutine(BDelay(ev.Target, 1, true), "SCP_tr");
                     ev.Target.EnableEffect(EffectType.Slowness, 25, 10);
-                    ev.Target.EnableEffect(EffectType.Blinded, 255, 10);
+                    ev.Target.EnableEffect(EffectType.Blurred, 255, 10);
                     break;
                 case RoleTypeId.Scp049:
                     Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
-                    Timing.RunCoroutine(BDelay(ev.Target, 10, true), "SCP_tr");
-                    ev.Target.EnableEffect(EffectType.SinkHole, 255, 10);
+                    Timing.RunCoroutine(BDelay(ev.Target, 1, true), "SCP_tr");
+                    ev.Target.EnableEffect(EffectType.SinkHole, 10, 10);
                     ev.Target.EnableEffect(EffectType.AmnesiaVision, 255, 10);
-                    ev.Target.EnableEffect(EffectType.Blinded, 255, 10);
+                    ev.Target.EnableEffect(EffectType.Blurred, 255, 10);
                     break;
                 case RoleTypeId.Scp096:
                     Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
-                    Timing.RunCoroutine(BDelay(ev.Target, 10, true), "SCP_tr");
-                    ev.Target.EnableEffect(EffectType.SinkHole, 255, 10);
-                    ev.Target.EnableEffect(EffectType.Blinded, 255, 10);
+                    Timing.RunCoroutine(BDelay(ev.Target, 1, true), "SCP_tr");
+                    ev.Target.EnableEffect(EffectType.SinkHole, 10, 10);
+                    ev.Target.EnableEffect(EffectType.Blurred, 255, 10);
                     break;
                 case RoleTypeId.Scp3114:
                     Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
-                    Timing.RunCoroutine(BDelay(ev.Target, 10, true), "SCP_tr");
+                    Timing.RunCoroutine(BDelay(ev.Target, 1, true), "SCP_tr");
                     ev.Target.EnableEffect(EffectType.Flashed, 255, 10);
                     ev.Target.EnableEffect(EffectType.Deafened, 255, 10);
-                    ev.Target.EnableEffect(EffectType.SinkHole, 255, 10);
+                    ev.Target.EnableEffect(EffectType.SinkHole, 10, 10);
                     break;
                 case RoleTypeId.Scp939:
                     Hitmarker.SendHitmarkerDirectly(ev.Player.ReferenceHub, 1.5f);
-                    Timing.RunCoroutine(BDelay(ev.Target, 10, true), "SCP_tr");
+                    Timing.RunCoroutine(BDelay(ev.Target, 1, true), "SCP_tr");
                     ev.Target.EnableEffect(EffectType.Slowness, 40, 10);
                     ev.Target.EnableEffect(EffectType.AmnesiaVision, 200, 10);
                     break;
@@ -121,12 +116,14 @@ public class Trangulizer : CustomWeapon {
         player.EnableEffect(EffectType.Deafened);
         player.EnableEffect(EffectType.Invisible);
         player.EnableEffect(EffectType.Ensnared);
-        player.EnableEffect(EffectType.Flashed);
+        //player.EnableEffect(EffectType.Flashed);
+        player.EnableEffect(EffectType.Flashed, 255);
         yield return Timing.WaitForSeconds(5);
+        player.DisableEffect(EffectType.Flashed);
         player.DisableEffect(EffectType.Deafened);
         player.DisableEffect(EffectType.Invisible);
         player.DisableEffect(EffectType.Ensnared);
-        player.DisableEffect(EffectType.Flashed);
+        //player.DisableEffect(EffectType.Flashed);
         player.Scale = new Vector3(1, 1, 1);
         player.Inventory.enabled = true;
         player.IsGodModeEnabled = false;

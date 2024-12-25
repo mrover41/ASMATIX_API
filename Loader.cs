@@ -53,6 +53,7 @@ public sealed class test : Plugin<Config> {
     }
     void RoundSt() {
         API.Spawn_System.RoundSt();
+        MapEditorReborn.API.Features.MapUtils.LoadMap("Defolt");
     }
      void OnLoad () {
         //HUD

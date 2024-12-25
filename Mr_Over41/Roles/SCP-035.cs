@@ -5,11 +5,7 @@ using Exiled.Events.EventArgs.Player;
 using Exiled.Events.EventArgs.Scp096;
 using Exiled.Events.EventArgs.Scp3114;
 using Exiled.Events.EventArgs.Scp330;
-using Exiled.Events.EventArgs.Warhead;
-using HarmonyLib;
-using MapEditorReborn.API.Features;
 using MEC;
-using Mirror;
 using PlayerRoles;
 using RueI.Displays.Scheduling;
 using RueI.Displays;
@@ -194,7 +190,7 @@ class SCP035 : MonoBehaviour {
         yield return Timing.WaitForSeconds(2f);
         for (; ; ) {
             yield return Timing.WaitForSeconds(1f);
-            pl.Hurt(2, "Ловля ебалай");
+            pl.Hurt(2, "Умер от осознания своей безполезности");
             foreach(Player pla in Player.List.Where(x => Vector3.Distance(x.Position, player.Position) <= 7 && x != player && !x.IsScp)) {
                 pla.Hurt(1);
                 if (player.Health + 1 <= 500) {

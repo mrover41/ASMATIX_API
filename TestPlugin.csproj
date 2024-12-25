@@ -76,10 +76,13 @@
     <Compile Include="ASMATIX_API\API.cs" />
     <Compile Include="ASMATIX_API\Eums.cs" />
     <Compile Include="ASMATIX_API\Other.cs" />
+    <Compile Include="Fans\Offococoe\OffEvent.cs" />
+    <Compile Include="Mr_Over41\commands\Command.cs" />
     <Compile Include="Mr_Over41\commands\Extra_Call.cs" />
     <Compile Include="Mr_Over41\commands\Home.cs" />
     <Compile Include="Mr_Over41\commands\Hud_Controll.cs" />
     <Compile Include="Mr_Over41\commands\Kill.cs" />
+    <Compile Include="Mr_Over41\commands\OffEventCommand.cs" />
     <Compile Include="Mr_Over41\commands\Plugin_Updater.cs" />
     <Compile Include="Mr_Over41\commands\runI.cs" />
     <Compile Include="Mr_Over41\commands\star.cs" />
